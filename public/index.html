@@ -339,7 +339,7 @@ scene.add(new THREE.Mesh(
 // Lights
 scene.add(new THREE.AmbientLight(0x2233aa,.45));
 const sun=new THREE.DirectionalLight(0xffeedd,1.1);sun.position.set(5,3,5);scene.add(sun);
-scene.add(Object.assign(new THREE.DirectionalLight(0x1a3a88,.45),{position:new THREE.Vector3(-4,-2,-4)}));
+const rim=new THREE.DirectionalLight(0x1a3a88,.45);rim.position.set(-4,-2,-4);scene.add(rim);
 
 // ═══════════════════════════════════════════════════════════════
 //  HELPERS
