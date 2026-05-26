@@ -290,45 +290,27 @@ camera.position.z=2.8;
   scene.add(new THREE.Points(g,new THREE.PointsMaterial({color:0xffffff,size:.05,transparent:true,opacity:.55})));
 }
 
-// Globe texture (procedural — no external image needed)
-function buildGlobeTex(){
-  const c=document.createElement('canvas');c.width=2048;c.height=1024;
-  const x=c.getContext('2d');
-  // ocean
-  const g=x.createLinearGradient(0,0,0,1024);
-  g.addColorStop(0,'#091525');g.addColorStop(.5,'#0c1e3a');g.addColorStop(1,'#070f1e');
-  x.fillStyle=g;x.fillRect(0,0,2048,1024);
-  // graticule
-  x.strokeStyle='rgba(80,130,200,.06)';x.lineWidth=1;
-  for(let i=0;i<=2048;i+=2048/36){x.beginPath();x.moveTo(i,0);x.lineTo(i,1024);x.stroke()}
-  for(let i=0;i<=1024;i+=1024/18){x.beginPath();x.moveTo(0,i);x.lineTo(2048,i);x.stroke()}
-  // continents (simplified blobs)
-  const lands=[
-    [1070,380,125,145],[1055,560,92,175],  // EU + Africa
-    [525,345,108,125],[555,575,82,155],     // N+S America
-    [1360,335,195,125],[1560,300,110,90],   // Asia + SE Asia
-    [1540,648,92,68],                       // Australia
-    [1015,200,60,50],                       // Scandinavia
-    [980,430,55,45],                        // Iberia
-    [640,250,50,40],                        // Greenland
-  ];
-  lands.forEach(([cx,cy,rx,ry])=>{
-    x.fillStyle='rgba(18,42,26,.82)';
-    x.beginPath();x.ellipse(cx,cy,rx,ry,0,0,Math.PI*2);x.fill();
-  });
-  // subtle noise
-  for(let i=0;i<5000;i++){
-    const px=Math.random()*2048,py=Math.random()*1024;
-    x.fillStyle=`rgba(${Math.random()>.5?25:8},${38+Math.random()*28},${55+Math.random()*35},.05)`;
-    x.fillRect(px,py,Math.random()*5+1,Math.random()*5+1);
-  }
-  return new THREE.CanvasTexture(c);
-}
-
-const globeGeo=new THREE.SphereGeometry(1,64,64);
-const globeMat=new THREE.MeshPhongMaterial({map:buildGlobeTex(),specular:new THREE.Color(0x1a3366),shininess:22});
-const globe=new THREE.Mesh(globeGeo,globeMat);
+// Globe — NASA Blue Marble texture (public domain)
+const texLoader = new THREE.TextureLoader();
+const globeGeo  = new THREE.SphereGeometry(1, 64, 64);
+const globeMat  = new THREE.MeshPhongMaterial({
+  map:         texLoader.load('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg'),
+  specularMap: texLoader.load('https://unpkg.com/three-globe/example/img/earth-water.png'),
+  specular:    new THREE.Color(0x334466),
+  shininess:   28,
+});
+const globe = new THREE.Mesh(globeGeo, globeMat);
 scene.add(globe);
+
+// Gece tarafı overlay
+const nightMat = new THREE.MeshPhongMaterial({
+  map:        texLoader.load('https://unpkg.com/three-globe/example/img/earth-night.jpg'),
+  transparent:true,
+  opacity:    0.6,
+  blending:   THREE.MultiplyBlending,
+  depthWrite: false,
+});
+scene.add(new THREE.Mesh(new THREE.SphereGeometry(1.001, 64, 64), nightMat));
 
 // Atmosphere
 scene.add(new THREE.Mesh(
