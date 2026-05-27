@@ -19,6 +19,54 @@ months_map = {
 }
 
 
+def parse_enjoy_en_date(date_str, year):
+    """
+    Sistem dilinden (locale) bağımsız olarak 'January 5' gibi metinleri
+    güvenli bir şekilde 'YYYY-MM-DD' formatına çevirir.
+    """
+    if not date_str:
+        return ""
+    try:
+        clean_str = date_str.lower().strip()
+        month_match = re.search(r'([a-zA-Z]+)', clean_str)
+        day_match = re.search(r'(\d+)', clean_str)
+        if month_match and day_match:
+            month_word = month_match.group(1)
+            day_num = int(day_match.group(1))
+            month_num = months_map.get(month_word, 1)
+            return f"{year:04d}-{month_num:02d}-{day_num:02d}"
+    except Exception:
+        pass
+    return ""
+
+
+def parse_location_text(location_text):
+    """
+    '中国 上海｜Shanghai, China' metninden Şehir ve Ülke bilgisini ayıklar.
+    """
+    city = ""
+    country = ""
+    if not location_text:
+        return city, country
+        
+    if "｜" in location_text:
+        eng_part = location_text.split("｜")[-1].strip()
+    elif "|" in location_text:
+        eng_part = location_text.split("|")[-1].strip()
+    else:
+        eng_part = location_text.strip()
+        
+    parts = [p.strip() for p in eng_part.split(',')]
+    if len(parts) >= 2:
+        city = parts[0]
+        country = parts[1]
+    elif len(parts) == 1:
+        city = parts[0]
+        country = parts[0]
+        
+    return city, country
+
+
 def resolve_tangopolix_external_url(tangopolix_url):
     if not tangopolix_url:
         return ""
@@ -157,6 +205,88 @@ def resolve_tangocat_url(relative_url):
             return full_redirect_url
 
 
+# --- GÜNCELLENEN ENJOY TANGO SCRAPER FONKSİYONU ---
+
+def scrape_enjoy_tango():
+    print("\n--- Enjoy Tango taranıyor ---")
+    current_year = datetime.datetime.now().year
+    current_timestamp_ms = int(time.time() * 1000)
+    
+    # Keşfettiğimiz API adresini dinamik parametrelerle oluşturuyoruz
+    api_url = f"https://enjoytango.com/app/api/event_list.php?tid=2&date={current_year}&t={current_timestamp_ms}"
+    
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'application/json, text/plain, */*',
+        'Referer': 'https://enjoytango.com/app/list.php?tid=2&city=',
+    }
+    
+    events = []
+    try:
+        response = requests.get(api_url, headers=headers, timeout=15)
+        if response.status_code != 200:
+            print(f"Enjoy Tango API'ye erişilemedi. Yanıt kodu: {response.status_code}")
+            return []
+            
+        raw_events = response.json()
+        for item in raw_events:
+            title = clean_text(item.get('title', ''))
+            if not title:
+                continue
+                
+            # 1. Başlangıç Tarihi ve Yıl Çekimi (evtdate milisaniye damgasından)
+            evt_timestamp = item.get('evtdate')
+            year = current_year
+            start_date = ""
+            if evt_timestamp:
+                start_dt = datetime.datetime.fromtimestamp(evt_timestamp / 1000)
+                start_date = start_dt.strftime('%Y-%m-%d')
+                year = start_dt.year
+            else:
+                start_date = parse_enjoy_en_date(item.get('timefrom_en'), year)
+                
+            # 2. Bitiş Tarihi Çekimi (timeto_en alanından)
+            timeto_en = item.get('timeto_en')
+            if timeto_en:
+                end_date = parse_enjoy_en_date(timeto_en, year)
+            else:
+                end_date = start_date
+                
+            # 3. Konum Çekimi
+            city_raw = item.get('city', '')
+            city, country = parse_location_text(city_raw)
+            
+            # 4. Koordinat Çekimi (Zaten API'de mevcut)
+            lat = float(item.get('latitude')) if item.get('latitude') else None
+            lon = float(item.get('longitude')) if item.get('longitude') else None
+            
+            # 5. Orijinal URL Çekimi
+            event_url = item.get('website', '').strip()
+            if not event_url or not event_url.startswith('http'):
+                relative_url = item.get('arcurl', '')
+                if relative_url:
+                    event_url = "https://enjoytango.com" + relative_url
+                else:
+                    event_url = f"https://enjoytango.com/app/show.php?aid={item.get('id')}"
+            
+            events.append({
+                "eventName": title,
+                "startDate": start_date,
+                "endDate": end_date,
+                "city": city,
+                "country": country,
+                "latitude": lat,
+                "longitude": lon,
+                "eventUrl": event_url,
+            })
+            print(f"Çözüldü (Enjoy Tango): {title} -> {event_url} ({start_date})")
+            
+    except Exception as e:
+        print("Enjoy Tango taranırken hata oluştu:", e)
+        
+    return events
+
+
 def scrape_tangocat():
     print("\n--- Tangocat taranıyor ---")
     url = "https://tangocat.net"
@@ -239,25 +369,16 @@ def scrape_tangopolix():
     return events
 
 
-# --- YENİ EKLENEN YARDIMCI DEDUPLICATION FONKSİYONLARI ---
+# --- DEDUPLICATION (MÜKERRER ENGELLEME) YARDIMCI FONKSİYONLARI ---
 
 def normalize_text_for_comparison(text):
-    """
-    Kelimelerdeki unicode karakter farklılıklarını (NFC) ortadan kaldırır,
-    küçük harfe çevirir ve gereksiz boşlukları temizler.
-    """
     if not text:
         return ""
-    # NFC normalizasyonu 'Türkiye' ve 'Tu\u0308rkiye' gibi farklılıkları eşitler
     normalized = unicodedata.normalize("NFC", text)
     return normalized.strip().lower()
 
 
 def normalize_url_for_comparison(url):
-    """
-    Protokol farklılıklarını (http/https), 'www.' ekini ve sondaki
-    taksim (/) işaretlerini temizleyerek URL'leri karşılaştırılabilir hale getirir.
-    """
     if not url:
         return ""
     url = url.strip().lower().rstrip('/')
@@ -266,42 +387,27 @@ def normalize_url_for_comparison(url):
 
 
 def are_events_duplicate(event1, event2):
-    """
-    İki etkinliğin mükerrer olup olmadığını belirler.
-    Kriterler:
-    - Aynı başlangıç tarihi
-    - Aynı ülke ve şehir (Normalleştirilmiş)
-    - Aynı URL adresi (Normalleştirilmiş)
-    - Etkinlik isimlerinde en az 10 karakterlik ardışık ortak alan bulunması
-    """
-    # 1. Tarih Kontrolü
     if event1.get('startDate') != event2.get('startDate'):
         return False
 
-    # 2. Ülke Kontrolü
     country1 = normalize_text_for_comparison(event1.get('country', ''))
     country2 = normalize_text_for_comparison(event2.get('country', ''))
     if country1 != country2:
         return False
 
-    # 3. Şehir Kontrolü
     city1 = normalize_text_for_comparison(event1.get('city', ''))
     city2 = normalize_text_for_comparison(event2.get('city', ''))
     if city1 != city2:
         return False
 
-    # 4. URL Kontrolü
     url1 = normalize_url_for_comparison(event1.get('eventUrl', ''))
     url2 = normalize_url_for_comparison(event2.get('eventUrl', ''))
-    # Eğer en az birinin URL'i yoksa veya URL'ler farklıysa mükerrer kabul etmiyoruz
     if not url1 or not url2 or url1 != url2:
         return False
 
-    # 5. İsimlerde 10 Karakterlik Eşleşme Kontrolü (Longest Common Substring)
     name1 = normalize_text_for_comparison(event1.get('eventName', ''))
     name2 = normalize_text_for_comparison(event2.get('eventName', ''))
     
-    # En uzun ortak alt dizgeyi bulur
     match = SequenceMatcher(None, name1, name2).find_longest_match(0, len(name1), 0, len(name2))
     if match.size < 10:
         return False
@@ -312,11 +418,12 @@ def are_events_duplicate(event1, event2):
 def main():
     polix_events = scrape_tangopolix()
     cat_events = scrape_tangocat()
+    enjoy_events = scrape_enjoy_tango()  # Yeni kaynağımız entegre edildi
     
     combined_events = []
     
-    # Tüm etkinlikleri sırayla kontrol ederek listeye ekliyoruz
-    for new_event in polix_events + cat_events:
+    # Tüm kaynaklardan gelen verileri tek bir havuzda birleştiriyoruz
+    for new_event in polix_events + cat_events + enjoy_events:
         is_dup = False
         for existing_event in combined_events:
             if are_events_duplicate(new_event, existing_event):
@@ -329,6 +436,7 @@ def main():
             
     with open('events.json', 'w', encoding='utf-8') as f:
         json.dump(combined_events, f, ensure_ascii=False, indent=4)
+        
     print(f"\n--- BİTTİ ---")
     print(f"Toplam benzersiz etkinlik sayısı: {len(combined_events)}")
     print("Veriler 'events.json' dosyasına başarıyla kaydedildi.")
