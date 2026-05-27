@@ -293,24 +293,11 @@ camera.position.z=2.8;
 // Globe — NASA Blue Marble texture (public domain)
 const texLoader = new THREE.TextureLoader();
 const globeGeo  = new THREE.SphereGeometry(1, 64, 64);
-const globeMat  = new THREE.MeshPhongMaterial({
-  map:         texLoader.load('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg'),
-  specularMap: texLoader.load('https://unpkg.com/three-globe/example/img/earth-water.png'),
-  specular:    new THREE.Color(0x334466),
-  shininess:   28,
+const globeMat  = new THREE.MeshBasicMaterial({
+  map: texLoader.load('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg'),
 });
 const globe = new THREE.Mesh(globeGeo, globeMat);
 scene.add(globe);
-
-// Gece tarafı overlay
-const nightMat = new THREE.MeshPhongMaterial({
-  map:        texLoader.load('https://unpkg.com/three-globe/example/img/earth-night.jpg'),
-  transparent:true,
-  opacity:    0.6,
-  blending:   THREE.MultiplyBlending,
-  depthWrite: false,
-});
-scene.add(new THREE.Mesh(new THREE.SphereGeometry(1.001, 64, 64), nightMat));
 
 // Atmosphere
 scene.add(new THREE.Mesh(
@@ -318,10 +305,8 @@ scene.add(new THREE.Mesh(
   new THREE.MeshPhongMaterial({color:0x1a4488,transparent:true,opacity:.1,side:THREE.FrontSide})
 ));
 
-// Lights
-scene.add(new THREE.AmbientLight(0x2233aa,.45));
-const sun=new THREE.DirectionalLight(0xffeedd,1.1);sun.position.set(5,3,5);scene.add(sun);
-const rim=new THREE.DirectionalLight(0x1a3a88,.45);rim.position.set(-4,-2,-4);scene.add(rim);
+// Işıklar — MeshBasicMaterial kullandığımız için gerek yok, atmosfer için minimal ambient
+scene.add(new THREE.AmbientLight(0xffffff, 1.0));
 
 // ═══════════════════════════════════════════════════════════════
 //  HELPERS
@@ -478,9 +463,10 @@ const tip=document.getElementById('tip');
 const raycaster=new THREE.Raycaster();
 const mouse=new THREE.Vector2();
 
-let isDrag=false,prevM={x:0,y:0},autoRot=true,velY=0,velX=0,selCl=null;
+let isDrag=false,prevM={x:0,y:0},autoRot=false,velY=0,velX=0,selCl=null;
 
 function showPanel(ev){
+  autoRot=false; velY=0; velX=0;
   document.getElementById('pname').textContent=ev.eventName;
   document.getElementById('pcity').textContent=ev.city+', ';
   document.getElementById('pcountry').textContent=ev.country;
@@ -556,7 +542,6 @@ container.addEventListener('mousedown',e=>{
   const MU=ev=>{
     window.removeEventListener('mousemove',MM);window.removeEventListener('mouseup',MU);
     if(!isDrag) pick(ev);
-    setTimeout(()=>{autoRot=true;},2000);
   };
   window.addEventListener('mousemove',MM);window.addEventListener('mouseup',MU);
 });
@@ -579,7 +564,7 @@ container.addEventListener('touchmove',e=>{
 },{passive:true});
 container.addEventListener('touchend',e=>{
   if(t0&&!t0.moved) pick({clientX:e.changedTouches[0].clientX,clientY:e.changedTouches[0].clientY});
-  setTimeout(()=>{autoRot=true;},2000);t0=null;
+  t0=null;
 },{passive:true});
 
 // Resize
@@ -627,15 +612,10 @@ function animate(){
   frame++;
   const t=frame*.016;
 
-  if(autoRot){
-    velY+=(0.0012-velY)*.05;
-    globe.rotation.y+=velY;
-    markerGroup.rotation.y=globe.rotation.y;
-  } else {
-    globe.rotation.y+=velY;globe.rotation.x+=velX;
-    markerGroup.rotation.y=globe.rotation.y;markerGroup.rotation.x=globe.rotation.x;
-    velY*=.92;velX*=.92;
-  }
+  // Sadece momentum — otomatik dönme yok
+  globe.rotation.y+=velY;globe.rotation.x+=velX;
+  markerGroup.rotation.y=globe.rotation.y;markerGroup.rotation.x=globe.rotation.x;
+  velY*=.96;velX*=.96;
 
   // Pulse cluster rings
   pulseObjs.forEach(p=>{
