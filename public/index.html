@@ -211,46 +211,75 @@ function buildClusters(events,gridDeg){
 }
 
 // ─── MARKER TEXTURES ─────────────────────────────────────────────────
-// Clean minimal design: small dot + glow for single, compact pill for cluster
 function makeSingleTex(){
-  const S=64;const c=document.createElement('canvas');c.width=S;c.height=S;
-  const x=c.getContext('2d'),cx=S/2,cy=S/2;
-  // soft glow halo
-  const glow=x.createRadialGradient(cx,cy,5,cx,cy,28);
-  glow.addColorStop(0,'rgba(201,168,76,0.4)');
-  glow.addColorStop(1,'rgba(201,168,76,0)');
-  x.fillStyle=glow;x.beginPath();x.arc(cx,cy,28,0,Math.PI*2);x.fill();
-  // core dot
-  x.beginPath();x.arc(cx,cy,7,0,Math.PI*2);
-  x.fillStyle='rgba(201,168,76,1)';x.fill();
-  // specular highlight
-  x.beginPath();x.arc(cx-2,cy-2,2.5,0,Math.PI*2);
-  x.fillStyle='rgba(255,248,180,0.8)';x.fill();
+  const S=64; const c=document.createElement('canvas'); c.width=S; c.height=S;
+  const x=c.getContext('2d'), cx=S/2, cy=S/2;
+  
+  x.shadowColor = 'rgba(0, 0, 0, 0.5)';
+  x.shadowBlur = 4;
+  
+  x.fillStyle = '#0b1220';
+  x.beginPath();
+  x.arc(cx, cy, 14, 0, Math.PI * 2);
+  x.fill();
+  
+  x.shadowBlur = 0;
+  
+  x.strokeStyle = 'rgba(201, 168, 76, 0.85)';
+  x.lineWidth = 2;
+  x.beginPath();
+  x.arc(cx, cy, 14, 0, Math.PI * 2);
+  x.stroke();
+  
+  x.fillStyle = '#c9a84c';
+  x.beginPath();
+  x.arc(cx, cy, 4.5, 0, Math.PI * 2);
+  x.fill();
+  
   return new THREE.CanvasTexture(c);
 }
+
 function makeClusterTex(n){
   const label=n>99?'99+':String(n);
-  const fsize=16,padH=9,padV=5;
-  const tmp=document.createElement('canvas');
-  const tx=tmp.getContext('2d');
-  tx.font=`600 ${fsize}px system-ui,sans-serif`;
-  const tw=tx.measureText(label).width;
-  const W2=Math.ceil(tw+padH*2),H2=fsize+padV*2;
-  const c=document.createElement('canvas');c.width=W2;c.height=H2;
-  const x=c.getContext('2d'),r=H2/2;
-  // pill background
-  x.fillStyle='rgba(201,168,76,0.94)';
-  x.beginPath();x.moveTo(r,0);x.lineTo(W2-r,0);x.arcTo(W2,0,W2,H2,r);
-  x.lineTo(W2-r,H2);x.arcTo(0,H2,0,0,r);x.lineTo(r,0);x.closePath();x.fill();
-  // subtle border
-  x.strokeStyle='rgba(255,255,255,0.28)';x.lineWidth=0.8;
-  x.beginPath();x.moveTo(r,0);x.lineTo(W2-r,0);x.arcTo(W2,0,W2,H2,r);
-  x.lineTo(W2-r,H2);x.arcTo(0,H2,0,0,r);x.lineTo(r,0);x.closePath();x.stroke();
-  // number
-  x.fillStyle='#1a0800';x.font=`600 ${fsize}px system-ui,sans-serif`;
-  x.textAlign='center';x.textBaseline='middle';
-  x.fillText(label,W2/2,H2/2+0.5);
-  return{tex:new THREE.CanvasTexture(c),aspect:W2/H2};
+  const S=128;
+  const c=document.createElement('canvas'); c.width=S; c.height=S;
+  const x=c.getContext('2d'), cx=S/2, cy=S/2;
+  const r=44;
+  
+  
+  x.shadowColor = 'rgba(0,0,0,0.5)';
+  x.shadowBlur = 8;
+  x.shadowOffsetY = 2;
+  
+  
+  x.fillStyle='rgba(11, 18, 32, 0.95)';
+  x.beginPath();
+  x.arc(cx, cy, r, 0, Math.PI * 2);
+  x.fill();
+  
+  x.shadowBlur = 0;
+  x.shadowOffsetY = 0;
+  
+  
+  x.strokeStyle='rgba(201, 168, 76, 0.85)';
+  x.lineWidth=4;
+  x.beginPath();
+  x.arc(cx, cy, r, 0, Math.PI * 2);
+  x.stroke();
+  
+  
+  const fontSize = label.length > 2 ? 32 : 36;
+  x.fillStyle='#e2d9c8';
+  x.font=`600 ${fontSize}px 'DM Sans', sans-serif`;
+  x.textAlign='center';
+  x.textBaseline='middle';
+  x.fillText(label, cx, cy + 1);
+  
+  const texture = new THREE.CanvasTexture(c);
+  texture.minFilter = THREE.LinearMipmapLinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  
+  return {tex:texture, aspect:1};
 }
 const singleTex=makeSingleTex();
 const clusterTexCache={};
