@@ -5,6 +5,7 @@ import time
 import unicodedata
 import re
 import datetime
+from difflib import SequenceMatcher
 
 # 1. Koordinat ve URL Önbelleği (Aynı şeyleri tekrar sorgulamamak için)
 coord_cache = {}
@@ -238,16 +239,94 @@ def scrape_tangopolix():
     return events
 
 
+# --- YENİ EKLENEN YARDIMCI DEDUPLICATION FONKSİYONLARI ---
+
+def normalize_text_for_comparison(text):
+    """
+    Kelimelerdeki unicode karakter farklılıklarını (NFC) ortadan kaldırır,
+    küçük harfe çevirir ve gereksiz boşlukları temizler.
+    """
+    if not text:
+        return ""
+    # NFC normalizasyonu 'Türkiye' ve 'Tu\u0308rkiye' gibi farklılıkları eşitler
+    normalized = unicodedata.normalize("NFC", text)
+    return normalized.strip().lower()
+
+
+def normalize_url_for_comparison(url):
+    """
+    Protokol farklılıklarını (http/https), 'www.' ekini ve sondaki
+    taksim (/) işaretlerini temizleyerek URL'leri karşılaştırılabilir hale getirir.
+    """
+    if not url:
+        return ""
+    url = url.strip().lower().rstrip('/')
+    url = re.sub(r'^https?://(www\.)?', '', url)
+    return url
+
+
+def are_events_duplicate(event1, event2):
+    """
+    İki etkinliğin mükerrer olup olmadığını belirler.
+    Kriterler:
+    - Aynı başlangıç tarihi
+    - Aynı ülke ve şehir (Normalleştirilmiş)
+    - Aynı URL adresi (Normalleştirilmiş)
+    - Etkinlik isimlerinde en az 10 karakterlik ardışık ortak alan bulunması
+    """
+    # 1. Tarih Kontrolü
+    if event1.get('startDate') != event2.get('startDate'):
+        return False
+
+    # 2. Ülke Kontrolü
+    country1 = normalize_text_for_comparison(event1.get('country', ''))
+    country2 = normalize_text_for_comparison(event2.get('country', ''))
+    if country1 != country2:
+        return False
+
+    # 3. Şehir Kontrolü
+    city1 = normalize_text_for_comparison(event1.get('city', ''))
+    city2 = normalize_text_for_comparison(event2.get('city', ''))
+    if city1 != city2:
+        return False
+
+    # 4. URL Kontrolü
+    url1 = normalize_url_for_comparison(event1.get('eventUrl', ''))
+    url2 = normalize_url_for_comparison(event2.get('eventUrl', ''))
+    # Eğer en az birinin URL'i yoksa veya URL'ler farklıysa mükerrer kabul etmiyoruz
+    if not url1 or not url2 or url1 != url2:
+        return False
+
+    # 5. İsimlerde 10 Karakterlik Eşleşme Kontrolü (Longest Common Substring)
+    name1 = normalize_text_for_comparison(event1.get('eventName', ''))
+    name2 = normalize_text_for_comparison(event2.get('eventName', ''))
+    
+    # En uzun ortak alt dizgeyi bulur
+    match = SequenceMatcher(None, name1, name2).find_longest_match(0, len(name1), 0, len(name2))
+    if match.size < 10:
+        return False
+
+    return True
+
+
 def main():
     polix_events = scrape_tangopolix()
     cat_events = scrape_tangocat()
+    
     combined_events = []
-    seen_events = set()
-    for event in polix_events + cat_events:
-        unique_key = f"{event['eventName'].lower().strip()}_{event['city'].lower().strip()}"
-        if unique_key not in seen_events:
-            seen_events.add(unique_key)
-            combined_events.append(event)
+    
+    # Tüm etkinlikleri sırayla kontrol ederek listeye ekliyoruz
+    for new_event in polix_events + cat_events:
+        is_dup = False
+        for existing_event in combined_events:
+            if are_events_duplicate(new_event, existing_event):
+                is_dup = True
+                print(f"Mükerrer Tespit Edildi ve Elendi: '{new_event['eventName']}' (Kaynak URL: {new_event['eventUrl']})")
+                break
+        
+        if not is_dup:
+            combined_events.append(new_event)
+            
     with open('events.json', 'w', encoding='utf-8') as f:
         json.dump(combined_events, f, ensure_ascii=False, indent=4)
     print(f"\n--- BİTTİ ---")
