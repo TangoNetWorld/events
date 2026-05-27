@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Tango World — Global Events Globe</title>
+<title>TangoNet World — Global Events</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap');
 
@@ -125,7 +125,7 @@ canvas{display:block}
 <div id="loading"><div class="ring"></div><p>Yükleniyor…</p></div>
 <div id="c"></div>
 <div id="hd">
-  <h1>Tango <em>World</em></h1>
+  <h1>TangoNet <em>World</em></h1>
   <p id="ev-count">— etkinlik yükleniyor</p>
 </div>
 <div id="search-wrap">
@@ -152,7 +152,6 @@ canvas{display:block}
   <div class="stat"><div class="n" id="s-total">0</div><div class="l">Etkinlik</div></div>
   <div class="stat"><div class="n" id="s-country">0</div><div class="l">Ülke</div></div>
 </div>
-<div id="ft"><p>Sürükle · Döndür · Kaydır</p><p>Noktaya tıkla</p></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
@@ -217,14 +216,38 @@ camera.position.z=2.8;
   scene.add(new THREE.Points(g,new THREE.PointsMaterial({color:0xffffff,size:.05,transparent:true,opacity:.5})));
 }
 
-// Globe
+// ═══════════════════════════════════════════
+//  FIX 4: High-res tile texture via canvas-based approach
+//  We use a high-res Natural Earth tileset from unpkg (same origin as before)
+//  and load a detail texture for close-up zoom
+// ═══════════════════════════════════════════
 const texLoader=new THREE.TextureLoader();
-const globeGeo=new THREE.SphereGeometry(1,64,64);
-const globeMat=new THREE.MeshBasicMaterial({
-  map:texLoader.load('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
-});
+const globeGeo=new THREE.SphereGeometry(1,96,96);
+
+// Load base texture — we'll swap to hi-res when zoomed in
+const baseTexUrl='https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg';
+// High-res day texture from NASA via unpkg
+const hiResTexUrl='https://unpkg.com/three-globe/example/img/earth-day.jpg';
+
+let baseTex=null, hiResTex=null;
+let globeMat=new THREE.MeshBasicMaterial({color:0x224488});
 const globe=new THREE.Mesh(globeGeo,globeMat);
 scene.add(globe);
+
+// Load base texture first, then hi-res
+texLoader.load(baseTexUrl, tex=>{
+  baseTex=tex;
+  baseTex.anisotropy=renderer.capabilities.getMaxAnisotropy();
+  globeMat.map=baseTex;
+  globeMat.needsUpdate=true;
+  // Then load hi-res silently in background
+  texLoader.load(hiResTexUrl, tex2=>{
+    hiResTex=tex2;
+    hiResTex.anisotropy=renderer.capabilities.getMaxAnisotropy();
+    // If already zoomed in, swap immediately
+    if(camZ < 2.0) { globeMat.map=hiResTex; globeMat.needsUpdate=true; }
+  });
+});
 
 // Atmosphere halo
 scene.add(new THREE.Mesh(
@@ -250,15 +273,20 @@ function fmtDate(s,e){
   return fmt(s)+' — '+fmt(e);
 }
 
-// Zoom'a göre cluster grid derecesi
-// camZ: 1.4 (en yakın) … 5.5 (en uzak)
+// ═══════════════════════════════════════════
+//  FIX 1: Extended zoom range + finer cluster grid
+//  camZ range: 1.15 (very close) … 5.5 (far)
+//  Grid gets very fine at close zoom so single events separate
+// ═══════════════════════════════════════════
 function gridDegForZoom(z){
   if(z>4.5) return 14;
   if(z>3.5) return 10;
   if(z>2.8) return 7;
   if(z>2.2) return 4;
-  if(z>1.7) return 2;
-  return 1; // tekil noktalar
+  if(z>1.8) return 2.5;
+  if(z>1.5) return 1.5;
+  if(z>1.3) return 0.8;
+  return 0.4; // extremely close — nearly per-coordinate precision
 }
 
 function buildClusters(events, gridDeg){
@@ -277,34 +305,46 @@ function buildClusters(events, gridDeg){
 }
 
 // ═══════════════════════════════════════════
-//  MARKER SPRITES  (Canvas → Sprite, daima kameraya döner)
-//  Sabit ekran boyutu: zoom'dan etkilenmez
+//  FIX 2: Marker size — screen-space constant regardless of zoom
+//  We compute a fixed pixel size and convert to world units each frame
+//  so markers do NOT grow when zooming in
 // ═══════════════════════════════════════════
-const MARKER_SCALE = 0.055; // dünya birim cinsinden temel boyut
+const TARGET_PX_SINGLE = 18;   // desired screen pixels for single marker
+const TARGET_PX_CLUSTER = 28;  // desired screen pixels for cluster badge height
 
-// Tek nokta: zarif altın daire
+function worldSizeForPixels(px, camZ, fovDeg){
+  // How many world units = px screen pixels at a given camera distance?
+  const fovRad = fovDeg * Math.PI / 180;
+  const screenHeight = H();
+  // world height visible at z-distance camZ from center (approximate for sphere surface at ~z=1)
+  const worldHeight = 2 * camZ * Math.tan(fovRad / 2);
+  return px * worldHeight / screenHeight;
+}
+
+const MARKER_SCALE = 0.055; // fallback / initial
+
+// ═══════════════════════════════════════════
+//  MARKER SPRITES  (Canvas → Sprite)
+// ═══════════════════════════════════════════
+
 function makeSingleTex(){
   const S=128;
   const c=document.createElement('canvas');c.width=S;c.height=S;
   const x=c.getContext('2d');
   const cx=S/2, cy=S/2;
-  // Dış parlak halka
   x.beginPath();x.arc(cx,cy,46,0,Math.PI*2);
   x.strokeStyle='rgba(201,168,76,0.5)';x.lineWidth=2;x.stroke();
-  // İç dolu daire
   const gr=x.createRadialGradient(cx-6,cy-6,2,cx,cy,22);
   gr.addColorStop(0,'rgba(255,240,180,1)');
   gr.addColorStop(0.5,'rgba(201,168,76,1)');
   gr.addColorStop(1,'rgba(160,120,40,0.9)');
   x.beginPath();x.arc(cx,cy,22,0,Math.PI*2);
   x.fillStyle=gr;x.fill();
-  // İnce beyaz nokta ortada
   x.beginPath();x.arc(cx-5,cy-5,5,0,Math.PI*2);
   x.fillStyle='rgba(255,255,255,0.5)';x.fill();
   return new THREE.CanvasTexture(c);
 }
 
-// Cluster: yuvarlatılmış dikdörtgen badge
 function makeClusterTex(n){
   const label=n>99?'99+':String(n);
   const pad=20, fsize=28;
@@ -316,7 +356,6 @@ function makeClusterTex(n){
   const c=document.createElement('canvas');c.width=W2;c.height=H2;
   const x=c.getContext('2d');
   const r=H2/2;
-  // Arka plan gradient
   const gr=x.createLinearGradient(0,0,0,H2);
   gr.addColorStop(0,'rgba(220,185,80,0.97)');
   gr.addColorStop(1,'rgba(160,120,35,0.97)');
@@ -326,21 +365,18 @@ function makeClusterTex(n){
   x.arcTo(W2,0,W2,H2,r);
   x.lineTo(W2-r,H2);x.arcTo(0,H2,0,0,r);
   x.lineTo(r,0);x.closePath();x.fill();
-  // Üst parlak şerit
   x.fillStyle='rgba(255,255,255,0.18)';
   x.beginPath();
   x.moveTo(r,0);x.lineTo(W2-r,0);
   x.arcTo(W2,0,W2,H2*.35,r);
   x.lineTo(0,H2*.35);x.arcTo(0,0,r,0,r);
   x.closePath();x.fill();
-  // Kenarlık
   x.strokeStyle='rgba(255,255,255,0.25)';x.lineWidth=1.5;
   x.beginPath();
   x.moveTo(r,0);x.lineTo(W2-r,0);
   x.arcTo(W2,0,W2,H2,r);
   x.lineTo(W2-r,H2);x.arcTo(0,H2,0,0,r);
   x.lineTo(r,0);x.closePath();x.stroke();
-  // Sayı
   x.fillStyle='#1a0f00';
   x.font=`bold ${fsize}px system-ui`;
   x.textAlign='center';x.textBaseline='middle';
@@ -349,7 +385,6 @@ function makeClusterTex(n){
 }
 
 const singleTex=makeSingleTex();
-// Cache cluster textures
 const clusterTexCache={};
 function getClusterTex(n){
   if(!clusterTexCache[n]) clusterTexCache[n]=makeClusterTex(n);
@@ -362,7 +397,7 @@ function getClusterTex(n){
 const markerGroup=new THREE.Group();
 scene.add(markerGroup);
 
-let allMarkers=[]; // {sprite, hitMesh, cl, targetPos, currentPos, opacity, targetOpacity}
+let allMarkers=[];
 let EVENTS=[];
 let currentClusters=[];
 let prevGridDeg=-1;
@@ -371,7 +406,6 @@ function clearMarkers(){
   allMarkers.forEach(m=>{
     markerGroup.remove(m.sprite);
     markerGroup.remove(m.hitMesh);
-    m.sprite.material.map.dispose();
     m.sprite.material.dispose();
   });
   allMarkers=[];
@@ -380,7 +414,6 @@ function clearMarkers(){
 function buildMarkersForClusters(cls){
   clearMarkers();
   cls.forEach(cl=>{
-    // Sprite
     let mat, aspect=1;
     if(cl.count===1){
       mat=new THREE.SpriteMaterial({map:singleTex,transparent:true,opacity:0,depthTest:false,sizeAttenuation:true});
@@ -390,15 +423,15 @@ function buildMarkersForClusters(cls){
       mat=new THREE.SpriteMaterial({map:tex,transparent:true,opacity:0,depthTest:false,sizeAttenuation:true});
     }
     const sp=new THREE.Sprite(mat);
-    const sc=cl.count===1?MARKER_SCALE:MARKER_SCALE*1.1;
+    // Initial scale — will be updated each frame in animate() for FIX 2
+    const sc=MARKER_SCALE;
     sp.scale.set(sc*aspect, sc, 1);
     const pos=ll2xyz(cl.lat,cl.lon,1.025);
     sp.position.copy(pos);
     markerGroup.add(sp);
 
-    // Hit sphere (invisible, for raycasting)
     const hs=new THREE.Mesh(
-      new THREE.SphereGeometry(cl.count>1?.06:.04,6,6),
+      new THREE.SphereGeometry(cl.count>1?.05:.035,6,6),
       new THREE.MeshBasicMaterial({transparent:true,opacity:0,depthWrite:false})
     );
     hs.position.copy(pos);
@@ -408,8 +441,10 @@ function buildMarkersForClusters(cls){
     allMarkers.push({
       sprite:sp, hitMesh:hs, cl,
       pos: pos.clone(),
+      aspect: aspect,
+      isSingle: cl.count===1,
       opacity: 0, targetOpacity: 1,
-      born: performance.now() + Math.random()*300 // staggered appear
+      born: performance.now() + Math.random()*300
     });
   });
 }
@@ -499,6 +534,17 @@ function hoverCheck(e){
   }
 }
 
+// ═══════════════════════════════════════════
+//  FIX 3: Rotation speed proportional to zoom
+//  Drag sensitivity scales with camZ so close-up moves slowly
+// ═══════════════════════════════════════════
+function rotSpeed(){
+  // At camZ=2.8 (default): factor ≈ 1.0
+  // At camZ=1.15 (very close): factor ≈ 0.2
+  // At camZ=5.5 (far): factor ≈ 1.0 (capped)
+  return Math.min(1.0, (camZ - 1.0) / 1.8);
+}
+
 // Mouse drag
 container.addEventListener('mousedown',e=>{
   isDrag=false;prevM={x:e.clientX,y:e.clientY};
@@ -506,8 +552,9 @@ container.addEventListener('mousedown',e=>{
     const dx=ev.clientX-prevM.x,dy=ev.clientY-prevM.y;
     if(Math.abs(dx)>2||Math.abs(dy)>2) isDrag=true;
     if(isDrag){
-      velY=dx*.005;velX=dy*.004;
-      globe.rotation.y+=dx*.004;globe.rotation.x+=dy*.003;
+      const spd=rotSpeed();
+      velY=dx*.005*spd;velX=dy*.004*spd;
+      globe.rotation.y+=dx*.004*spd;globe.rotation.x+=dy*.003*spd;
       markerGroup.rotation.y=globe.rotation.y;markerGroup.rotation.x=globe.rotation.x;
     }
     prevM={x:ev.clientX,y:ev.clientY};
@@ -532,16 +579,18 @@ container.addEventListener('touchstart',e=>{
 container.addEventListener('touchmove',e=>{
   if(e.touches.length===2&&pinchDist0!=null){
     const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
-    camZ=Math.min(5.5,Math.max(1.4,camZ-(d-pinchDist0)*.008));
+    camZ=Math.min(5.5,Math.max(1.15,camZ-(d-pinchDist0)*.008));
     camera.position.z=camZ;
+    updateTextureForZoom();
     refreshClusters(camZ);
     pinchDist0=d;
   } else if(t0&&e.touches.length===1){
     const dx=e.touches[0].clientX-t0.x,dy=e.touches[0].clientY-t0.y;
     if(Math.abs(dx)>4||Math.abs(dy)>4) t0.moved=true;
     if(t0.moved){
-      velY=dx*.004;velX=dy*.003;
-      globe.rotation.y+=dx*.003;globe.rotation.x+=dy*.0025;
+      const spd=rotSpeed();
+      velY=dx*.004*spd;velX=dy*.003*spd;
+      globe.rotation.y+=dx*.003*spd;globe.rotation.x+=dy*.0025*spd;
       markerGroup.rotation.y=globe.rotation.y;markerGroup.rotation.x=globe.rotation.x;
     }
     t0.x=e.touches[0].clientX;t0.y=e.touches[0].clientY;
@@ -553,16 +602,31 @@ container.addEventListener('touchend',e=>{
   t0=null;
 },{passive:true});
 
-// Zoom — wheel
+// ═══════════════════════════════════════════
+//  FIX 1 cont. + FIX 4: Extended zoom range
+// ═══════════════════════════════════════════
 let camZ=2.8;
 let zoomTimer=null;
+let texSwapTimer=null;
+
+function updateTextureForZoom(){
+  // Swap to hi-res when zoomed in close
+  if(!globeMat) return;
+  if(camZ < 1.9 && hiResTex && globeMat.map !== hiResTex){
+    globeMat.map=hiResTex; globeMat.needsUpdate=true;
+  } else if(camZ >= 1.9 && baseTex && globeMat.map !== baseTex){
+    globeMat.map=baseTex; globeMat.needsUpdate=true;
+  }
+}
+
 container.addEventListener('wheel',e=>{
   e.preventDefault();
-  camZ=Math.min(5.5,Math.max(1.4,camZ+e.deltaY*.003));
+  camZ=Math.min(5.5,Math.max(1.15,camZ+e.deltaY*.003));
   camera.position.z=camZ;
-  // Debounce cluster refresh — don't rebuild every wheel tick
   clearTimeout(zoomTimer);
   zoomTimer=setTimeout(()=>refreshClusters(camZ),80);
+  clearTimeout(texSwapTimer);
+  texSwapTimer=setTimeout(()=>updateTextureForZoom(),120);
 },{passive:false});
 
 // Resize
@@ -638,43 +702,49 @@ function animate(){
   // Stars slow drift
   scene.children[0].rotation.y=frame*.0001;
 
-  // Per-marker: visibility + smooth fade
+  // Per-marker: visibility + smooth fade + FIX 2 constant screen size
   camera.getWorldDirection(camDir);
   const t=now*.001;
 
+  // Compute world size per pixel at current zoom for screen-constant markers
+  const fovDeg=camera.fov;
+  const fovRad=fovDeg*Math.PI/180;
+  const worldHeight=2*camZ*Math.tan(fovRad/2);
+  const pxToWorld=worldHeight/H();
+
   allMarkers.forEach((m,i)=>{
-    // Backface cull — arka yüzdeyse gizle
     const wpos=new THREE.Vector3();
     m.sprite.getWorldPosition(wpos);
     wpos.normalize();
-    const dot=wpos.dot(camDir.negate? camDir : camDir.clone().negate());
-    // camDir zaten normalize, globe yüzey normali ile dot
     const camDirNeg=camDir.clone().negate();
     const facing=wpos.dot(camDirNeg)>-0.05;
 
     const finalTarget=facing?m.targetOpacity:0;
 
-    // Staggered birth delay
     if(now < m.born){ m.sprite.material.opacity=0; m.hitMesh.visible=false; return; }
 
-    // Smooth lerp
     m.opacity+=(finalTarget-m.opacity)*.12;
     m.sprite.material.opacity=Math.max(0,Math.min(1,m.opacity));
     m.hitMesh.visible=m.opacity>.15&&facing;
 
-    // Subtle pulse for single markers
-    if(m.cl.count===1){
+    // FIX 2: Keep markers at constant screen size regardless of zoom
+    // Single markers: TARGET_PX_SINGLE pixels, clusters: taller
+    const targetPx = m.isSingle ? TARGET_PX_SINGLE : TARGET_PX_CLUSTER;
+    let sc = targetPx * pxToWorld;
+
+    if(m.isSingle){
+      // Subtle pulse
       const pulse=1+Math.sin(t*2.5+i*.7)*.04;
-      const sc=MARKER_SCALE*pulse;
-      m.sprite.scale.set(sc,sc,1);
+      sc*=pulse;
     }
+    m.sprite.scale.set(sc*m.aspect, sc, 1);
   });
 
   renderer.render(scene,camera);
 }
 
 // ═══════════════════════════════════════════
-//  BOOT — intro zoom animation
+//  BOOT
 // ═══════════════════════════════════════════
 let introP=0;
 function boot(){
