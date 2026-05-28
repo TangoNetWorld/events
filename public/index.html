@@ -226,37 +226,81 @@ camCtrl.maximumZoomDistance = 35000000;  // 35 000 km
 
 // ─── CANVAS MARKER TEXTURES ───────────────────────────────────────────
 function makeSingleCanvas() {
-  const S = 64, cv = document.createElement('canvas');
-  cv.width = S; cv.height = S;
-  const x = cv.getContext('2d'), c = S / 2;
-  x.shadowColor = 'rgba(0,0,0,0.65)'; x.shadowBlur = 8;
+  // Mobil cihazların yüksek çözünürlük oranını alıyoruz (Bellek koruması için en fazla 3 ile sınırlıyoruz)
+  const dpr = Math.min(window.devicePixelRatio || 1, 3);
+  const baseSize = 64;
+  const S = baseSize * dpr;
+  
+  const cv = document.createElement('canvas');
+  cv.width = S; 
+  cv.height = S;
+  
+  const x = cv.getContext('2d');
+  const c = S / 2;
+
+  // Tüm çizim ölçülerini ve gölgeleri dpr oranı ile çarparak ölçeklendiriyoruz
+  x.shadowColor = 'rgba(0,0,0,0.65)'; 
+  x.shadowBlur = 8 * dpr;
   x.fillStyle = 'rgba(11,18,32,0.93)';
-  x.beginPath(); x.arc(c, c, 14, 0, Math.PI * 2); x.fill();
+  x.beginPath(); 
+  x.arc(c, c, 14 * dpr, 0, Math.PI * 2); 
+  x.fill();
+  
   x.shadowBlur = 0;
-  x.strokeStyle = 'rgba(201,168,76,0.9)'; x.lineWidth = 2;
-  x.beginPath(); x.arc(c, c, 14, 0, Math.PI * 2); x.stroke();
+  x.strokeStyle = 'rgba(201,168,76,0.9)'; 
+  x.lineWidth = 2 * dpr;
+  x.beginPath(); 
+  x.arc(c, c, 14 * dpr, 0, Math.PI * 2); 
+  x.stroke();
+  
   x.fillStyle = '#c9a84c';
-  x.beginPath(); x.arc(c, c, 5, 0, Math.PI * 2); x.fill();
+  x.beginPath(); 
+  x.arc(c, c, 5 * dpr, 0, Math.PI * 2); 
+  x.fill();
+  
   return cv;
 }
 
 const _clusterCache = {};
 function makeClusterCanvas(n) {
+  const dpr = Math.min(window.devicePixelRatio || 1, 3);
   const label = n > 99 ? '99+' : String(n);
-  const S = 128, cv = document.createElement('canvas');
-  cv.width = S; cv.height = S;
-  const x = cv.getContext('2d'), c = S / 2, r = 46;
-  x.shadowColor = 'rgba(0,0,0,0.7)'; x.shadowBlur = 14; x.shadowOffsetY = 2;
+  const baseSize = 128;
+  const S = baseSize * dpr;
+  
+  const cv = document.createElement('canvas');
+  cv.width = S; 
+  cv.height = S;
+  
+  const x = cv.getContext('2d');
+  const c = S / 2;
+  const r = 46 * dpr;
+
+  // Çember, gölge ve kontur değerlerini dpr oranına göre ölçeklendiriyoruz
+  x.shadowColor = 'rgba(0,0,0,0.7)'; 
+  x.shadowBlur = 14 * dpr; 
+  x.shadowOffsetY = 2 * dpr;
   x.fillStyle = 'rgba(11,18,32,0.95)';
-  x.beginPath(); x.arc(c, c, r, 0, Math.PI * 2); x.fill();
-  x.shadowBlur = 0; x.shadowOffsetY = 0;
-  x.strokeStyle = 'rgba(201,168,76,0.9)'; x.lineWidth = 4;
-  x.beginPath(); x.arc(c, c, r, 0, Math.PI * 2); x.stroke();
-  const fs = label.length > 2 ? 32 : 36;
+  x.beginPath(); 
+  x.arc(c, c, r, 0, Math.PI * 2); 
+  x.fill();
+  
+  x.shadowBlur = 0; 
+  x.shadowOffsetY = 0;
+  x.strokeStyle = 'rgba(201,168,76,0.9)'; 
+  x.lineWidth = 4 * dpr;
+  x.beginPath(); 
+  x.arc(c, c, r, 0, Math.PI * 2); 
+  x.stroke();
+  
+  // Yazı boyutunu ve konumunu dpr oranına göre ölçeklendiriyoruz
+  const fs = (label.length > 2 ? 32 : 36) * dpr;
   x.fillStyle = '#e2d9c8';
   x.font = `600 ${fs}px 'DM Sans', sans-serif`;
-  x.textAlign = 'center'; x.textBaseline = 'middle';
-  x.fillText(label, c, c + 1);
+  x.textAlign = 'center'; 
+  x.textBaseline = 'middle';
+  x.fillText(label, c, c + (1 * dpr));
+  
   return cv;
 }
 
