@@ -302,6 +302,7 @@ const billboards = viewer.scene.primitives.add(
 let EVENTS      = [];
 let lastGridDeg = -1;
 let searchQuery = '';
+let cachedClusters = null;
 
 function getCamHeight() {
   try { return viewer.camera.positionCartographic.height; }
@@ -310,15 +311,16 @@ function getCamHeight() {
 
 function refreshMarkers(height, force) {
   const gd = heightToGridDeg(height);
-  if (gd === lastGridDeg && !force) return;
-  lastGridDeg = gd;
+  if (gd !== lastGridDeg || force || !cachedClusters) {
+    lastGridDeg = gd;
+    cachedClusters = buildClusters(EVENTS, gd);
+  }
 
   billboards.removeAll();
 
-  buildClusters(EVENTS, gd).forEach(cl => {
-  
-	if (!isVisibleFromCamera(cl.lat, cl.lon)) return;
-  	
+  cachedClusters.forEach(cl => {
+    if (!isVisibleFromCamera(cl.lat, cl.lon)) return;
+    
     const isSingle = cl.count === 1;
     const canvas   = isSingle ? SINGLE_CANVAS : getClusterCanvas(cl.count);
     const size     = isSingle ? 26 : 44;
