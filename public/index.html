@@ -316,6 +316,9 @@ function refreshMarkers(height, force) {
   billboards.removeAll();
 
   buildClusters(EVENTS, gd).forEach(cl => {
+  
+	if (!isVisibleFromCamera(cl.lat, cl.lon)) return;
+  	
     const isSingle = cl.count === 1;
     const canvas   = isSingle ? SINGLE_CANVAS : getClusterCanvas(cl.count);
     const size     = isSingle ? 26 : 44;
@@ -333,14 +336,23 @@ function refreshMarkers(height, force) {
       height:                     size,
       verticalOrigin:             Cesium.VerticalOrigin.CENTER,
       horizontalOrigin:           Cesium.HorizontalOrigin.CENTER,
-      // Always render on top — never clipped into the globe
       disableDepthTestDistance:   Number.POSITIVE_INFINITY,
-      id:                         cl,   // <— picked by scene.pick()
+      id:                         cl,
       color: matches
         ? Cesium.Color.WHITE
         : new Cesium.Color(1, 1, 1, 0.07),
     });
   });
+}
+
+function isVisibleFromCamera(lat, lon) {
+  const cam = viewer.camera.positionWC;
+  const camDir = Cesium.Cartesian3.normalize(cam, new Cesium.Cartesian3());
+
+  const pos = Cesium.Cartesian3.fromDegrees(lon, lat);
+  const globeDir = Cesium.Cartesian3.normalize(pos, new Cesium.Cartesian3());
+
+  return Cesium.Cartesian3.dot(camDir, globeDir) > 0;
 }
 
 // Rebuild clusters whenever the camera moves enough
