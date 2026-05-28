@@ -194,17 +194,16 @@ const viewer = new Cesium.Viewer('cesiumContainer', {
   shouldAnimate:          false,
 });
 
-// Mobil cihazlarda bellek tüketimini ve yükü azaltma optimizasyonu
+// Mobil
 if (isMobile) {
-  viewer.scene.globe.maximumScreenSpaceError = 5; // Harita detayı hafif azaltılarak VRAM korunur (Varsayılan: 2)
-  viewer.resolutionScale = 0.85; // Render çözünürlüğü performansı artırmak için esnetilir
+  viewer.scene.globe.maximumScreenSpaceError = 3; // (Varsayılan: 2)
+  viewer.resolutionScale = 0.95;
 }
 
 // ── Dark cinematic scene ──────────────────────────────────────────────
 viewer.scene.backgroundColor = Cesium.Color.fromCssColorString('#060a12');
 viewer.scene.globe.enableLighting   = false;   // uniform illumination, no dark sides
 
-// Atmosfer - Eski telefonlarda gölgelendirici çökmesini (siyah dünya) önlemek için mobilde kapatıldı
 if (isMobile) {
   viewer.scene.globe.showGroundAtmosphere = false;
   try {
