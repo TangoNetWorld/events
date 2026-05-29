@@ -1,12 +1,9 @@
-
 name: Site Deploy
 
 on:
   push:
     branches: [main]
-  workflow_run:
-    workflows: ["Aylık Veri Güncelleme"]
-    types: [completed]
+  workflow_dispatch: # İhtiyaç anında elle tetikleyebilmeniz için
 
 permissions:
   contents: read
