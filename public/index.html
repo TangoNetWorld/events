@@ -6,7 +6,6 @@
 <title>TangoNet World — Global Events</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
-<!-- CesiumJS — CESIUM_BASE_URL must be set before the script tag -->
 <script>window.CESIUM_BASE_URL = 'https://cesium.com/downloads/cesiumjs/releases/1.113/Build/Cesium/';</script>
 <script src="https://cesium.com/downloads/cesiumjs/releases/1.113/Build/Cesium/Cesium.js"></script>
 <link href="https://cesium.com/downloads/cesiumjs/releases/1.113/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
@@ -137,7 +136,6 @@ html,body{width:100%;height:100%;background:var(--dark);color:var(--text);font-f
 <script>
 'use strict';
 
-// Mobil cihaz kontrolü
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 // ─── DEMO DATA ────────────────────────────────────────────────────────
@@ -171,14 +169,17 @@ const DEMO_EVENTS = [
 ];
 
 // ─── CESIUM VIEWER ────────────────────────────────────────────────────
-const esriBaseLayer = Cesium.ImageryLayer.fromProviderAsync(
-  Cesium.ArcGisMapServerImageryProvider.fromUrl(
-    'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer'
+// [FIX 1] Zemin katmanı olarak Cesium'un yerleşik Natural Earth imagery'si kullanılıyor.
+// Bu sayede küre her zoom seviyesinde görünür olur — ESRI yüksek irtifada tile üretmediği için
+// küre siyah görünüyordu. Natural Earth anında yüklenir (CDN'e gerek yok, Cesium içinde gömülü).
+const naturalEarthBase = Cesium.ImageryLayer.fromProviderAsync(
+  Cesium.TileMapServiceImageryProvider.fromUrl(
+    Cesium.buildModuleUrl('Assets/Textures/NaturalEarthII')
   )
 );
 
 const viewer = new Cesium.Viewer('cesiumContainer', {
-  baseLayer:              esriBaseLayer,
+  baseLayer:              naturalEarthBase,   // Natural Earth zemin, siyah küre sorununu çözer
   terrainProvider:        new Cesium.EllipsoidTerrainProvider(),
   baseLayerPicker:        false,
   geocoder:               false,
@@ -194,113 +195,102 @@ const viewer = new Cesium.Viewer('cesiumContainer', {
   shouldAnimate:          false,
 });
 
-// Mobil
-if (isMobile) {
-  viewer.scene.globe.maximumScreenSpaceError = 2.5; // (Varsayılan: 2)
-}
+// ESRI uydu görüntüsünü üst katman olarak asenkron ekle.
+// Tile'lar geldikçe Natural Earth'in üzerine binecek; gelemezse Natural Earth kalır.
+Cesium.ArcGisMapServerImageryProvider.fromUrl(
+  'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer'
+).then(provider => {
+  viewer.imageryLayers.addImageryProvider(provider);
+}).catch(() => { /* ESRI yüklenemezse Natural Earth yeterli */ });
 
-// ── Dark cinematic scene ──────────────────────────────────────────────
+// ── Sahne ayarları ────────────────────────────────────────────────────
 viewer.scene.backgroundColor = Cesium.Color.fromCssColorString('#060a12');
-viewer.scene.globe.enableLighting   = false;   // uniform illumination, no dark sides
+viewer.scene.globe.enableLighting = false;
+
+// [FIX 1 devamı] maximumScreenSpaceError artık mobilde düşürülmüyor.
+// Siyah küre sorunu Natural Earth ile çözüldüğü için performans kısıtlaması gerekmiyor.
+// Varsayılan değer (2.0) hem masaüstünde hem mobilde iyi görünüm sağlar.
 
 if (isMobile) {
   viewer.scene.globe.showGroundAtmosphere = false;
-  try {
-    viewer.scene.skyAtmosphere.show = false;
-  } catch(_) {}
+  try { viewer.scene.skyAtmosphere.show = false; } catch(_) {}
 } else {
   viewer.scene.globe.showGroundAtmosphere = true;
   try {
     const atm = viewer.scene.skyAtmosphere;
-    atm.show              = true;
-    atm.hueShift          = -0.04;
-    atm.saturationShift   =  0.12;
-    atm.brightnessShift   = -0.12;
+    atm.show            = true;
+    atm.hueShift        = -0.04;
+    atm.saturationShift =  0.12;
+    atm.brightnessShift = -0.12;
   } catch(_) {}
 }
 
-// Camera zoom limits
 const camCtrl = viewer.scene.screenSpaceCameraController;
-camCtrl.minimumZoomDistance =    5000;   //  5 km
-camCtrl.maximumZoomDistance = 35000000;  // 35 000 km
+camCtrl.minimumZoomDistance =    5000;
+camCtrl.maximumZoomDistance = 35000000;
 
 // ─── CANVAS MARKER TEXTURES ───────────────────────────────────────────
+// [FIX 2] DPR 3 yerine 2 ile sınırlandırıldı.
+// DPR=3 → single: 192×192, cluster: 384×384 canvas oluşturuyordu.
+// Cesium'un texture atlas'ı yüksek DPR'da bu büyük canvas'ları sığdırmakta zorlanıp
+// marker'ları siyah kare olarak gösteriyordu.
+// DPR=2 ile single: 128×128, cluster: 256×256 → her cihazda keskin ve atlas-uyumlu.
 function makeSingleCanvas() {
-  // Mobil cihazların yüksek çözünürlük oranını alıyoruz (Bellek koruması için en fazla 3 ile sınırlıyoruz)
-  const dpr = Math.min(window.devicePixelRatio || 1, 3);
-  const baseSize = 64;
-  const S = baseSize * dpr;
-  
-  const cv = document.createElement('canvas');
-  cv.width = S; 
+  const dpr = Math.min(window.devicePixelRatio || 1, 2); // max 2× — atlas taşmasını önler
+  const S   = 64 * dpr;
+  const cv  = document.createElement('canvas');
+  cv.width  = S;
   cv.height = S;
-  
-  const x = cv.getContext('2d');
-  const c = S / 2;
+  const x   = cv.getContext('2d');
+  const c   = S / 2;
 
-  // Tüm çizim ölçülerini ve gölgeleri dpr oranı ile çarparak ölçeklendiriyoruz
-  x.shadowColor = 'rgba(0,0,0,0.65)'; 
-  x.shadowBlur = 8 * dpr;
-  x.fillStyle = 'rgba(11,18,32,0.93)';
-  x.beginPath(); 
-  x.arc(c, c, 14 * dpr, 0, Math.PI * 2); 
-  x.fill();
-  
-  x.shadowBlur = 0;
-  x.strokeStyle = 'rgba(201,168,76,0.9)'; 
-  x.lineWidth = 2 * dpr;
-  x.beginPath(); 
-  x.arc(c, c, 14 * dpr, 0, Math.PI * 2); 
-  x.stroke();
-  
+  x.shadowColor = 'rgba(0,0,0,0.65)';
+  x.shadowBlur  = 8 * dpr;
+  x.fillStyle   = 'rgba(11,18,32,0.93)';
+  x.beginPath(); x.arc(c, c, 14 * dpr, 0, Math.PI * 2); x.fill();
+
+  x.shadowBlur   = 0;
+  x.strokeStyle  = 'rgba(201,168,76,0.9)';
+  x.lineWidth    = 2 * dpr;
+  x.beginPath(); x.arc(c, c, 14 * dpr, 0, Math.PI * 2); x.stroke();
+
   x.fillStyle = '#c9a84c';
-  x.beginPath(); 
-  x.arc(c, c, 5 * dpr, 0, Math.PI * 2); 
-  x.fill();
-  
+  x.beginPath(); x.arc(c, c, 5 * dpr, 0, Math.PI * 2); x.fill();
+
   return cv;
 }
 
 const _clusterCache = {};
 function makeClusterCanvas(n) {
-  const dpr = Math.min(window.devicePixelRatio || 1, 3);
+  const dpr   = Math.min(window.devicePixelRatio || 1, 2); // max 2× — atlas taşmasını önler
   const label = n > 99 ? '99+' : String(n);
-  const baseSize = 128;
-  const S = baseSize * dpr;
-  
-  const cv = document.createElement('canvas');
-  cv.width = S; 
-  cv.height = S;
-  
-  const x = cv.getContext('2d');
-  const c = S / 2;
-  const r = 46 * dpr;
+  const S     = 128 * dpr;
+  const cv    = document.createElement('canvas');
+  cv.width    = S;
+  cv.height   = S;
+  const x     = cv.getContext('2d');
+  const c     = S / 2;
+  const r     = 46 * dpr;
 
-  // Çember, gölge ve kontur değerlerini dpr oranına göre ölçeklendiriyoruz
-  x.shadowColor = 'rgba(0,0,0,0.7)'; 
-  x.shadowBlur = 14 * dpr; 
+  x.shadowColor   = 'rgba(0,0,0,0.7)';
+  x.shadowBlur    = 14 * dpr;
   x.shadowOffsetY = 2 * dpr;
-  x.fillStyle = 'rgba(11,18,32,0.95)';
-  x.beginPath(); 
-  x.arc(c, c, r, 0, Math.PI * 2); 
-  x.fill();
-  
-  x.shadowBlur = 0; 
+  x.fillStyle     = 'rgba(11,18,32,0.95)';
+  x.beginPath(); x.arc(c, c, r, 0, Math.PI * 2); x.fill();
+
+  x.shadowBlur    = 0;
   x.shadowOffsetY = 0;
-  x.strokeStyle = 'rgba(201,168,76,0.9)'; 
-  x.lineWidth = 4 * dpr;
-  x.beginPath(); 
-  x.arc(c, c, r, 0, Math.PI * 2); 
-  x.stroke();
-  
-  // Yazı boyutunu ve konumunu dpr oranına göre ölçeklendiriyoruz
+  x.strokeStyle   = 'rgba(201,168,76,0.9)';
+  x.lineWidth     = 4 * dpr;
+  x.beginPath(); x.arc(c, c, r, 0, Math.PI * 2); x.stroke();
+
   const fs = (label.length > 2 ? 32 : 36) * dpr;
-  x.fillStyle = '#e2d9c8';
-  x.font = `600 ${fs}px 'DM Sans', sans-serif`;
-  x.textAlign = 'center'; 
-  x.textBaseline = 'middle';
-  x.fillText(label, c, c + (1 * dpr));
-  
+  x.fillStyle     = '#e2d9c8';
+  x.font          = `600 ${fs}px 'DM Sans', sans-serif`;
+  x.textAlign     = 'center';
+  x.textBaseline  = 'middle';
+  x.fillText(label, c, c + dpr);
+
   return cv;
 }
 
@@ -356,7 +346,7 @@ function getCamHeight() {
 function refreshMarkers(height, force) {
   const gd = heightToGridDeg(height);
   if (gd !== lastGridDeg || force || !cachedClusters) {
-    lastGridDeg = gd;
+    lastGridDeg    = gd;
     cachedClusters = buildClusters(EVENTS, gd);
   }
 
@@ -364,49 +354,43 @@ function refreshMarkers(height, force) {
 
   cachedClusters.forEach(cl => {
     if (!isVisibleFromCamera(cl.lat, cl.lon)) return;
-    
+
     const isSingle = cl.count === 1;
     const canvas   = isSingle ? SINGLE_CANVAS : getClusterCanvas(cl.count);
     const size     = isSingle ? 26 : 44;
 
-    const matches  = !searchQuery || cl.events.some(ev =>
+    const matches = !searchQuery || cl.events.some(ev =>
       ev.city.toLowerCase().includes(searchQuery)    ||
       ev.country.toLowerCase().includes(searchQuery) ||
       ev.eventName.toLowerCase().includes(searchQuery)
     );
 
-    // 1. Doku atamadan nesne oluşturulur
     const b = billboards.add({
-      position:                   Cesium.Cartesian3.fromDegrees(cl.lon, cl.lat, 800),
-      width:                      size,
-      height:                     size,
-      verticalOrigin:             Cesium.VerticalOrigin.CENTER,
-      horizontalOrigin:           Cesium.HorizontalOrigin.CENTER,
-      disableDepthTestDistance:   Number.POSITIVE_INFINITY,
-      id:                         cl,
+      position:                 Cesium.Cartesian3.fromDegrees(cl.lon, cl.lat, 800),
+      width:                    size,
+      height:                   size,
+      verticalOrigin:           Cesium.VerticalOrigin.CENTER,
+      horizontalOrigin:         Cesium.HorizontalOrigin.CENTER,
+      disableDepthTestDistance: Number.POSITIVE_INFINITY,
+      id:                       cl,
       color: matches
         ? Cesium.Color.WHITE
         : new Cesium.Color(1, 1, 1, 0.07),
     });
 
-    // 2. setImage(id, canvas) ile doku atanır.
-    // Bu sayede Cesium her seferinde yeni doku üretmek yerine atlastaki aynı dokuyu yeniden kullanır.
     const imageId = isSingle ? 'marker-single' : `marker-cluster-${cl.count}`;
     b.setImage(imageId, canvas);
   });
 }
 
 function isVisibleFromCamera(lat, lon) {
-  const cam = viewer.camera.positionWC;
+  const cam    = viewer.camera.positionWC;
   const camDir = Cesium.Cartesian3.normalize(cam, new Cesium.Cartesian3());
-
-  const pos = Cesium.Cartesian3.fromDegrees(lon, lat);
+  const pos    = Cesium.Cartesian3.fromDegrees(lon, lat);
   const globeDir = Cesium.Cartesian3.normalize(pos, new Cesium.Cartesian3());
-
   return Cesium.Cartesian3.dot(camDir, globeDir) > 0;
 }
 
-// Mobilde daha az sıklıkla tetiklenmesi için hassasiyet esnetildi
 viewer.camera.percentageChanged = isMobile ? 0.05 : 0.015;
 let _rebuildTimer = null;
 viewer.camera.changed.addEventListener(() => {
@@ -416,9 +400,9 @@ viewer.camera.changed.addEventListener(() => {
 });
 
 // ─── UI HELPERS ───────────────────────────────────────────────────────
-const panel  = document.getElementById('panel');
-const clist  = document.getElementById('clist');
-const tipEl  = document.getElementById('tip');
+const panel = document.getElementById('panel');
+const clist = document.getElementById('clist');
+const tipEl = document.getElementById('tip');
 
 function fmtDate(s, e) {
   const fmt = d => new Date(d).toLocaleDateString('tr-TR',
@@ -466,7 +450,7 @@ function showCluster(cl) {
   panel.classList.remove('on');
 }
 
-document.getElementById('pcls').addEventListener('click',    () => panel.classList.remove('on'));
+document.getElementById('pcls').addEventListener('click',     () => panel.classList.remove('on'));
 document.getElementById('clist-cls').addEventListener('click', () => clist.classList.remove('on'));
 
 function showTip(text, x, y) {
@@ -480,10 +464,29 @@ function hideTip() { tipEl.classList.remove('on'); }
 // ─── INPUT HANDLING ───────────────────────────────────────────────────
 const evHandler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
 
+// [FIX 3] Mobilde tıklama sorunu: scene.pick() yalnızca 1×1 piksel tarar.
+// Hızlı dokunuşta parmak birkaç piksel kayabilir ve asıl cluster yerine
+// yanındaki tek etkinlikli marker'a isabet eder.
+// Çözüm: Mobilde drillPick() ile 18×18 piksellik alanda tüm billboard'lar taranır,
+// en çok etkinliği olan cluster seçilir — böylece hafif kaymalar soruna yol açmaz.
 evHandler.setInputAction(mv => {
-  const hit = viewer.scene.pick(mv.position);
-  if (Cesium.defined(hit) && Cesium.defined(hit.id) && hit.id.events) {
-    showCluster(hit.id);
+  let clusterData = null;
+
+  if (isMobile) {
+    // Geniş pick alanında tüm billboard'ları bul, en kalabalık cluster'ı seç
+    const picks = viewer.scene.drillPick(mv.position, undefined, 18, 18);
+    const best  = picks
+      .filter(p => Cesium.defined(p) && p.id && Array.isArray(p.id.events))
+      .sort((a, b) => (b.id.count || 0) - (a.id.count || 0))[0];
+    if (best) clusterData = best.id;
+  } else {
+    // Masaüstünde standart hassas pick yeterli
+    const hit = viewer.scene.pick(mv.position);
+    if (Cesium.defined(hit) && hit.id && hit.id.events) clusterData = hit.id;
+  }
+
+  if (clusterData) {
+    showCluster(clusterData);
   } else {
     panel.classList.remove('on');
     clist.classList.remove('on');
@@ -534,7 +537,7 @@ function applySearch(q) {
 
   if (q.length < 2) return;
 
-  const gd   = heightToGridDeg(getCamHeight());
+  const gd    = heightToGridDeg(getCamHeight());
   const first = buildClusters(EVENTS, gd).find(cl => cl.events.some(ev =>
     ev.city.toLowerCase().includes(q)    ||
     ev.country.toLowerCase().includes(q) ||
@@ -563,8 +566,8 @@ async function loadData() {
   const countries = new Set(EVENTS.map(e => e.country));
   document.getElementById('ev-count').textContent =
     EVENTS.length + ' etkinlik · ' + countries.size + ' ülke';
-  document.getElementById('s-total').textContent    = EVENTS.length;
-  document.getElementById('s-country').textContent  = countries.size;
+  document.getElementById('s-total').textContent   = EVENTS.length;
+  document.getElementById('s-country').textContent = countries.size;
   refreshMarkers(getCamHeight(), true);
 }
 
