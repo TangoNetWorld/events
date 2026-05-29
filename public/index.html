@@ -299,16 +299,10 @@ function heightToGridDeg(h) {
   return 0.05;
 }
 
-// [FIX 1] Math.round → Math.floor
-// Math.round ile bir koordinat, grid hücre sınırına çok yakın olduğunda
-// kamera yüksekliğindeki küçük değişimler o koordinatı bir hücreye mi yoksa
-// komşusuna mı atacağını değiştirebiliyordu. Math.floor ile sınır tam tamsayı
-// katlarında olduğu için yalnızca kamera zoom seviyesi değiştiğinde yeniden
-// hesaplama tetiklenir; yatay kaydırma (pan) kümeleri bozmaz.
 function buildClusters(events, gridDeg) {
   const map = {};
   events.forEach(ev => {
-    const key = `${Math.floor(ev.latitude / gridDeg)}:${Math.floor(ev.longitude / gridDeg)}`;
+    const key = `${Math.round(ev.latitude / gridDeg)}:${Math.round(ev.longitude / gridDeg)}`;
     (map[key] = map[key] || []).push(ev);
   });
   return Object.values(map).map(arr => ({
@@ -324,25 +318,21 @@ const billboards = viewer.scene.primitives.add(
   new Cesium.BillboardCollection({ scene: viewer.scene })
 );
 
-let EVENTS      = [];
-let lastGridDeg = -1;
-let searchQuery = '';
+let EVENTS         = [];
+let lastGridDeg    = -1;
+let searchQuery    = '';
 let cachedClusters = null;
 
-// [FIX 2] Dokunuş sırasında küme yeniden hesaplamasını engelle.
-// Parmak canvas'a değdiğinde hafif bir kamera hareketi olabilir. Bu hareket
-// camera.changed'i tetikler ve 150 ms sonra refreshMarkers çalışır. Eğer bu
-// yeniden hesaplama LEFT_CLICK gelmeden önce tamamlanırsa, billboard koleksiyonu
-// değişir: önceki "2 etkinlikli küme" yeni gridDeg'de iki ayrı "1 etkinlikli"
-// billboard'a dönüşebilir. O zaman pick yanlış billboard'u seçer.
-// Çözüm: touchstart → touchend + 500 ms boyunca zorunlu (force) olmayan
-// refreshMarkers çağrılarını sustur; click handler tetiklendiğinde ekranda
-// hangi billboard varsa o set üzerinde pick yap.
-let _touchInProgress = false;
-let _touchEndTimer   = null;
-
-// ─── CANVAS touch listener'ları Cesium hazır olduktan sonra eklenir
-// (aşağıda evHandler'dan sonra)
+// [FIX] Mobil tıklama için touchstart anındaki küme snapshot'ı.
+// Sorun: parmak dokunuşu sırasında camera.changed tetiklenebilir ve 150 ms
+// sonra billboardlar yeniden oluşturulur. Eğer bu yenileme LEFT_CLICK'ten
+// önce tamamlanırsa, drillPick() yeni (muhtemelen bölünmüş) billboard setini
+// tarar ve yanlış sonuç verebilir.
+// Çözüm: drillPick'i tamamen bırakıp, touchstart anındaki küme listesini
+// sakla ve LEFT_CLICK geldiğinde bu listeyi ekran koordinatlarına projekte
+// ederek en yakın kümeyi bul. Bu yaklaşım billboard render durumundan
+// bağımsızdır.
+let _clustersSnapshot = null;
 
 function getCamHeight() {
   try { return viewer.camera.positionCartographic.height; }
@@ -350,9 +340,6 @@ function getCamHeight() {
 }
 
 function refreshMarkers(height, force) {
-  // [FIX 2 devamı] Dokunuş aktifken zorunlu olmayan yeniden hesaplamayı atla.
-  if (_touchInProgress && !force) return;
-
   const gd = heightToGridDeg(height);
   if (gd !== lastGridDeg || force || !cachedClusters) {
     lastGridDeg    = gd;
@@ -473,89 +460,43 @@ function hideTip() { tipEl.classList.remove('on'); }
 // ─── INPUT HANDLING ───────────────────────────────────────────────────
 const evHandler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
 
-// [FIX 2 devamı] Touch listener'ları — evHandler'dan sonra tanımlanıyor.
-// passive:true ile kaydırma performansını koruyoruz.
+// [FIX] touchstart anında mevcut kümeleri sakla.
+// LEFT_CLICK her zaman aynı dokunuş hareketinin touchstart'ından sonra gelir;
+// bu sayede dokunuş başındaki küme durumunu tıklama anında kullanabiliriz.
 viewer.scene.canvas.addEventListener('touchstart', () => {
-  clearTimeout(_touchEndTimer);
-  _touchInProgress = true;
+  _clustersSnapshot = cachedClusters ? cachedClusters.slice() : null;
 }, { passive: true });
 
-viewer.scene.canvas.addEventListener('touchend', () => {
-  // LEFT_CLICK, touchend'den kısa süre sonra gelir.
-  // 500 ms bekleyerek click handler'ın önce çalışmasını garantiliyoruz.
-  clearTimeout(_touchEndTimer);
-  _touchEndTimer = setTimeout(() => { _touchInProgress = false; }, 500);
-}, { passive: true });
-
-viewer.scene.canvas.addEventListener('touchcancel', () => {
-  clearTimeout(_touchEndTimer);
-  _touchInProgress = false;
-}, { passive: true });
-
-// [FIX 3] Geliştirilmiş mobil pick mantığı:
-//
-// Sorun: Diyarbakır gibi iki yakın etkinliği olan bir noktada küme oluşturulur
-// (count=2). Ancak pick yapılırken bazen küme billboard'u yerine, rastlantısal
-// olarak küçük bir single billboard'u seçilebiliyordu. Bu özellikle marker
-// ekranın merkezindeyken ve kamera hafifçe hareketlendikten (debounce süresi
-// geçmişse yeniden hesaplama olur) sonra görülüyordu.
-//
-// Çözüm üç katmanlı:
-//   a) Genişletilmiş pick alanı (56×56 px) — parmak kayması toleransı artar.
-//   b) Tekrar bulunan billboardları set ile tekilleştir.
-//   c) Birden fazla count=1 billboard'u pick alanında bulunursa bunları
-//      "sanal küme" olarak birleştir ve grup menüsünü aç. Bu durum, iki
-//      yakın etkinliğin farklı grid hücrelerine düştüğü anlarda oluşur.
 evHandler.setInputAction(mv => {
   let clusterData = null;
 
   if (isMobile) {
-    const PICK_SIDE = 56; // px — genişletilmiş pick alanı
-    const picks = viewer.scene.drillPick(mv.position, undefined, PICK_SIDE, PICK_SIDE);
-
-    // Tekrarsız küme listesini oluştur
-    const seen = new Set();
-    const allClusters = [];
-    picks.forEach(p => {
-      if (Cesium.defined(p) && p.id && Array.isArray(p.id.events) && !seen.has(p.id)) {
-        seen.add(p.id);
-        allClusters.push(p.id);
-      }
-    });
-
-    if (allClusters.length > 0) {
-      // En yüksek count'lu küme önce gelsin
-      allClusters.sort((a, b) => (b.count || 0) - (a.count || 0));
-
-      if (allClusters[0].count > 1) {
-        // Gerçek çoklu etkinlik kümesi bulundu → doğrudan kullan
-        clusterData = allClusters[0];
-      } else if (allClusters.length > 1) {
-        // Birden fazla tekil billboard pick alanında → sanal küme oluştur.
-        // Bu, iki yakın etkinliğin ayrı grid hücrelerine düştüğü durumda
-        // oluşur; görsel olarak iç içe görünürler fakat veri katmanında
-        // ayrı billboard'lardır.
-        const evSet = new Set();
-        const mergedEvents = [];
-        let latSum = 0, lonSum = 0;
-        allClusters.forEach(cl => {
-          latSum += cl.lat;
-          lonSum += cl.lon;
-          cl.events.forEach(ev => {
-            const uid = ev.eventName + '|' + (ev.startDate || '');
-            if (!evSet.has(uid)) { evSet.add(uid); mergedEvents.push(ev); }
-          });
-        });
-        clusterData = {
-          events: mergedEvents,
-          count:  mergedEvents.length,
-          lat:    latSum / allClusters.length,
-          lon:    lonSum / allClusters.length,
-        };
-      } else {
-        // Tek bir billboard bulundu
-        clusterData = allClusters[0];
-      }
+    // [FIX] drillPick() → ekran-uzay projeksiyon bazlı seçim.
+    //
+    // drillPick(), o an billboard koleksiyonunda hangi nesneler render ediliyorsa
+    // onları tarar. Ama camera.changed debounce'u (150 ms) LEFT_CLICK'ten önce
+    // tetiklenirse billboardlar yeniden oluşturulmuş olur: 2 etkinlikli küme,
+    // 2 ayrı tekil billboard'a dönüşmüş olabilir. drillPick bunlardan birini
+    // döndürür → tek etkinlik paneli açılır.
+    //
+    // Projeksiyon yaklaşımı render durumundan bağımsızdır:
+    // touchstart'taki küme listesini (snapshot) ekrana projekte et,
+    // dokunulan noktaya en yakın olanı seç.
+    const clusters = _clustersSnapshot || cachedClusters;
+    if (clusters) {
+      let best     = null;
+      let bestDist = 48; // piksel — büyük marker (44 px) yarıçapından biraz geniş
+      clusters.forEach(cl => {
+        if (!isVisibleFromCamera(cl.lat, cl.lon)) return;
+        const wp = Cesium.Cartesian3.fromDegrees(cl.lon, cl.lat, 800);
+        // Cesium 1.113: wgs84ToWindowCoordinates 3D noktayı tuval koordinatına çevirir.
+        // Küre arkasındaki noktalar için null döner.
+        const sc = Cesium.SceneTransforms.wgs84ToWindowCoordinates(viewer.scene, wp);
+        if (!Cesium.defined(sc)) return;
+        const d = Math.hypot(sc.x - mv.position.x, sc.y - mv.position.y);
+        if (d < bestDist) { bestDist = d; best = cl; }
+      });
+      clusterData = best;
     }
   } else {
     // Masaüstünde standart hassas pick yeterli
