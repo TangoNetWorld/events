@@ -169,9 +169,6 @@ const DEMO_EVENTS = [
 ];
 
 // ─── CESIUM VIEWER ────────────────────────────────────────────────────
-// [FIX 1] Zemin katmanı olarak Cesium'un yerleşik Natural Earth imagery'si kullanılıyor.
-// Bu sayede küre her zoom seviyesinde görünür olur — ESRI yüksek irtifada tile üretmediği için
-// küre siyah görünüyordu. Natural Earth anında yüklenir (CDN'e gerek yok, Cesium içinde gömülü).
 const naturalEarthBase = Cesium.ImageryLayer.fromProviderAsync(
   Cesium.TileMapServiceImageryProvider.fromUrl(
     Cesium.buildModuleUrl('Assets/Textures/NaturalEarthII')
@@ -179,7 +176,7 @@ const naturalEarthBase = Cesium.ImageryLayer.fromProviderAsync(
 );
 
 const viewer = new Cesium.Viewer('cesiumContainer', {
-  baseLayer:              naturalEarthBase,   // Natural Earth zemin, siyah küre sorununu çözer
+  baseLayer:              naturalEarthBase,
   terrainProvider:        new Cesium.EllipsoidTerrainProvider(),
   baseLayerPicker:        false,
   geocoder:               false,
@@ -195,21 +192,14 @@ const viewer = new Cesium.Viewer('cesiumContainer', {
   shouldAnimate:          false,
 });
 
-// ESRI uydu görüntüsünü üst katman olarak asenkron ekle.
-// Tile'lar geldikçe Natural Earth'in üzerine binecek; gelemezse Natural Earth kalır.
 Cesium.ArcGisMapServerImageryProvider.fromUrl(
   'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer'
 ).then(provider => {
   viewer.imageryLayers.addImageryProvider(provider);
-}).catch(() => { /* ESRI yüklenemezse Natural Earth yeterli */ });
+}).catch(() => {});
 
-// ── Sahne ayarları ────────────────────────────────────────────────────
 viewer.scene.backgroundColor = Cesium.Color.fromCssColorString('#060a12');
 viewer.scene.globe.enableLighting = false;
-
-// [FIX 1 devamı] maximumScreenSpaceError artık mobilde düşürülmüyor.
-// Siyah küre sorunu Natural Earth ile çözüldüğü için performans kısıtlaması gerekmiyor.
-// Varsayılan değer (2.0) hem masaüstünde hem mobilde iyi görünüm sağlar.
 
 if (isMobile) {
   viewer.scene.globe.showGroundAtmosphere = false;
@@ -230,13 +220,8 @@ camCtrl.minimumZoomDistance =    5000;
 camCtrl.maximumZoomDistance = 35000000;
 
 // ─── CANVAS MARKER TEXTURES ───────────────────────────────────────────
-// [FIX 2] DPR 3 yerine 2 ile sınırlandırıldı.
-// DPR=3 → single: 192×192, cluster: 384×384 canvas oluşturuyordu.
-// Cesium'un texture atlas'ı yüksek DPR'da bu büyük canvas'ları sığdırmakta zorlanıp
-// marker'ları siyah kare olarak gösteriyordu.
-// DPR=2 ile single: 128×128, cluster: 256×256 → her cihazda keskin ve atlas-uyumlu.
 function makeSingleCanvas() {
-  const dpr = Math.min(window.devicePixelRatio || 1, 2); // max 2× — atlas taşmasını önler
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
   const S   = 64 * dpr;
   const cv  = document.createElement('canvas');
   cv.width  = S;
@@ -262,7 +247,7 @@ function makeSingleCanvas() {
 
 const _clusterCache = {};
 function makeClusterCanvas(n) {
-  const dpr   = Math.min(window.devicePixelRatio || 1, 2); // max 2× — atlas taşmasını önler
+  const dpr   = Math.min(window.devicePixelRatio || 1, 2);
   const label = n > 99 ? '99+' : String(n);
   const S     = 128 * dpr;
   const cv    = document.createElement('canvas');
@@ -314,10 +299,16 @@ function heightToGridDeg(h) {
   return 0.05;
 }
 
+// [FIX 1] Math.round → Math.floor
+// Math.round ile bir koordinat, grid hücre sınırına çok yakın olduğunda
+// kamera yüksekliğindeki küçük değişimler o koordinatı bir hücreye mi yoksa
+// komşusuna mı atacağını değiştirebiliyordu. Math.floor ile sınır tam tamsayı
+// katlarında olduğu için yalnızca kamera zoom seviyesi değiştiğinde yeniden
+// hesaplama tetiklenir; yatay kaydırma (pan) kümeleri bozmaz.
 function buildClusters(events, gridDeg) {
   const map = {};
   events.forEach(ev => {
-    const key = `${Math.round(ev.latitude / gridDeg)}:${Math.round(ev.longitude / gridDeg)}`;
+    const key = `${Math.floor(ev.latitude / gridDeg)}:${Math.floor(ev.longitude / gridDeg)}`;
     (map[key] = map[key] || []).push(ev);
   });
   return Object.values(map).map(arr => ({
@@ -338,12 +329,30 @@ let lastGridDeg = -1;
 let searchQuery = '';
 let cachedClusters = null;
 
+// [FIX 2] Dokunuş sırasında küme yeniden hesaplamasını engelle.
+// Parmak canvas'a değdiğinde hafif bir kamera hareketi olabilir. Bu hareket
+// camera.changed'i tetikler ve 150 ms sonra refreshMarkers çalışır. Eğer bu
+// yeniden hesaplama LEFT_CLICK gelmeden önce tamamlanırsa, billboard koleksiyonu
+// değişir: önceki "2 etkinlikli küme" yeni gridDeg'de iki ayrı "1 etkinlikli"
+// billboard'a dönüşebilir. O zaman pick yanlış billboard'u seçer.
+// Çözüm: touchstart → touchend + 500 ms boyunca zorunlu (force) olmayan
+// refreshMarkers çağrılarını sustur; click handler tetiklendiğinde ekranda
+// hangi billboard varsa o set üzerinde pick yap.
+let _touchInProgress = false;
+let _touchEndTimer   = null;
+
+// ─── CANVAS touch listener'ları Cesium hazır olduktan sonra eklenir
+// (aşağıda evHandler'dan sonra)
+
 function getCamHeight() {
   try { return viewer.camera.positionCartographic.height; }
   catch (_) { return 15000000; }
 }
 
 function refreshMarkers(height, force) {
+  // [FIX 2 devamı] Dokunuş aktifken zorunlu olmayan yeniden hesaplamayı atla.
+  if (_touchInProgress && !force) return;
+
   const gd = heightToGridDeg(height);
   if (gd !== lastGridDeg || force || !cachedClusters) {
     lastGridDeg    = gd;
@@ -464,21 +473,90 @@ function hideTip() { tipEl.classList.remove('on'); }
 // ─── INPUT HANDLING ───────────────────────────────────────────────────
 const evHandler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
 
-// [FIX 3] Mobilde tıklama sorunu: scene.pick() yalnızca 1×1 piksel tarar.
-// Hızlı dokunuşta parmak birkaç piksel kayabilir ve asıl cluster yerine
-// yanındaki tek etkinlikli marker'a isabet eder.
-// Çözüm: Mobilde drillPick() ile 18×18 piksellik alanda tüm billboard'lar taranır,
-// en çok etkinliği olan cluster seçilir — böylece hafif kaymalar soruna yol açmaz.
+// [FIX 2 devamı] Touch listener'ları — evHandler'dan sonra tanımlanıyor.
+// passive:true ile kaydırma performansını koruyoruz.
+viewer.scene.canvas.addEventListener('touchstart', () => {
+  clearTimeout(_touchEndTimer);
+  _touchInProgress = true;
+}, { passive: true });
+
+viewer.scene.canvas.addEventListener('touchend', () => {
+  // LEFT_CLICK, touchend'den kısa süre sonra gelir.
+  // 500 ms bekleyerek click handler'ın önce çalışmasını garantiliyoruz.
+  clearTimeout(_touchEndTimer);
+  _touchEndTimer = setTimeout(() => { _touchInProgress = false; }, 500);
+}, { passive: true });
+
+viewer.scene.canvas.addEventListener('touchcancel', () => {
+  clearTimeout(_touchEndTimer);
+  _touchInProgress = false;
+}, { passive: true });
+
+// [FIX 3] Geliştirilmiş mobil pick mantığı:
+//
+// Sorun: Diyarbakır gibi iki yakın etkinliği olan bir noktada küme oluşturulur
+// (count=2). Ancak pick yapılırken bazen küme billboard'u yerine, rastlantısal
+// olarak küçük bir single billboard'u seçilebiliyordu. Bu özellikle marker
+// ekranın merkezindeyken ve kamera hafifçe hareketlendikten (debounce süresi
+// geçmişse yeniden hesaplama olur) sonra görülüyordu.
+//
+// Çözüm üç katmanlı:
+//   a) Genişletilmiş pick alanı (56×56 px) — parmak kayması toleransı artar.
+//   b) Tekrar bulunan billboardları set ile tekilleştir.
+//   c) Birden fazla count=1 billboard'u pick alanında bulunursa bunları
+//      "sanal küme" olarak birleştir ve grup menüsünü aç. Bu durum, iki
+//      yakın etkinliğin farklı grid hücrelerine düştüğü anlarda oluşur.
 evHandler.setInputAction(mv => {
   let clusterData = null;
 
   if (isMobile) {
-    // Geniş pick alanında tüm billboard'ları bul, en kalabalık cluster'ı seç
-    const picks = viewer.scene.drillPick(mv.position, undefined, 18, 18);
-    const best  = picks
-      .filter(p => Cesium.defined(p) && p.id && Array.isArray(p.id.events))
-      .sort((a, b) => (b.id.count || 0) - (a.id.count || 0))[0];
-    if (best) clusterData = best.id;
+    const PICK_SIDE = 56; // px — genişletilmiş pick alanı
+    const picks = viewer.scene.drillPick(mv.position, undefined, PICK_SIDE, PICK_SIDE);
+
+    // Tekrarsız küme listesini oluştur
+    const seen = new Set();
+    const allClusters = [];
+    picks.forEach(p => {
+      if (Cesium.defined(p) && p.id && Array.isArray(p.id.events) && !seen.has(p.id)) {
+        seen.add(p.id);
+        allClusters.push(p.id);
+      }
+    });
+
+    if (allClusters.length > 0) {
+      // En yüksek count'lu küme önce gelsin
+      allClusters.sort((a, b) => (b.count || 0) - (a.count || 0));
+
+      if (allClusters[0].count > 1) {
+        // Gerçek çoklu etkinlik kümesi bulundu → doğrudan kullan
+        clusterData = allClusters[0];
+      } else if (allClusters.length > 1) {
+        // Birden fazla tekil billboard pick alanında → sanal küme oluştur.
+        // Bu, iki yakın etkinliğin ayrı grid hücrelerine düştüğü durumda
+        // oluşur; görsel olarak iç içe görünürler fakat veri katmanında
+        // ayrı billboard'lardır.
+        const evSet = new Set();
+        const mergedEvents = [];
+        let latSum = 0, lonSum = 0;
+        allClusters.forEach(cl => {
+          latSum += cl.lat;
+          lonSum += cl.lon;
+          cl.events.forEach(ev => {
+            const uid = ev.eventName + '|' + (ev.startDate || '');
+            if (!evSet.has(uid)) { evSet.add(uid); mergedEvents.push(ev); }
+          });
+        });
+        clusterData = {
+          events: mergedEvents,
+          count:  mergedEvents.length,
+          lat:    latSum / allClusters.length,
+          lon:    lonSum / allClusters.length,
+        };
+      } else {
+        // Tek bir billboard bulundu
+        clusterData = allClusters[0];
+      }
+    }
   } else {
     // Masaüstünde standart hassas pick yeterli
     const hit = viewer.scene.pick(mv.position);
