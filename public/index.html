@@ -451,11 +451,78 @@ function hideTip() { tipEl.classList.remove('on'); }
 // INPUT HANDLING
 const evHandler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
 
-viewer.scene.canvas.addEventListener('touchstart', () => {
+// ── Uzun basma & debounce değişkenleri ──────────────────────────────────────
+let _clustersSnapshot = null;
+let lastClickHandled  = 0;          // debounce zaman damgası
+let longPressTimer    = null;
+let longPressHandled  = false;      // uzun basma sonrası click'i yutmak için
+let longPressOrigin   = null;       // canvas koordinatında başlangıç noktası
+const LONG_PRESS_MS   = 1000;       // uzun basma eşiği (ms)
+const LONG_PRESS_PX   = 12;         // iptal mesafesi (px)
+
+// touchstart — snapshot + uzun basma zamanlayıcısı
+viewer.scene.canvas.addEventListener('touchstart', (e) => {
   _clustersSnapshot = cachedClusters ? cachedClusters.slice() : null;
+  longPressHandled  = false;
+
+  const t    = e.touches[0];
+  const rect = viewer.scene.canvas.getBoundingClientRect();
+  longPressOrigin = { x: t.clientX - rect.left, y: t.clientY - rect.top };
+
+  clearTimeout(longPressTimer);
+  longPressTimer = setTimeout(() => {
+    const clusters = _clustersSnapshot || cachedClusters;
+    if (!clusters || !longPressOrigin) return;
+
+    let best = null, bestDist = 60;
+    clusters.forEach(cl => {
+      if (!isVisibleFromCamera(cl.lat, cl.lon)) return;
+      const wp = Cesium.Cartesian3.fromDegrees(cl.lon, cl.lat, 800);
+      const sc = Cesium.SceneTransforms.wgs84ToWindowCoordinates(viewer.scene, wp);
+      if (!Cesium.defined(sc)) return;
+      const d = Math.hypot(sc.x - longPressOrigin.x, sc.y - longPressOrigin.y);
+      if (d < bestDist) { bestDist = d; best = cl; }
+    });
+
+    if (best) {
+      longPressHandled = true;
+      showCluster(best);
+    }
+  }, LONG_PRESS_MS);
 }, { passive: true });
 
+// touchmove — parmak kaydırılırsa uzun basma iptal
+viewer.scene.canvas.addEventListener('touchmove', (e) => {
+  if (!longPressOrigin || !longPressTimer) return;
+  const t    = e.touches[0];
+  const rect = viewer.scene.canvas.getBoundingClientRect();
+  const dx   = (t.clientX - rect.left) - longPressOrigin.x;
+  const dy   = (t.clientY - rect.top)  - longPressOrigin.y;
+  if (Math.hypot(dx, dy) > LONG_PRESS_PX) {
+    clearTimeout(longPressTimer);
+    longPressTimer = null;
+  }
+}, { passive: true });
+
+// touchend — zamanlayıcıyı temizle
+viewer.scene.canvas.addEventListener('touchend', () => {
+  clearTimeout(longPressTimer);
+  longPressTimer  = null;
+  longPressOrigin = null;
+}, { passive: true });
+
+// LEFT_CLICK — debounce + uzun basma koruması
 evHandler.setInputAction(mv => {
+
+  // 1) Debounce: Android'in aynı dokunuştan ürettiği ikinci sentetik click'i yut
+  const now = Date.now();
+  if (now - lastClickHandled < 350) return;
+
+  // 2) Uzun basma zaten cluster'ı gösterdiyse touchend'den gelen click'i atla
+  if (longPressHandled) { longPressHandled = false; return; }
+
+  lastClickHandled = now;
+
   let clusterData = null;
 
   if (isMobile) {
