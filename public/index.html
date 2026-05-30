@@ -442,6 +442,14 @@ function showCluster(cl) {
   );
   clist.classList.add('on');
   panel.classList.remove('on');
+
+  // Android ghost click fix: sentetik DOM click'i absorbe etmek için
+  // clist açıldıktan hemen sonra kısa süre pointer-events'i kapat.
+  // (İnline style, CSS class'ından her zaman önce gelir.)
+  if (isMobile) {
+    clist.style.pointerEvents = 'none';
+    setTimeout(() => { clist.style.pointerEvents = ''; }, 400);
+  }
 }
 
 document.getElementById('pcls').addEventListener('click',     () => panel.classList.remove('on'));
