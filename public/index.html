@@ -323,7 +323,14 @@ let lastGridDeg    = -1;
 let searchQuery    = '';
 let cachedClusters = null;
 
-let _clustersSnapshot = null;
+// ── Tüm durum değişkenleri tek yerde ────────────────────────────────────────
+let _clustersSnapshot = null;   // touchstart anındaki cluster anlık görüntüsü
+let lastClickHandled  = 0;      // debounce: son işlenen click'in zaman damgası
+let longPressTimer    = null;   // uzun basma setTimeout referansı
+let longPressHandled  = false;  // uzun basma tamamlandıysa sonraki click'i yut
+let longPressOrigin   = null;   // canvas koordinatında başlangıç noktası
+const LONG_PRESS_MS   = 1000;   // uzun basma eşiği (ms)
+const LONG_PRESS_PX   = 12;     // bu kadar kayma uzun basmayı iptal eder
 
 function getCamHeight() {
   try { return viewer.camera.positionCartographic.height; }
@@ -451,16 +458,7 @@ function hideTip() { tipEl.classList.remove('on'); }
 // INPUT HANDLING
 const evHandler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
 
-// ── Uzun basma & debounce değişkenleri ──────────────────────────────────────
-let _clustersSnapshot = null;
-let lastClickHandled  = 0;          // debounce zaman damgası
-let longPressTimer    = null;
-let longPressHandled  = false;      // uzun basma sonrası click'i yutmak için
-let longPressOrigin   = null;       // canvas koordinatında başlangıç noktası
-const LONG_PRESS_MS   = 1000;       // uzun basma eşiği (ms)
-const LONG_PRESS_PX   = 12;         // iptal mesafesi (px)
-
-// touchstart — snapshot + uzun basma zamanlayıcısı
+// touchstart — snapshot al + uzun basma zamanlayıcısını başlat
 viewer.scene.canvas.addEventListener('touchstart', (e) => {
   _clustersSnapshot = cachedClusters ? cachedClusters.slice() : null;
   longPressHandled  = false;
@@ -471,6 +469,7 @@ viewer.scene.canvas.addEventListener('touchstart', (e) => {
 
   clearTimeout(longPressTimer);
   longPressTimer = setTimeout(() => {
+    // 1 saniye doldu → en yakın cluster'ı bul ve göster
     const clusters = _clustersSnapshot || cachedClusters;
     if (!clusters || !longPressOrigin) return;
 
@@ -491,7 +490,7 @@ viewer.scene.canvas.addEventListener('touchstart', (e) => {
   }, LONG_PRESS_MS);
 }, { passive: true });
 
-// touchmove — parmak kaydırılırsa uzun basma iptal
+// touchmove — parmak kaydırılırsa uzun basmayı iptal et
 viewer.scene.canvas.addEventListener('touchmove', (e) => {
   if (!longPressOrigin || !longPressTimer) return;
   const t    = e.touches[0];
@@ -511,14 +510,14 @@ viewer.scene.canvas.addEventListener('touchend', () => {
   longPressOrigin = null;
 }, { passive: true });
 
-// LEFT_CLICK — debounce + uzun basma koruması
+// LEFT_CLICK — Android çift-event düzeltmesi (debounce) + uzun basma koruması
 evHandler.setInputAction(mv => {
 
-  // 1) Debounce: Android'in aynı dokunuştan ürettiği ikinci sentetik click'i yut
+  // Debounce: Android'in aynı dokunuştan ürettiği ikinci sentetik click'i yut
   const now = Date.now();
   if (now - lastClickHandled < 350) return;
 
-  // 2) Uzun basma zaten cluster'ı gösterdiyse touchend'den gelen click'i atla
+  // Uzun basma zaten cluster'ı gösterdiyse touchend'den gelen click'i atla
   if (longPressHandled) { longPressHandled = false; return; }
 
   lastClickHandled = now;
