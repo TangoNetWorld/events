@@ -15,7 +15,6 @@
 :root{--gold:#c9a84c;--gold-dim:rgba(201,168,76,0.3);--dark:#060a12;--panel:#0b1220ee;--text:#e2d9c8;--muted:#7a7060;--r:6px}
 html,body{width:100%;height:100%;background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;overflow:hidden;-webkit-tap-highlight-color:transparent}
 
-/* Cesium container & UI suppression */
 #cesiumContainer{position:fixed;inset:0;width:100%;height:100%}
 .cesium-widget-credits,
 .cesium-credit-logoContainer,
@@ -68,11 +67,44 @@ html,body{width:100%;height:100%;background:var(--dark);color:var(--text);font-f
 #tip.on{opacity:1}
 
 /* Search */
-#search-wrap{position:fixed;top:20px;right:20px;z-index:15;display:flex;align-items:center}
+#search-wrap{position:fixed;top:20px;right:20px;z-index:15;display:flex;align-items:center;gap:6px}
 #search{background:rgba(11,18,32,.9);border:1px solid var(--gold-dim);border-radius:var(--r);padding:8px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.75rem;width:0;opacity:0;outline:none;transition:width .3s,opacity .3s}
 #search.open{width:200px;opacity:1}
 #search-btn{background:rgba(11,18,32,.9);border:1px solid var(--gold-dim);border-radius:var(--r);padding:8px 12px;color:var(--gold);cursor:pointer;font-size:.9rem;transition:background .2s}
 #search-btn:hover{background:rgba(201,168,76,.15)}
+
+/* Language Toggle */
+#lang-btn {
+  background: rgba(11, 18, 32, .9);
+  border: 1px solid var(--gold-dim);
+  border-radius: var(--r);
+  padding: 8px 12px;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: .6rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  font-family: 'DM Sans', sans-serif;
+  transition: all .2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+#lang-btn:hover { border-color: var(--gold); }
+
+/* Dil seçeneklerinin varsayılan (seçili olmayan) hali */
+#lang-btn span {
+  opacity: 0.4;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+/* Seçili (aktif) dilin parlamasını sağlayan kural */
+#lang-btn span.lactive {
+  opacity: 1;
+  color: var(--gold);
+  font-weight: bold;
+}
+#lang-btn .lsep { opacity: .3; }
 
 /* Stats */
 #stats{position:fixed;bottom:44px;left:28px;z-index:10;pointer-events:none;display:flex;gap:20px}
@@ -91,27 +123,33 @@ html,body{width:100%;height:100%;background:var(--dark);color:var(--text);font-f
   #panel{right:10px;width:calc(100vw - 20px)}
   #stats{display:none}
   #search-wrap{top:14px;right:14px}
+  #lang-btn{top:14px;left:14px}
+  #search.open{width:160px}
 }
 </style>
 </head>
 <body>
 
-<div id="loading"><div class="ring"></div><p>Yükleniyor…</p></div>
+<div id="loading"><div class="ring"></div><p id="loading-text">Yükleniyor…</p></div>
 <div id="cesiumContainer"></div>
 
 <div id="hd">
   <h1>TangoNet <em>World</em></h1>
-  <p id="ev-count">— etkinlik yükleniyor</p>
 </div>
 
 <div id="search-wrap">
-  <input id="search" type="text" placeholder="Şehir veya etkinlik ara…" autocomplete="off">
+	<button id="lang-btn">
+	  <span id="l-tr" class="lactive">TR</span>
+	  <span class="lsep">|</span>
+	  <span id="l-en">EN</span>
+	</button>
+  <input id="search" type="text" autocomplete="off">
   <button id="search-btn" title="Ara">⌕</button>
 </div>
 
 <div id="panel">
   <button id="pcls">✕</button>
-  <div class="ptag">Etkinlik</div>
+  <div class="ptag" id="ptag-label">Etkinlik</div>
   <div id="pname">—</div>
   <div class="prow"><span class="ic">📍</span><div><strong id="pcity">—</strong><span id="pcountry"></span></div></div>
   <div class="prow"><span class="ic">📅</span><div id="pdate">—</div></div>
@@ -129,16 +167,96 @@ html,body{width:100%;height:100%;background:var(--dark);color:var(--text);font-f
 <div id="tip"></div>
 
 <div id="stats">
-  <div class="stat"><div class="n" id="s-total">0</div><div class="l">Etkinlik</div></div>
-  <div class="stat"><div class="n" id="s-country">0</div><div class="l">Ülke</div></div>
+  <div class="stat"><div class="n" id="s-total">0</div><div class="l" id="stat-events">Etkinlik</div></div>
+  <div class="stat"><div class="n" id="s-country">0</div><div class="l" id="stat-countries">Ülke</div></div>
 </div>
 
 <script>
 'use strict';
 
+// ── i18n ────────────────────────────────────────────────────────────────────
+const STRINGS = {
+  tr: {
+    loading:        'Yükleniyor…',
+    loadingEvents:  '— etkinlik yükleniyor',
+    eventsCount:    (n, c) => `${n} etkinlik · ${c} ülke`,
+    event:          'Etkinlik',
+    goToEvent:      'Etkinliğe Git →',
+    events:         'Etkinlik',
+    countries:      'Ülke',
+    searchTitle:    'Ara',
+    searchPlaceholder: 'Şehir veya etkinlik ara…',
+    clusterSuffix:  n => `${n} etkinlik`,
+    clusterTitle:   (place, n) => `${place} — ${n} etkinlik`,
+    tipCluster:     n => `${n} etkinlik`,
+    error:          e => `Hata: ${e}`,
+    locale:         'tr-TR',
+  },
+  en: {
+    loading:        'Loading…',
+    loadingEvents:  '— loading events',
+    eventsCount:    (n, c) => `${n} events · ${c} countries`,
+    event:          'Event',
+    goToEvent:      'Go to Event →',
+    events:         'Events',
+    countries:      'Countries',
+    searchTitle:    'Search',
+    searchPlaceholder: 'Search city or event…',
+    clusterSuffix:  n => `${n} events`,
+    clusterTitle:   (place, n) => `${place} — ${n} events`,
+    tipCluster:     n => `${n} events`,
+    error:          e => `Error: ${e}`,
+    locale:         'en-GB',
+  }
+};
+
+let lang = 'tr';
+
+function t(key, ...args) {
+  const val = STRINGS[lang][key];
+  return typeof val === 'function' ? val(...args) : val;
+}
+
+function applyLang() {
+  document.documentElement.lang = lang;
+  
+  const loadingTextEl = document.getElementById('loading-text');
+  if (loadingTextEl) {
+    loadingTextEl.textContent = t('loading');
+  }
+  
+  
+  document.getElementById('ptag-label').textContent     = t('event');
+  document.getElementById('plink').textContent          = t('goToEvent');
+  document.getElementById('stat-events').textContent    = t('events');
+  document.getElementById('stat-countries').textContent = t('countries');
+  document.getElementById('search-btn').title           = t('searchTitle');
+  document.getElementById('search').placeholder         = t('searchPlaceholder');
+  document.getElementById('l-tr').className = lang === 'tr' ? 'lactive' : '';
+  document.getElementById('l-en').className = lang === 'en' ? 'lactive' : '';
+
+  // Re-render open panel date if visible
+  if (panel.classList.contains('on') && _currentEvent) {
+    document.getElementById('pdate').textContent = fmtDate(_currentEvent.startDate, _currentEvent.endDate);
+  }
+  if (clist.classList.contains('on') && _currentCluster) {
+  const sorted = [..._currentCluster.events].sort(
+    (a, b) => new Date(a.startDate || 0) - new Date(b.startDate || 0)
+  );
+  const place = sorted[0].city || sorted[0].country;
+  document.getElementById('clist-title').textContent = t('clusterTitle', place, sorted.length);
+  renderClusterBody(sorted);
+  }
+}
+
+document.getElementById('lang-btn').addEventListener('click', () => {
+  lang = lang === 'tr' ? 'en' : 'tr';
+  applyLang();
+});
+
+// ── Cesium ──────────────────────────────────────────────────────────────────
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-// DEMO DATA
 const DATA_URL = './events.json';
 const DEMO_EVENTS = [
   {eventName:"Tango Summer Festival Heidelberg",startDate:"2026-09-07",endDate:"2026-09-13",city:"Heidelberg",country:"Germany",latitude:49.41,longitude:8.69,eventUrl:"https://www.tangopolix.com/tango-summer-festival-heidelberg-2026"},
@@ -168,7 +286,6 @@ const DEMO_EVENTS = [
   {eventName:"Moscow Tango Festival",startDate:"2026-10-15",endDate:"2026-10-19",city:"Moscow",country:"Russia",latitude:55.75,longitude:37.62,eventUrl:"#"},
 ];
 
-// CESIUM VIEWER
 const naturalEarthBase = Cesium.ImageryLayer.fromProviderAsync(
   Cesium.TileMapServiceImageryProvider.fromUrl(
     Cesium.buildModuleUrl('Assets/Textures/NaturalEarthII')
@@ -219,63 +336,42 @@ const camCtrl = viewer.scene.screenSpaceCameraController;
 camCtrl.minimumZoomDistance =    5000;
 camCtrl.maximumZoomDistance = 35000000;
 
-// CANVAS MARKER TEXTURES
 function makeSingleCanvas() {
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   const S   = 64 * dpr;
   const cv  = document.createElement('canvas');
-  cv.width  = S;
-  cv.height = S;
+  cv.width  = S; cv.height = S;
   const x   = cv.getContext('2d');
   const c   = S / 2;
-
-  x.shadowColor = 'rgba(0,0,0,0.65)';
-  x.shadowBlur  = 8 * dpr;
-  x.fillStyle   = 'rgba(11,18,32,0.93)';
+  x.shadowColor = 'rgba(0,0,0,0.65)'; x.shadowBlur = 8 * dpr;
+  x.fillStyle = 'rgba(11,18,32,0.93)';
   x.beginPath(); x.arc(c, c, 14 * dpr, 0, Math.PI * 2); x.fill();
-
-  x.shadowBlur   = 0;
-  x.strokeStyle  = 'rgba(201,168,76,0.9)';
-  x.lineWidth    = 2 * dpr;
+  x.shadowBlur = 0; x.strokeStyle = 'rgba(201,168,76,0.9)'; x.lineWidth = 2 * dpr;
   x.beginPath(); x.arc(c, c, 14 * dpr, 0, Math.PI * 2); x.stroke();
-
   x.fillStyle = '#c9a84c';
   x.beginPath(); x.arc(c, c, 5 * dpr, 0, Math.PI * 2); x.fill();
-
   return cv;
 }
 
 const _clusterCache = {};
 function makeClusterCanvas(n) {
-  const dpr   = Math.min(window.devicePixelRatio || 1, 2);
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
   const label = n > 99 ? '99+' : String(n);
-  const S     = 128 * dpr;
-  const cv    = document.createElement('canvas');
-  cv.width    = S;
-  cv.height   = S;
-  const x     = cv.getContext('2d');
-  const c     = S / 2;
-  const r     = 46 * dpr;
-
-  x.shadowColor   = 'rgba(0,0,0,0.7)';
-  x.shadowBlur    = 14 * dpr;
-  x.shadowOffsetY = 2 * dpr;
-  x.fillStyle     = 'rgba(11,18,32,0.95)';
+  const S = 128 * dpr;
+  const cv = document.createElement('canvas');
+  cv.width = S; cv.height = S;
+  const x = cv.getContext('2d');
+  const c = S / 2; const r = 46 * dpr;
+  x.shadowColor = 'rgba(0,0,0,0.7)'; x.shadowBlur = 14 * dpr; x.shadowOffsetY = 2 * dpr;
+  x.fillStyle = 'rgba(11,18,32,0.95)';
   x.beginPath(); x.arc(c, c, r, 0, Math.PI * 2); x.fill();
-
-  x.shadowBlur    = 0;
-  x.shadowOffsetY = 0;
-  x.strokeStyle   = 'rgba(201,168,76,0.9)';
-  x.lineWidth     = 4 * dpr;
+  x.shadowBlur = 0; x.shadowOffsetY = 0;
+  x.strokeStyle = 'rgba(201,168,76,0.9)'; x.lineWidth = 4 * dpr;
   x.beginPath(); x.arc(c, c, r, 0, Math.PI * 2); x.stroke();
-
   const fs = (label.length > 2 ? 32 : 36) * dpr;
-  x.fillStyle     = '#e2d9c8';
-  x.font          = `600 ${fs}px 'DM Sans', sans-serif`;
-  x.textAlign     = 'center';
-  x.textBaseline  = 'middle';
+  x.fillStyle = '#e2d9c8'; x.font = `600 ${fs}px 'DM Sans', sans-serif`;
+  x.textAlign = 'center'; x.textBaseline = 'middle';
   x.fillText(label, c, c + dpr);
-
   return cv;
 }
 
@@ -285,18 +381,12 @@ function getClusterCanvas(n) {
   return _clusterCache[n];
 }
 
-// CLUSTERING LOGIC
 function heightToGridDeg(h) {
-  if (h > 18000000) return 14;
-  if (h > 12000000) return 10;
-  if (h >  7000000) return 7;
-  if (h >  4000000) return 4;
-  if (h >  2000000) return 2.5;
-  if (h >  1000000) return 1.5;
-  if (h >   500000) return 0.8;
-  if (h >   200000) return 0.4;
-  if (h >    80000) return 0.15;
-  return 0.05;
+  if (h > 18000000) return 14; if (h > 12000000) return 10;
+  if (h >  7000000) return 7;  if (h >  4000000) return 4;
+  if (h >  2000000) return 2.5;if (h >  1000000) return 1.5;
+  if (h >   500000) return 0.8;if (h >   200000) return 0.4;
+  if (h >    80000) return 0.15; return 0.05;
 }
 
 function buildClusters(events, gridDeg) {
@@ -313,7 +403,6 @@ function buildClusters(events, gridDeg) {
   }));
 }
 
-// BILLBOARD COLLECTION
 const billboards = viewer.scene.primitives.add(
   new Cesium.BillboardCollection({ scene: viewer.scene })
 );
@@ -322,15 +411,15 @@ let EVENTS         = [];
 let lastGridDeg    = -1;
 let searchQuery    = '';
 let cachedClusters = null;
+let _currentEvent  = null;  // track currently shown event for date re-render
 
-// ── Tüm durum değişkenleri tek yerde ────────────────────────────────────────
-let _clustersSnapshot = null;   // touchstart anındaki cluster anlık görüntüsü
-let lastClickHandled  = 0;      // debounce: son işlenen click'in zaman damgası
-let longPressTimer    = null;   // uzun basma setTimeout referansı
-let longPressHandled  = false;  // uzun basma tamamlandıysa sonraki click'i yut
-let longPressOrigin   = null;   // canvas koordinatında başlangıç noktası
-const LONG_PRESS_MS   = 1000;   // uzun basma eşiği (ms)
-const LONG_PRESS_PX   = 12;     // bu kadar kayma uzun basmayı iptal eder
+let _clustersSnapshot = null;
+let lastClickHandled  = 0;
+let longPressTimer    = null;
+let longPressHandled  = false;
+let longPressOrigin   = null;
+const LONG_PRESS_MS   = 1000;
+const LONG_PRESS_PX   = 12;
 
 function getCamHeight() {
   try { return viewer.camera.positionCartographic.height; }
@@ -343,22 +432,17 @@ function refreshMarkers(height, force) {
     lastGridDeg    = gd;
     cachedClusters = buildClusters(EVENTS, gd);
   }
-
   billboards.removeAll();
-
   cachedClusters.forEach(cl => {
     if (!isVisibleFromCamera(cl.lat, cl.lon)) return;
-
     const isSingle = cl.count === 1;
     const canvas   = isSingle ? SINGLE_CANVAS : getClusterCanvas(cl.count);
     const size     = isSingle ? 26 : 44;
-
-    const matches = !searchQuery || cl.events.some(ev =>
+    const matches  = !searchQuery || cl.events.some(ev =>
       ev.city.toLowerCase().includes(searchQuery)    ||
       ev.country.toLowerCase().includes(searchQuery) ||
       ev.eventName.toLowerCase().includes(searchQuery)
     );
-
     const b = billboards.add({
       position:                 Cesium.Cartesian3.fromDegrees(cl.lon, cl.lat, 800),
       width:                    size,
@@ -367,11 +451,8 @@ function refreshMarkers(height, force) {
       horizontalOrigin:         Cesium.HorizontalOrigin.CENTER,
       disableDepthTestDistance: Number.POSITIVE_INFINITY,
       id:                       cl,
-      color: matches
-        ? Cesium.Color.WHITE
-        : new Cesium.Color(1, 1, 1, 0.07),
+      color: matches ? Cesium.Color.WHITE : new Cesium.Color(1, 1, 1, 0.07),
     });
-
     const imageId = isSingle ? 'marker-single' : `marker-cluster-${cl.count}`;
     b.setImage(imageId, canvas);
   });
@@ -399,16 +480,19 @@ const clist = document.getElementById('clist');
 const tipEl = document.getElementById('tip');
 
 function fmtDate(s, e) {
-  const fmt = d => new Date(d).toLocaleDateString('tr-TR',
+  const locale = t('locale');
+  const fmt = d => new Date(d).toLocaleDateString(locale,
     { day: 'numeric', month: 'short', year: 'numeric' });
   return fmt(s) + ' — ' + fmt(e);
 }
 
 function showPanel(ev) {
+  _currentEvent = ev;
   document.getElementById('pname').textContent    = ev.eventName;
   document.getElementById('pcity').textContent    = ev.city + ', ';
   document.getElementById('pcountry').textContent = ev.country;
   document.getElementById('pdate').textContent    = fmtDate(ev.startDate, ev.endDate);
+  document.getElementById('plink').textContent    = t('goToEvent');
   const lnk    = document.getElementById('plink');
   const noLink = !ev.eventUrl || ev.eventUrl === '#';
   lnk.href                = ev.eventUrl || '#';
@@ -418,20 +502,33 @@ function showPanel(ev) {
   clist.classList.remove('on');
 }
 
+let _currentCluster = null;
 function showCluster(cl) {
   if (cl.count === 1) { showPanel(cl.events[0]); return; }
+  _currentCluster = cl;
   const sorted = [...cl.events].sort(
     (a, b) => new Date(a.startDate || 0) - new Date(b.startDate || 0)
   );
-  document.getElementById('clist-title').textContent =
-    (sorted[0].city || sorted[0].country) + ' — ' + sorted.length + ' etkinlik';
+  const place = sorted[0].city || sorted[0].country;
+  document.getElementById('clist-title').textContent = t('clusterTitle', place, sorted.length);
+  renderClusterBody(sorted);
+  clist.classList.add('on');
+  panel.classList.remove('on');
+  if (isMobile) {
+    clist.style.pointerEvents = 'none';
+    setTimeout(() => { clist.style.pointerEvents = ''; }, 400);
+  }
+}
+
+function renderClusterBody(sorted) {
   const body = document.getElementById('clist-body');
+  const locale = t('locale');
   body.innerHTML = sorted.map((ev, i) =>
     `<div class="citem" data-i="${i}">
       <div class="citem-name">${ev.eventName}</div>
       <div class="citem-meta">${ev.city}, ${ev.country} · ${
         ev.startDate
-          ? new Date(ev.startDate).toLocaleDateString('tr-TR',
+          ? new Date(ev.startDate).toLocaleDateString(locale,
               { day: 'numeric', month: 'short', year: 'numeric' })
           : '—'
       }</div>
@@ -440,16 +537,6 @@ function showCluster(cl) {
   body.querySelectorAll('.citem').forEach(el =>
     el.addEventListener('click', () => showPanel(sorted[+el.dataset.i]))
   );
-  clist.classList.add('on');
-  panel.classList.remove('on');
-
-  // Android ghost click fix: sentetik DOM click'i absorbe etmek için
-  // clist açıldıktan hemen sonra kısa süre pointer-events'i kapat.
-  // (İnline style, CSS class'ından her zaman önce gelir.)
-  if (isMobile) {
-    clist.style.pointerEvents = 'none';
-    setTimeout(() => { clist.style.pointerEvents = ''; }, 400);
-  }
 }
 
 document.getElementById('pcls').addEventListener('click',     () => panel.classList.remove('on'));
@@ -466,21 +553,16 @@ function hideTip() { tipEl.classList.remove('on'); }
 // INPUT HANDLING
 const evHandler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
 
-// touchstart — snapshot al + uzun basma zamanlayıcısını başlat
 viewer.scene.canvas.addEventListener('touchstart', (e) => {
   _clustersSnapshot = cachedClusters ? cachedClusters.slice() : null;
   longPressHandled  = false;
-
   const t    = e.touches[0];
   const rect = viewer.scene.canvas.getBoundingClientRect();
   longPressOrigin = { x: t.clientX - rect.left, y: t.clientY - rect.top };
-
   clearTimeout(longPressTimer);
   longPressTimer = setTimeout(() => {
-    // 1 saniye doldu → en yakın cluster'ı bul ve göster
     const clusters = _clustersSnapshot || cachedClusters;
     if (!clusters || !longPressOrigin) return;
-
     let best = null, bestDist = 60;
     clusters.forEach(cl => {
       if (!isVisibleFromCamera(cl.lat, cl.lon)) return;
@@ -490,53 +572,35 @@ viewer.scene.canvas.addEventListener('touchstart', (e) => {
       const d = Math.hypot(sc.x - longPressOrigin.x, sc.y - longPressOrigin.y);
       if (d < bestDist) { bestDist = d; best = cl; }
     });
-
-    if (best) {
-      longPressHandled = true;
-      showCluster(best);
-    }
+    if (best) { longPressHandled = true; showCluster(best); }
   }, LONG_PRESS_MS);
 }, { passive: true });
 
-// touchmove — parmak kaydırılırsa uzun basmayı iptal et
 viewer.scene.canvas.addEventListener('touchmove', (e) => {
   if (!longPressOrigin || !longPressTimer) return;
-  const t    = e.touches[0];
-  const rect = viewer.scene.canvas.getBoundingClientRect();
-  const dx   = (t.clientX - rect.left) - longPressOrigin.x;
-  const dy   = (t.clientY - rect.top)  - longPressOrigin.y;
-  if (Math.hypot(dx, dy) > LONG_PRESS_PX) {
-    clearTimeout(longPressTimer);
-    longPressTimer = null;
-  }
+  const touch = e.touches[0];
+  const rect  = viewer.scene.canvas.getBoundingClientRect();
+  const dx = (touch.clientX - rect.left) - longPressOrigin.x;
+  const dy = (touch.clientY - rect.top)  - longPressOrigin.y;
+  if (Math.hypot(dx, dy) > LONG_PRESS_PX) { clearTimeout(longPressTimer); longPressTimer = null; }
 }, { passive: true });
 
-// touchend — zamanlayıcıyı temizle
 viewer.scene.canvas.addEventListener('touchend', () => {
   clearTimeout(longPressTimer);
   longPressTimer  = null;
   longPressOrigin = null;
 }, { passive: true });
 
-// LEFT_CLICK — Android çift-event düzeltmesi (debounce) + uzun basma koruması
 evHandler.setInputAction(mv => {
-
-  // Debounce: Android'in aynı dokunuştan ürettiği ikinci sentetik click'i yut
   const now = Date.now();
   if (now - lastClickHandled < 350) return;
-
-  // Uzun basma zaten cluster'ı gösterdiyse touchend'den gelen click'i atla
   if (longPressHandled) { longPressHandled = false; return; }
-
   lastClickHandled = now;
-
   let clusterData = null;
-
   if (isMobile) {
     const clusters = _clustersSnapshot || cachedClusters;
     if (clusters) {
-      let best     = null;
-      let bestDist = 48;
+      let best = null, bestDist = 48;
       clusters.forEach(cl => {
         if (!isVisibleFromCamera(cl.lat, cl.lon)) return;
         const wp = Cesium.Cartesian3.fromDegrees(cl.lon, cl.lat, 800);
@@ -551,13 +615,8 @@ evHandler.setInputAction(mv => {
     const hit = viewer.scene.pick(mv.position);
     if (Cesium.defined(hit) && hit.id && hit.id.events) clusterData = hit.id;
   }
-
-  if (clusterData) {
-    showCluster(clusterData);
-  } else {
-    panel.classList.remove('on');
-    clist.classList.remove('on');
-  }
+  if (clusterData) { showCluster(clusterData); }
+  else { panel.classList.remove('on'); clist.classList.remove('on'); }
 }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
 evHandler.setInputAction(mv => {
@@ -566,7 +625,7 @@ evHandler.setInputAction(mv => {
     const cl   = hit.id;
     const text = cl.count === 1
       ? `${cl.events[0].city}, ${cl.events[0].country}`
-      : `${cl.count} etkinlik`;
+      : t('tipCluster', cl.count);
     showTip(text, mv.endPosition.x, mv.endPosition.y);
     viewer.scene.canvas.style.cursor = 'pointer';
   } else {
@@ -601,9 +660,7 @@ searchEl.addEventListener('keydown', e => {
 function applySearch(q) {
   searchQuery = q;
   refreshMarkers(getCamHeight(), true);
-
   if (q.length < 2) return;
-
   const gd    = heightToGridDeg(getCamHeight());
   const first = buildClusters(EVENTS, gd).find(cl => cl.events.some(ev =>
     ev.city.toLowerCase().includes(q)    ||
@@ -631,14 +688,15 @@ async function loadData() {
     EVENTS = DEMO_EVENTS;
   }
   const countries = new Set(EVENTS.map(e => e.country));
-  document.getElementById('ev-count').textContent =
-    EVENTS.length + ' etkinlik · ' + countries.size + ' ülke';
   document.getElementById('s-total').textContent   = EVENTS.length;
   document.getElementById('s-country').textContent = countries.size;
   refreshMarkers(getCamHeight(), true);
 }
 
-// BOOT SEQUENCE
+// Initial lang render
+applyLang();
+
+// BOOT
 viewer.camera.setView({
   destination: Cesium.Cartesian3.fromDegrees(20, 18, 24000000),
   orientation: { heading: 0, pitch: -Cesium.Math.PI_OVER_TWO, roll: 0 },
@@ -660,7 +718,7 @@ loadData()
   })
   .catch(err => {
     const p = document.querySelector('#loading p');
-    if (p) p.textContent = 'Hata: ' + (err && err.message ? err.message : err);
+    if (p) p.textContent = t('error', err && err.message ? err.message : err);
   });
 </script>
 </body>
