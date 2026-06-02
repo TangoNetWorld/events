@@ -280,16 +280,6 @@
         "eventUrl": "https://www.tangoeswingamare.com"
     },
     {
-        "eventName": "2026 Busan Tango Weekend El Mar",
-        "startDate": "2026-08-27",
-        "endDate": "2026-08-31",
-        "city": "Busan",
-        "country": "South Korea",
-        "latitude": 35.1799528,
-        "longitude": 129.0752365,
-        "eventUrl": "https://www.facebook.com/groups/1447122242510285"
-    },
-    {
         "eventName": "Gotango Poznan Festival 2026",
         "startDate": "2026-08-28",
         "endDate": "2026-08-30",
@@ -430,16 +420,6 @@
         "eventUrl": "https://www.3x4tango.de"
     },
     {
-        "eventName": "Para Ti Tango Marathon ",
-        "startDate": "2026-10-29",
-        "endDate": "2026-11-02",
-        "city": "Boğazkent",
-        "country": "Türkiye",
-        "latitude": 36.854005,
-        "longitude": 31.1631917,
-        "eventUrl": "https://www.paratitangomarathon.com"
-    },
-    {
         "eventName": "Milonguero Milonguero",
         "startDate": "2026-10-29",
         "endDate": "2026-11-01",
@@ -458,16 +438,6 @@
         "latitude": 45.2208641,
         "longitude": 10.037038,
         "eventUrl": "https://palladinotango.com/3-cremona-tango-festival/"
-    },
-    {
-        "eventName": "Sol De Invierno Tango Marathon 5th Edition",
-        "startDate": "2026-11-05",
-        "endDate": "2026-11-10",
-        "city": "Okurcalar",
-        "country": "Türkiye",
-        "latitude": 36.6491805,
-        "longitude": 31.7058991,
-        "eventUrl": "https://facebook.com/events/s/sol-de-invierno-tango-marathon/948555610880360/"
     },
     {
         "eventName": "13. Sultans Of Istanbul Tango Marathon  Festival  Cup 2026",
@@ -2300,16 +2270,6 @@
         "eventUrl": "https://a-los-amigos.com/"
     },
     {
-        "eventName": "Busan Tango Weekend \"El Mar\"",
-        "startDate": "2026-08-27",
-        "endDate": "2026-08-31",
-        "city": "Busan",
-        "country": "South Korea",
-        "latitude": 35.1799528,
-        "longitude": 129.0752365,
-        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F1447122242510285"
-    },
-    {
         "eventName": "cincOH 5th Edition Chicago Tango Marathon",
         "startDate": "2026-08-28",
         "endDate": "2026-08-30",
@@ -3513,7 +3473,7 @@
         "eventName": "Para Ti Tango Maraton",
         "startDate": "2026-10-29",
         "endDate": "2026-11-02",
-        "city": "Serik",
+        "city": "Antalya",
         "country": "Türkiye",
         "latitude": 36.9168682,
         "longitude": 31.1047478,
@@ -3777,7 +3737,7 @@
         "country": "China",
         "latitude": 31.2312707,
         "longitude": 121.4700152,
-        "eventUrl": "https://www.facebook.com/events/1523230772760902/1523230779427568?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22user_timeline%22%7D%2C%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D"
+        "eventUrl": "https://www.facebook.com/events/1523230772760902/"
     },
     {
         "eventName": "Othello Tango Camp",
@@ -3798,16 +3758,6 @@
         "latitude": 35.996653,
         "longitude": -78.9018053,
         "eventUrl": "https://theflowtango.com/go/g35ermla?v=form-1&s&"
-    },
-    {
-        "eventName": "More Than Tango (Marathon & Festival & Cup)",
-        "startDate": "2026-11-19",
-        "endDate": "2026-11-22",
-        "city": "Shanghai",
-        "country": "China",
-        "latitude": 31.2312707,
-        "longitude": 121.4700152,
-        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fphoto%3Ffbid%3D10163563453974380%26set%3Da.476328494379"
     },
     {
         "eventName": "17th Vienna Calling Tango Marathon 2026 Winter Edition",
@@ -4500,14 +4450,14 @@
         "eventUrl": "http://www.laesencia.hk/"
     },
     {
-        "eventName": "7th Philippines Tango Adicto Marathon 2026",
-        "startDate": "2026-01-14",
+        "eventName": "8th Philippines Tango Adicto Marathon 2027",
+        "startDate": "2026-01-13",
         "endDate": "2026-01-17",
         "city": "Manila",
         "country": "Philippines",
         "latitude": 14.55951,
         "longitude": 121.021231,
-        "eventUrl": "https://enjoytango.com/app/show.php?aid=1883"
+        "eventUrl": "https://www.facebook.com/groups/31800727566/user/100003179177904/"
     },
     {
         "eventName": "Natalia Games & Gabriel Angio - Beijing",
@@ -4861,7 +4811,7 @@
     },
     {
         "eventName": "2026 釜山探戈周末 Busan Tango Weekend - El Mar",
-        "startDate": "2026-08-26",
+        "startDate": "2026-08-27",
         "endDate": "2026-08-31",
         "city": "Busan",
         "country": "South Korea",
@@ -4898,16 +4848,6 @@
         "latitude": 31.180579,
         "longitude": 121.441123,
         "eventUrl": "http://www.mitango.cn"
-    },
-    {
-        "eventName": "MTT上海探戈盛会 More Than Tango(Marathon, Festival, Cup)",
-        "startDate": "2026-11-18",
-        "endDate": "2026-11-22",
-        "city": "Shanghai",
-        "country": "China",
-        "latitude": 31.21,
-        "longitude": 121.47,
-        "eventUrl": "https://enjoytango.com/app/show.php?aid=2555"
     },
     {
         "eventName": "Marplanazo",
