@@ -558,8 +558,22 @@ const iviewExt       = document.getElementById('iview-ext');
 const iviewFbLink    = document.getElementById('iview-fb-link');
 const iviewFallback  = document.getElementById('iview-fallback');
 let   _iviewTimer    = null;
+let   _iviewActive   = false;
 
 document.getElementById('iview-back').addEventListener('click', closeIview);
+
+function _checkIframeBlocked() {
+  if (!_iviewActive) return;
+  clearTimeout(_iviewTimer);
+  try {
+    const doc = iviewFrame.contentDocument || iviewFrame.contentWindow.document;
+    if (!doc || doc.URL === 'about:blank' || doc.URL === '') {
+      iviewFrame.style.display    = 'none';
+      iviewFallback.style.display = 'flex';
+    }
+  } catch (_) {
+  }
+}
 
 function openIview(url) {
   if (!url || url === '#') return;
@@ -570,31 +584,28 @@ function openIview(url) {
   }
 
   clearTimeout(_iviewTimer);
+  _iviewActive                  = true;
   iviewUrlEl.textContent        = url;
   iviewExt.href                 = url;
   iviewFbLink.href              = url;
+  iviewFrame.onload             = null;
   iviewFrame.style.display      = 'block';
   iviewFallback.style.display   = 'none';
-  iviewFrame.src                = url;
   iview.classList.add('on');
 
-  _iviewTimer = setTimeout(() => {
-    try {
-      const doc = iviewFrame.contentDocument || iviewFrame.contentWindow.document;
-      if (!doc || doc.URL === 'about:blank' || doc.URL === '') {
-        iviewFrame.style.display    = 'none';
-        iviewFallback.style.display = 'flex';
-      }
-    } catch (_) {
-    }
-  }, 5000);
+  iviewFrame.onload = _checkIframeBlocked;
+  _iviewTimer = setTimeout(_checkIframeBlocked, 2000);
+
+  iviewFrame.src = url;
 }
 
 function closeIview() {
   clearTimeout(_iviewTimer);
+  _iviewActive = false;
   iview.classList.remove('on');
-  // Animasyon bitince iframe'i sıfırla
+
   setTimeout(() => {
+    iviewFrame.onload           = null;
     iviewFrame.src              = 'about:blank';
     iviewFrame.style.display    = 'block';
     iviewFallback.style.display = 'none';
