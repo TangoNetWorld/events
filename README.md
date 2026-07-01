@@ -14,7 +14,7 @@ Event information is collected from publicly available sources and is displayed 
 
 ## Related Project
 
-TangoNet World is part of the **TangoNet** ecosystem, a platform designed to help the tango community find, share, and promote tango events worldwide.
+TangoNet World is part of the [TangoNet](https://apps.apple.com/tr/app/tangonet/id6743403721?l=tr) ecosystem, a platform designed to help the tango community find, share, and promote tango events worldwide.
 
 ## Disclaimer
 
