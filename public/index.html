@@ -815,6 +815,19 @@ async function loadData() {
   } catch (_) {
     EVENTS = DEMO_EVENTS;
   }
+
+  // Bazı kaynaklarda aynı görünen metinler farklı Unicode normalizasyon
+  // biçimleriyle (NFC/NFD) kodlanmış olabilir (örn. "Türkiye" iki farklı
+  // bayt dizisiyle gelebilir). Bu da aynı ülkenin listede iki kez, farklı
+  // iki değer olarak görünmesine yol açar. Burada tüm metin alanlarını
+  // tek bir standart forma (NFC) normalize ediyoruz.
+  EVENTS = EVENTS.map(ev => ({
+    ...ev,
+    eventName: typeof ev.eventName === 'string' ? ev.eventName.normalize('NFC').trim() : ev.eventName,
+    city:      typeof ev.city      === 'string' ? ev.city.normalize('NFC').trim()      : ev.city,
+    country:   typeof ev.country   === 'string' ? ev.country.normalize('NFC').trim()   : ev.country,
+  }));
+
   const countries = new Set(EVENTS.map(e => e.country));
   document.getElementById('s-total').textContent   = EVENTS.length;
   document.getElementById('s-country').textContent = countries.size;
