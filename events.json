@@ -1,85 +1,5 @@
 [
     {
-        "eventName": "International Trani Tango Xiii Ed",
-        "startDate": "2026-07-05",
-        "endDate": "2026-07-12",
-        "city": "Trani",
-        "country": "Italy",
-        "latitude": 41.2781809,
-        "longitude": 16.4186056,
-        "eventUrl": "https://internationaltranitango.com/"
-    },
-    {
-        "eventName": "Under The Stars",
-        "startDate": "2026-07-09",
-        "endDate": "2026-07-12",
-        "city": "Heraklion",
-        "country": "Greece",
-        "latitude": 35.33908,
-        "longitude": 25.1332843,
-        "eventUrl": "https://www.tangoneon.gr/"
-    },
-    {
-        "eventName": "San Sebastian Tango Gathering",
-        "startDate": "2026-07-10",
-        "endDate": "2026-07-12",
-        "city": "Donostia / San Sebastián",
-        "country": "Spain",
-        "latitude": 43.3224219,
-        "longitude": -1.9838889,
-        "eventUrl": "https://agatatango.es/encuentro-2026/"
-    },
-    {
-        "eventName": "34th Taboe Tango Camp",
-        "startDate": "2026-07-12",
-        "endDate": "2026-07-19",
-        "city": "Austerlitz",
-        "country": "Netherlands",
-        "latitude": 52.078001,
-        "longitude": 5.3160068,
-        "eventUrl": "https://www.tangoatelier.nl"
-    },
-    {
-        "eventName": "Tangosummer In The City 2026 3rd Edition",
-        "startDate": "2026-07-16",
-        "endDate": "2026-07-19",
-        "city": "Frankfurt am Main",
-        "country": "Germany",
-        "latitude": 50.1106444,
-        "longitude": 8.6820917,
-        "eventUrl": "https://www.tangosummer.de"
-    },
-    {
-        "eventName": "Tan Gogh   Four Days Of Summer Tango In Holland",
-        "startDate": "2026-07-23",
-        "endDate": "2026-07-26",
-        "city": "Oegstgeest",
-        "country": "Netherlands",
-        "latitude": 52.185433,
-        "longitude": 4.4738856,
-        "eventUrl": "https://tangogh.com/"
-    },
-    {
-        "eventName": "Aix Les Bains Tango Festival 2026",
-        "startDate": "2026-07-23",
-        "endDate": "2026-07-26",
-        "city": "Aix-les-Bains",
-        "country": "France",
-        "latitude": 45.6886292,
-        "longitude": 5.9146362,
-        "eventUrl": "https://www.aixlesbainstangofestival.fr/"
-    },
-    {
-        "eventName": "Pietragrande Tango Summer 2026",
-        "startDate": "2026-07-25",
-        "endDate": "2026-07-28",
-        "city": "Caminia",
-        "country": "Italy",
-        "latitude": 38.750289,
-        "longitude": 16.5606776,
-        "eventUrl": "https://fb.me/e/4soBu5G8u"
-    },
-    {
         "eventName": "Int'l Tango Holidays Lago Maggiore Summer 2026 Week 1",
         "startDate": "2026-07-26",
         "endDate": "2026-08-02",
@@ -88,6 +8,16 @@
         "latitude": 45.9089158,
         "longitude": 8.5050171,
         "eventUrl": "https://www.tangueria.be/tangoholidays2026/"
+    },
+    {
+        "eventName": "19th Intensive Dance Summer School Of Tango Argentino In Zagreb",
+        "startDate": "2026-07-27",
+        "endDate": "2026-08-01",
+        "city": "Zagreb",
+        "country": "Croatia",
+        "latitude": 45.8130967,
+        "longitude": 15.9772795,
+        "eventUrl": "https://www.libertango.eu/intensive-summer-school-of-argentine-tango"
     },
     {
         "eventName": "Tango By Széna   Košice Workshop",
@@ -130,6 +60,16 @@
         "eventUrl": "https://summertangotreat.com/"
     },
     {
+        "eventName": "Milonga Mit Live Musik",
+        "startDate": "2026-08-04",
+        "endDate": "2026-08-04",
+        "city": "Wiesbaden",
+        "country": "Germany",
+        "latitude": 50.0820384,
+        "longitude": 8.2416556,
+        "eventUrl": "https://www.tangonj.de/event/milonga-mit-live-musik-mujeres/"
+    },
+    {
         "eventName": "14th Varna Summer Tango Marathon, 6 10 August 2026",
         "startDate": "2026-08-06",
         "endDate": "2026-08-10",
@@ -138,16 +78,6 @@
         "latitude": 43.2073873,
         "longitude": 27.9166653,
         "eventUrl": "https://www.varnatangoevent.com"
-    },
-    {
-        "eventName": "Tango   Traditional And Nuevo   Camp Pilsen",
-        "startDate": "2026-08-06",
-        "endDate": "2026-08-09",
-        "city": "Plzeň",
-        "country": "Czechia",
-        "latitude": 49.7477415,
-        "longitude": 13.3775249,
-        "eventUrl": "https://bailemos.cz/en/camp.html"
     },
     {
         "eventName": "Tallinn Tango Weekend",
@@ -240,13 +170,23 @@
         "eventUrl": "https://www.facebook.com/groups/1447122242510285"
     },
     {
+        "eventName": "Festa Del Tango Bodrum Vol. 2",
+        "startDate": "2026-08-27",
+        "endDate": "2026-08-31",
+        "city": "Bodrum",
+        "country": "Türkiye",
+        "latitude": 37.0343987,
+        "longitude": 27.430651,
+        "eventUrl": "https://www.tangopolix.com/festa-del-tango-bodrum-vol-2"
+    },
+    {
         "eventName": "Gotango Poznan Festival 2026",
         "startDate": "2026-08-28",
         "endDate": "2026-08-30",
         "city": "Poznań",
         "country": "Poland",
-        "latitude": 52.4082663,
-        "longitude": 16.9335199,
+        "latitude": 52.4006632,
+        "longitude": 16.9197326,
         "eventUrl": "https://gotangofestival.com/"
     },
     {
@@ -268,6 +208,16 @@
         "latitude": 38.275048,
         "longitude": 16.2973958,
         "eventUrl": "https://www.tangoeswingamare.com"
+    },
+    {
+        "eventName": "Tan Go! Festival 2026 (7th Edition)",
+        "startDate": "2026-09-04",
+        "endDate": "2026-09-06",
+        "city": "Aschaffenburg",
+        "country": "Germany",
+        "latitude": 49.9706701,
+        "longitude": 9.1384857,
+        "eventUrl": "https://leonardoycarinatangorojo.com/tango-festival/"
     },
     {
         "eventName": "Tango Journey To Rimini",
@@ -445,8 +395,8 @@
         "endDate": "2026-10-04",
         "city": "Kirchzarten",
         "country": "Germany",
-        "latitude": 47.9651461,
-        "longitude": 7.9573306,
+        "latitude": 47.9626264,
+        "longitude": 7.954201,
         "eventUrl": "https://swktm.de"
     },
     {
@@ -480,6 +430,16 @@
         "eventUrl": "https://www.tangopolix.com/tango-festival-groningen-2026"
     },
     {
+        "eventName": "Alma De Tango Festival",
+        "startDate": "2026-10-15",
+        "endDate": "2026-10-18",
+        "city": "London",
+        "country": "United Kingdom",
+        "latitude": 51.5074456,
+        "longitude": -0.1277653,
+        "eventUrl": "https://www.almadetangofestivallondon.co.uk/"
+    },
+    {
         "eventName": "Brnos Aires Tango Marathon",
         "startDate": "2026-10-16",
         "endDate": "2026-10-18",
@@ -500,6 +460,16 @@
         "eventUrl": "https://www.3x4tango.de"
     },
     {
+        "eventName": "Prague Tango Weekender With Carlos & Mirella 17 To 18 Oct. 2026",
+        "startDate": "2026-10-17",
+        "endDate": "2026-10-18",
+        "city": "Praha 1",
+        "country": "Czechia",
+        "latitude": 50.0855166,
+        "longitude": 14.4106698,
+        "eventUrl": "https://bailemos.cz/en/weekend.html"
+    },
+    {
         "eventName": "Milonguero Milonguero",
         "startDate": "2026-10-29",
         "endDate": "2026-11-01",
@@ -510,16 +480,6 @@
         "eventUrl": "https://www.milonguero-milonguero.com/"
     },
     {
-        "eventName": "Para Ti Tango Marathon ",
-        "startDate": "2026-10-29",
-        "endDate": "2026-11-02",
-        "city": "Boğazkent",
-        "country": "Türkiye",
-        "latitude": 36.854005,
-        "longitude": 31.1631917,
-        "eventUrl": "https://www.paratitangomarathon.com"
-    },
-    {
         "eventName": "3rd Cremona Tango Festival 2026",
         "startDate": "2026-10-30",
         "endDate": "2026-11-01",
@@ -528,6 +488,16 @@
         "latitude": 45.2208641,
         "longitude": 10.037038,
         "eventUrl": "https://palladinotango.com/3-cremona-tango-festival/"
+    },
+    {
+        "eventName": "Goa International Tango Festival",
+        "startDate": "2026-10-30",
+        "endDate": "2026-11-01",
+        "city": "Siridao",
+        "country": "India",
+        "latitude": 15.4314563,
+        "longitude": 73.863498,
+        "eventUrl": "https://www.tangopolix.com/goa-international-tango-festival"
     },
     {
         "eventName": "Prague Tango Tour With Alejandra Mantinan",
@@ -548,6 +518,16 @@
         "latitude": 40.416782,
         "longitude": -3.703507,
         "eventUrl": "https://www.tangopolix.com/madrid-vip-tango-experience"
+    },
+    {
+        "eventName": "X Festival Ataque Tango Denia Spain",
+        "startDate": "2026-11-04",
+        "endDate": "2026-11-08",
+        "city": "Dénia",
+        "country": "Spain",
+        "latitude": 38.8408382,
+        "longitude": 0.1061105,
+        "eventUrl": "https://www.tangopolix.com/x-festival-ataque-tango-denia"
     },
     {
         "eventName": "Sol De Invierno Tango Marathon 5th Edition",
@@ -630,6 +610,16 @@
         "eventUrl": "https://viennacallingtangomarathon.com/"
     },
     {
+        "eventName": "Tang'auch",
+        "startDate": "2026-11-20",
+        "endDate": "2026-11-22",
+        "city": "Auch",
+        "country": "France",
+        "latitude": 43.6463558,
+        "longitude": 0.5850507,
+        "eventUrl": "https://www.tangopolix.com/tang-auch-2026"
+    },
+    {
         "eventName": "Baden Baden Tango Festival",
         "startDate": "2026-11-26",
         "endDate": "2026-11-29",
@@ -710,6 +700,16 @@
         "eventUrl": "https://palladinotango.com/"
     },
     {
+        "eventName": "Noches De Ronda",
+        "startDate": "2027-01-28",
+        "endDate": "2027-01-31",
+        "city": "Karlsruhe",
+        "country": "Germany",
+        "latitude": 49.0068705,
+        "longitude": 8.4034195,
+        "eventUrl": "https://siempre-tango.de/en/Noches-de-Ronda/"
+    },
+    {
         "eventName": "Poco Loco Marathonito",
         "startDate": "2027-01-29",
         "endDate": "2027-01-31",
@@ -740,7 +740,7 @@
         "eventUrl": "https://www.tangopolix.com/tahiti-tango-holidays-feb-2027"
     },
     {
-        "eventName": "Odessa & Istanbul Winter Tango Marathon",
+        "eventName": "Odessa Istanbul Tango Marathon",
         "startDate": "2027-02-10",
         "endDate": "2027-02-15",
         "city": "Pendik",
@@ -748,6 +748,26 @@
         "latitude": 40.8768715,
         "longitude": 29.2349672,
         "eventUrl": "https://www.odessaistanbultango.com"
+    },
+    {
+        "eventName": "Otra Luna 2027   Tango Marathon In Paris",
+        "startDate": "2027-02-12",
+        "endDate": "2027-02-14",
+        "city": "Paris",
+        "country": "France",
+        "latitude": 48.8534951,
+        "longitude": 2.3483915,
+        "eventUrl": "https://otraluna.paris"
+    },
+    {
+        "eventName": "Discover Vietnam & Cambodia Culture And Tango Marathon",
+        "startDate": "2027-03-21",
+        "endDate": "2027-04-12",
+        "city": "Hanoi",
+        "country": "Vietnam",
+        "latitude": 21.0283334,
+        "longitude": 105.854041,
+        "eventUrl": "https://tangoinvietnam.wordpress.com/about/"
     },
     {
         "eventName": "Corazon Berlin Tango Marathon",
@@ -758,6 +778,16 @@
         "latitude": 52.5173885,
         "longitude": 13.3951309,
         "eventUrl": "https://berlintangomarathon.com/"
+    },
+    {
+        "eventName": "Liège Tango Marathon",
+        "startDate": "2027-04-08",
+        "endDate": "2027-04-11",
+        "city": "Liège",
+        "country": "Belgium",
+        "latitude": 50.6450944,
+        "longitude": 5.5736112,
+        "eventUrl": "https://liegetangomarathon.com"
     },
     {
         "eventName": "Neo Immersion   The Neo Tango Marathon Berlin",
@@ -800,6 +830,26 @@
         "eventUrl": "https://www.intango.de/en/neonights"
     },
     {
+        "eventName": "Alondra Tango Marathon In Provence",
+        "startDate": "2027-04-30",
+        "endDate": "2027-05-02",
+        "city": "Marseille",
+        "country": "France",
+        "latitude": 43.2963986,
+        "longitude": 5.3777888,
+        "eventUrl": "https://www.tangopolix.com/alondra-tango-marathon-in-provence"
+    },
+    {
+        "eventName": "Xv Festival Internacional Ataque Tango Benidorm ",
+        "startDate": "2027-05-05",
+        "endDate": "2027-05-09",
+        "city": "Benidorm",
+        "country": "Spain",
+        "latitude": 38.5406255,
+        "longitude": -0.1290929,
+        "eventUrl": "https://www.tangopolix.com/xv-festival-internacional-ataque-tango-benidorm"
+    },
+    {
         "eventName": "Heidelberg Live Weekend",
         "startDate": "2027-05-14",
         "endDate": "2027-05-17",
@@ -810,324 +860,14 @@
         "eventUrl": "https://intango.de/en/heidelberg-live/"
     },
     {
-        "eventName": "Crete Tango Holiday with Matias Iriarte and Susanne Mühlhaus",
-        "startDate": "2026-06-20",
-        "endDate": "2026-07-04",
-        "city": "Myrthianos Plakias",
-        "country": "Greece",
-        "latitude": null,
-        "longitude": null,
-        "eventUrl": "https://sutango.com/"
-    },
-    {
-        "eventName": "Tango Holidays with Lucia & Gerry 6th edition",
-        "startDate": "2026-06-25",
-        "endDate": "2026-07-01",
-        "city": "Cagliari",
-        "country": "Italy",
-        "latitude": 39.2171994,
-        "longitude": 9.113311,
-        "eventUrl": "https://lucia-gerry.wixsite.com/tangoholidays"
-    },
-    {
-        "eventName": "Vacanza Tango a Paros!",
-        "startDate": "2026-06-25",
-        "endDate": "2026-07-01",
-        "city": "Paros",
-        "country": "Greece",
-        "latitude": 37.0870636,
-        "longitude": 25.1509969,
-        "eventUrl": "https://www.facebook.com/events/944487741255003/"
-    },
-    {
-        "eventName": "Tango & Yoga Retreat with Roxana Suarez",
-        "startDate": "2026-06-29",
-        "endDate": "2026-07-04",
-        "city": "Crespin",
+        "eventName": "Alondra Tango Marathon In Provence",
+        "startDate": "2027-09-24",
+        "endDate": "2027-09-26",
+        "city": "Marseille",
         "country": "France",
-        "latitude": 50.4177989,
-        "longitude": 3.6613971,
-        "eventUrl": "https://www.domaineharmonie.fr/en/ladies-tango-retreat"
-    },
-    {
-        "eventName": "LasTango",
-        "startDate": "2026-07-01",
-        "endDate": "2026-07-05",
-        "city": "Lastovo",
-        "country": "Croatia",
-        "latitude": 42.750601,
-        "longitude": 16.8799043,
-        "eventUrl": "https://www.tangoandme.hr/hr/festivali/lastango"
-    },
-    {
-        "eventName": "Windy City Tango Festival 2026",
-        "startDate": "2026-07-02",
-        "endDate": "2026-07-06",
-        "city": "Chicago",
-        "country": "United States",
-        "latitude": 41.8755616,
-        "longitude": -87.6244212,
-        "eventUrl": "https://wctf.312tango.com/"
-    },
-    {
-        "eventName": "Encuentro Paisaje Milonguero",
-        "startDate": "2026-07-02",
-        "endDate": "2026-07-05",
-        "city": "Panticosa",
-        "country": "Spain",
-        "latitude": 42.7236963,
-        "longitude": -0.2843924,
-        "eventUrl": "https://www.infotango2.com/paisajemilonguero"
-    },
-    {
-        "eventName": "Valencia Tango Festival",
-        "startDate": "2026-07-02",
-        "endDate": "2026-07-05",
-        "city": "València",
-        "country": "Spain",
-        "latitude": 39.4697065,
-        "longitude": -0.3763353,
-        "eventUrl": "https://valenciatangofestival.com"
-    },
-    {
-        "eventName": "Nyári nyaralós TANGÓ Tábor- Börzsöny",
-        "startDate": "2026-07-02",
-        "endDate": "2026-07-06",
-        "city": "Nagybörzsöny",
-        "country": "Hungary",
-        "latitude": 47.9360037,
-        "longitude": 18.8243865,
-        "eventUrl": "https://www.facebook.com/events/s/nyari-nyaralos-tango-tabor-bor/2791436124541648/"
-    },
-    {
-        "eventName": "Dream Granada Tango Summer",
-        "startDate": "2026-07-02",
-        "endDate": "2026-07-05",
-        "city": "Granada",
-        "country": "Spain",
-        "latitude": 37.1734995,
-        "longitude": -3.5995337,
-        "eventUrl": "https://granadatango.com/es/"
-    },
-    {
-        "eventName": "Sueña Granada Tango",
-        "startDate": "2026-07-02",
-        "endDate": "2026-07-02",
-        "city": "Granada",
-        "country": "Spain",
-        "latitude": 37.1734995,
-        "longitude": -3.5995337,
-        "eventUrl": "https://www.facebook.com/events/s/suena-granada-tango/2111850356337896/"
-    },
-    {
-        "eventName": "EL REY Tango Marathon",
-        "startDate": "2026-07-03",
-        "endDate": "2026-07-05",
-        "city": "Langeais",
-        "country": "France",
-        "latitude": 47.3239338,
-        "longitude": 0.4072956,
-        "eventUrl": "https://www.facebook.com/events/s/el-rey-tango-marathon-3-4-5-ju/2268442896945845/"
-    },
-    {
-        "eventName": "Papusa Tango Marathon Munich",
-        "startDate": "2026-07-03",
-        "endDate": "2026-07-05",
-        "city": "Munich",
-        "country": "Germany",
-        "latitude": 48.1371079,
-        "longitude": 11.5753822,
-        "eventUrl": "https://www.papusa.de/kopie-von-events"
-    },
-    {
-        "eventName": "Singapore Tango Marathon 2026",
-        "startDate": "2026-07-03",
-        "endDate": "2026-07-05",
-        "city": "Singapore",
-        "country": "Singapore",
-        "latitude": 1.2899175,
-        "longitude": 103.8519072,
-        "eventUrl": "https://www.tangopura.com/singapore-tango-marathon-2026"
-    },
-    {
-        "eventName": "Festival Tangopostale",
-        "startDate": "2026-07-03",
-        "endDate": "2026-07-12",
-        "city": "Toulouse",
-        "country": "France",
-        "latitude": 43.6044638,
-        "longitude": 1.4442433,
-        "eventUrl": "https://tangopostale.com/"
-    },
-    {
-        "eventName": "Singapore Tango Marathon",
-        "startDate": "2026-07-03",
-        "endDate": "2026-07-05",
-        "city": "Singapore",
-        "country": "Singapore",
-        "latitude": 1.2899175,
-        "longitude": 103.8519072,
-        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F1595489810766319%2F"
-    },
-    {
-        "eventName": "neoTango Rave",
-        "startDate": "2026-07-03",
-        "endDate": "2026-07-05",
-        "city": "Bremen",
-        "country": "Germany",
-        "latitude": 53.0758196,
-        "longitude": 8.8071646,
-        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F196389513728835%2F"
-    },
-    {
-        "eventName": "Majowe Tango Wakacje z Mają i Darkiem",
-        "startDate": "2026-07-04",
-        "endDate": "2026-07-10",
-        "city": "Kłomnice",
-        "country": "Poland",
-        "latitude": 50.9208773,
-        "longitude": 19.3541823,
-        "eventUrl": "https://www.facebook.com/events/s/majowe-tango-wakacje-z-maja-i-/4403603593242656/"
-    },
-    {
-        "eventName": "Felicia Mini Marathon",
-        "startDate": "2026-07-04",
-        "endDate": "2026-07-05",
-        "city": "Eindhoven",
-        "country": "Netherlands",
-        "latitude": 51.4485569,
-        "longitude": 5.4501225,
-        "eventUrl": "https://www.facebook.com/events/s/felicia-mini-marathon-djs-rash/3042441679300321/"
-    },
-    {
-        "eventName": "Lady’s Tango Festival",
-        "startDate": "2026-07-04",
-        "endDate": "2026-07-05",
-        "city": "Bielsko-Biala",
-        "country": "Poland",
-        "latitude": 49.822118,
-        "longitude": 19.0448936,
-        "eventUrl": "https://www.facebook.com/events/s/johana-copes-w-bielsku-bia%C5%82ej-/2382811668865881/"
-    },
-    {
-        "eventName": "Tango holidays in France with Daniel Nacucchio and Cristina Sosa",
-        "startDate": "2026-07-05",
-        "endDate": "2026-07-11",
-        "city": "Crespin",
-        "country": "France",
-        "latitude": 50.4177989,
-        "longitude": 3.6613971,
-        "eventUrl": "https://www.domaineharmonie.fr/en/tango-vakantieweken"
-    },
-    {
-        "eventName": "TANGOévasion 2026",
-        "startDate": "2026-07-05",
-        "endDate": "2026-07-18",
-        "city": "Moustiers-Sainte-Marie",
-        "country": "France",
-        "latitude": 43.8460089,
-        "longitude": 6.2217604,
-        "eventUrl": "https://tangoevasion.ch/"
-    },
-    {
-        "eventName": "Summer Tango Camp",
-        "startDate": "2026-07-07",
-        "endDate": "2026-07-25",
-        "city": "Kolasin",
-        "country": "Montenegro",
-        "latitude": 42.8238387,
-        "longitude": 19.5218005,
-        "eventUrl": "https://www.facebook.com/summertangocamp"
-    },
-    {
-        "eventName": "KL Tango Fiesta",
-        "startDate": "2026-07-09",
-        "endDate": "2026-07-12",
-        "city": "Kuala Lumpur",
-        "country": "Malaysia",
-        "latitude": 3.1516964,
-        "longitude": 101.6942371,
-        "eventUrl": "https://www.facebook.com/Kltangofiesta/"
-    },
-    {
-        "eventName": "TANGO.2 festival",
-        "startDate": "2026-07-09",
-        "endDate": "2026-07-12",
-        "city": "Avrig",
-        "country": "Romania",
-        "latitude": 45.7256555,
-        "longitude": 24.3770302,
-        "eventUrl": "https://tangocat.net/go/TANGO.2+festival/10579"
-    },
-    {
-        "eventName": "OMG Tango Marathon Basel",
-        "startDate": "2026-07-09",
-        "endDate": "2026-07-12",
-        "city": "Basel",
-        "country": "Switzerland",
-        "latitude": 47.5581077,
-        "longitude": 7.5878261,
-        "eventUrl": "https://omg-tango.org/"
-    },
-    {
-        "eventName": "Tango.2 - Una emoción",
-        "startDate": "2026-07-09",
-        "endDate": "2026-07-12",
-        "city": "Avrig",
-        "country": "Romania",
-        "latitude": 45.7256555,
-        "longitude": 24.3770302,
-        "eventUrl": "https://www.facebook.com/events/s/%F0%9D%97%A7%F0%9D%97%AE%F0%9D%97%BB%F0%9D%97%B4%F0%9D%97%BC%F0%9D%9F%AE-%F0%9D%97%A8%F0%9D%97%BB%F0%9D%97%AE-%F0%9D%97%B2%F0%9D%97%BA%F0%9D%97%BC%F0%9D%97%B0%F0%9D%97%B6%F0%9D%97%BC%F0%9D%97%BB-/767282409041271/"
-    },
-    {
-        "eventName": "Casimiro Tango Festival '26",
-        "startDate": "2026-07-10",
-        "endDate": "2026-07-12",
-        "city": "Kazimierz Dolny",
-        "country": "Poland",
-        "latitude": 51.3220058,
-        "longitude": 21.947372,
-        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F2119688602123461%2F"
-    },
-    {
-        "eventName": "Thanari Tango Argentino Retreat",
-        "startDate": "2026-07-10",
-        "endDate": "2026-07-12",
-        "city": "Brandenburg",
-        "country": "Germany",
-        "latitude": 52.8455492,
-        "longitude": 13.2461296,
-        "eventUrl": "https://thanaritangoretreat.com/"
-    },
-    {
-        "eventName": "Torun Milonga Festival + Pierniki Summer '26",
-        "startDate": "2026-07-10",
-        "endDate": "2026-07-12",
-        "city": "Toruń",
-        "country": "Poland",
-        "latitude": 53.0102721,
-        "longitude": 18.6048094,
-        "eventUrl": "https://www.facebook.com/events/s/torun-milonga-festival-piernik/4034546796847958/"
-    },
-    {
-        "eventName": "Connecticut Tango Festival 17th Edition",
-        "startDate": "2026-07-10",
-        "endDate": "2026-07-19",
-        "city": "Milford",
-        "country": "United States",
-        "latitude": 41.2222218,
-        "longitude": -73.0570603,
-        "eventUrl": "https://www.cttangofest.org/fest.php"
-    },
-    {
-        "eventName": "Encuentro 2026 - Agata Tango",
-        "startDate": "2026-07-10",
-        "endDate": "2026-07-12",
-        "city": "Donostia / San Sebastián",
-        "country": "Spain",
-        "latitude": 43.3224219,
-        "longitude": -1.9838889,
-        "eventUrl": "https://agatatango.es/encuentro-2026/"
+        "latitude": 43.2963986,
+        "longitude": 5.3777888,
+        "eventUrl": "https://www.tangopolix.com/alondra-tango-marathon-in-provence-2027"
     },
     {
         "eventName": "20° Festival Internazionale Vacanze in Puglia",
@@ -1140,304 +880,14 @@
         "eventUrl": "https://www.tangovacanza.com/"
     },
     {
-        "eventName": "KIZUNA Tokyo Tango Experience 2026",
-        "startDate": "2026-07-11",
-        "endDate": "2026-07-11",
-        "city": "Tokyo",
-        "country": "Japan",
-        "latitude": 35.6768601,
-        "longitude": 139.7638947,
-        "eventUrl": "https://www.facebook.com/events/s/kizuna-tokyo-tango-experience-/1457834019468462/"
-    },
-    {
-        "eventName": "Tango Holidays in France with Fernanda Japas & Alberto Sendra",
-        "startDate": "2026-07-12",
-        "endDate": "2026-07-18",
-        "city": "Crespin",
-        "country": "France",
-        "latitude": 50.4177989,
-        "longitude": 3.6613971,
-        "eventUrl": "https://www.domaineharmonie.fr/en/tango-vakantieweken"
-    },
-    {
-        "eventName": "34th International Taboe Tango Camp",
-        "startDate": "2026-07-12",
-        "endDate": "2026-07-20",
-        "city": "Austerlitz",
-        "country": "Netherlands",
-        "latitude": 52.078001,
-        "longitude": 5.3160068,
-        "eventUrl": "https://www.tangoatelier.nl/index.php?id=home&taal=eng"
-    },
-    {
-        "eventName": "Tango Wakacje z Magdą i Ezequielem Pałac w Nieznanicach",
-        "startDate": "2026-07-13",
-        "endDate": "2026-07-19",
-        "city": "Kłomnice",
-        "country": "Poland",
-        "latitude": 50.9208773,
-        "longitude": 19.3541823,
-        "eventUrl": "https://www.facebook.com/events/s/tango-wakacje-z-magda-i-ezequi/789089020386328/"
-    },
-    {
-        "eventName": "¡Dale Folklore! - dance camp 2026 (7th edition!)",
-        "startDate": "2026-07-14",
-        "endDate": "2026-07-19",
-        "city": "Purda",
-        "country": "Poland",
-        "latitude": 53.7086289,
-        "longitude": 20.7033951,
-        "eventUrl": "https://www.facebook.com/events/s/dale-folklore-dance-camp-2026-/710380802096253/"
-    },
-    {
-        "eventName": "Berlin Festival Milonguero",
-        "startDate": "2026-07-16",
-        "endDate": "2026-07-19",
-        "city": "Berlin",
-        "country": "Germany",
-        "latitude": 52.5173885,
-        "longitude": 13.3951309,
-        "eventUrl": "https://berlinfestivalmilonguero.com/"
-    },
-    {
-        "eventName": "Amado encuentro milonguero",
-        "startDate": "2026-07-16",
-        "endDate": "2026-07-19",
-        "city": "Baden bei Wien",
-        "country": "Austria",
-        "latitude": 48.0076713,
-        "longitude": 16.2343693,
-        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F1070284960186637%2F"
-    },
-    {
-        "eventName": "Summer Tango Vibe",
-        "startDate": "2026-07-16",
-        "endDate": "2026-07-19",
-        "city": "Kłodzko",
-        "country": "Poland",
-        "latitude": 50.438651,
-        "longitude": 16.6551878,
-        "eventUrl": "https://www.facebook.com/events/1376900043790215/"
-    },
-    {
-        "eventName": "Tangosummer in the City 2026",
-        "startDate": "2026-07-16",
-        "endDate": "2026-07-19",
-        "city": "Frankfurt am Main",
-        "country": "Germany",
-        "latitude": 50.1106444,
-        "longitude": 8.6820917,
-        "eventUrl": "https://tangocat.net/go/Tangosummer+in+the+City+2026/10277"
-    },
-    {
-        "eventName": "Riga Summer Tango Marathon by El Gordo",
-        "startDate": "2026-07-16",
-        "endDate": "2026-07-20",
-        "city": "Riga",
-        "country": "Latvia",
-        "latitude": 56.9493977,
-        "longitude": 24.1051846,
-        "eventUrl": "https://www.facebook.com/events/1363235045104866/"
-    },
-    {
-        "eventName": "Contango Tango Festival",
-        "startDate": "2026-07-17",
-        "endDate": "2026-07-19",
-        "city": "Freiburg",
-        "country": "Germany",
-        "latitude": 47.9960901,
-        "longitude": 7.8494005,
-        "eventUrl": "https://contact-yourself.com/festival/"
-    },
-    {
-        "eventName": "Encuentro Milonguero Luz del Norte",
-        "startDate": "2026-07-17",
-        "endDate": "2026-07-19",
-        "city": "Stockholm",
-        "country": "Sweden",
-        "latitude": 59.3251172,
-        "longitude": 18.0710935,
-        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F631498378683688%2F"
-    },
-    {
-        "eventName": "International Polish Tango Cup",
-        "startDate": "2026-07-17",
-        "endDate": "2026-07-19",
-        "city": "Kraków",
-        "country": "Poland",
-        "latitude": 50.0469432,
-        "longitude": 19.9971534,
-        "eventUrl": "https://www.facebook.com/events/s/international-polish-tango-cup/918369977816266/"
-    },
-    {
-        "eventName": "Tango Neo & Nuevo Marathon \"Nuevo Emotions in Prague\"",
-        "startDate": "2026-07-17",
-        "endDate": "2026-07-19",
-        "city": "Prague",
-        "country": "Czechia",
-        "latitude": 50.0874654,
-        "longitude": 14.4212535,
-        "eventUrl": "https://www.facebook.com/events/1308623014085866/"
-    },
-    {
-        "eventName": "Tango Marathon Pamplona",
-        "startDate": "2026-07-17",
-        "endDate": "2026-07-19",
-        "city": "Pamplona",
-        "country": "Spain",
-        "latitude": 42.815686,
-        "longitude": -1.6522353,
-        "eventUrl": "https://www.facebook.com/story.php?story_fbid=1374382081193495&id=100058651481422&rdid=lQrnw702OvaMo8GA&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fp%2F1EvsahF9Kr%2F"
-    },
-    {
-        "eventName": "Festival de Prayssac",
-        "startDate": "2026-07-18",
-        "endDate": "2026-07-26",
-        "city": "Prayssac",
-        "country": "France",
-        "latitude": 44.5101,
-        "longitude": 1.18691,
-        "eventUrl": "https://www.letempsdutango.com/index.php?page=festival-prayssac-accueil&lang=fr"
-    },
-    {
-        "eventName": "Tango Holidays in France with Anibal Lautaro & Valeria Maside",
-        "startDate": "2026-07-19",
-        "endDate": "2026-07-25",
-        "city": "Crespin",
-        "country": "France",
-        "latitude": 50.4177989,
-        "longitude": 3.6613971,
-        "eventUrl": "https://www.domaineharmonie.fr/en/tango-vakantieweken"
-    },
-    {
-        "eventName": "International Both Role Tango Retreat for women at Kvinnohöjden",
-        "startDate": "2026-07-19",
-        "endDate": "2026-07-25",
-        "city": "Storsund",
-        "country": "Sweden",
-        "latitude": 65.5765944,
-        "longitude": 20.6254692,
-        "eventUrl": "https://tangoqueerer.se/both-role-tango-retreat-at-kvinnohojden/"
-    },
-    {
-        "eventName": "Tarantango 2026",
-        "startDate": "2026-07-20",
-        "endDate": "2026-07-27",
-        "city": "Castro Marina",
-        "country": "Italy",
-        "latitude": 40.0000276,
-        "longitude": 18.4223798,
-        "eventUrl": "https://www.tangoallegria.it/tarantango-tango-e-pizzica"
-    },
-    {
-        "eventName": "Rococo Tango Festival",
-        "startDate": "2026-07-23",
-        "endDate": "2026-07-26",
-        "city": "Żagań",
-        "country": "Poland",
-        "latitude": 51.6153231,
-        "longitude": 15.3007662,
-        "eventUrl": "https://www.facebook.com/events/1520999092286451/"
-    },
-    {
-        "eventName": "Tangowe lato w Kikowie",
-        "startDate": "2026-07-23",
-        "endDate": "2026-07-26",
-        "city": "Solec-Zdrój",
-        "country": "Poland",
-        "latitude": 50.3675523,
-        "longitude": 20.8871758,
-        "eventUrl": "https://www.facebook.com/events/s/tangowe-lato-w-kikowie/1956311974995642/"
-    },
-    {
-        "eventName": "Amber Sea Liepaja Tango Marathon 2026",
-        "startDate": "2026-07-23",
-        "endDate": "2026-07-26",
-        "city": "Liepāja",
-        "country": "Latvia",
-        "latitude": 56.5048435,
-        "longitude": 21.0070903,
-        "eventUrl": "https://www.facebook.com/events/1100010532052651/"
-    },
-    {
-        "eventName": "Ostuni Mediterranean Tango Meeting",
-        "startDate": "2026-07-23",
-        "endDate": "2026-07-26",
-        "city": "Ostuni",
-        "country": "Italy",
-        "latitude": 40.727631,
-        "longitude": 17.576406,
-        "eventUrl": "https://www.facebook.com/events/891318833663560/?acontext=%7B%22event_action_history%22%3A[%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D"
-    },
-    {
-        "eventName": "Carnaval de mi barrio 2026",
-        "startDate": "2026-07-23",
-        "endDate": "2026-07-26",
-        "city": "Cologne",
-        "country": "Germany",
-        "latitude": 50.938361,
-        "longitude": 6.959974,
-        "eventUrl": "https://www.carnavaldemibarrio.com/"
-    },
-    {
-        "eventName": "Endorfina Tango Marathon #14",
-        "startDate": "2026-07-24",
-        "endDate": "2026-07-26",
-        "city": "Toulouse",
-        "country": "France",
-        "latitude": 43.6044638,
-        "longitude": 1.4442433,
-        "eventUrl": "https://endorfinatango.jimdoweb.com/marathon-endorfina-2026/"
-    },
-    {
-        "eventName": "Ithaca Tango Weekend Where Tango Flows Marathon Edition",
-        "startDate": "2026-07-24",
-        "endDate": "2026-07-26",
-        "city": "Ithaca",
-        "country": "United States",
-        "latitude": 42.4374175,
-        "longitude": -76.5483724,
-        "eventUrl": "https://www.ithacatangoweekend.com/home"
-    },
-    {
-        "eventName": "TanGogh",
-        "startDate": "2026-07-24",
-        "endDate": "2026-07-26",
-        "city": "Leiden",
-        "country": "Netherlands",
-        "latitude": 52.1594747,
-        "longitude": 4.4908843,
-        "eventUrl": "https://tangogh.com/"
-    },
-    {
-        "eventName": "16th Shanghai International Tango Festival",
-        "startDate": "2026-07-24",
-        "endDate": "2026-07-27",
-        "city": "Shanghai",
-        "country": "China",
-        "latitude": 31.2312707,
-        "longitude": 121.4700152,
-        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fphoto%3Ffbid%3D10163736318180435"
-    },
-    {
-        "eventName": "Pietragrande Tango Summer 2026",
+        "eventName": "Neo Tango Summer Camp 2026",
         "startDate": "2026-07-25",
-        "endDate": "2026-07-28",
-        "city": "Stalettì",
-        "country": "Italy",
-        "latitude": 38.765485,
-        "longitude": 16.537605,
-        "eventUrl": "https://www.facebook.com/events/1110584901265894/?acontext=%7B%22event_action_history%22%3A[%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D%2C%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22surface%22%2C%22surface%22%3A%22permalink%22%7D%2C%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22surface%22%2C%22surface%22%3A%22edit_dialog%22%7D]%2C%22ref_notif_type%22%3Anull%7D"
-    },
-    {
-        "eventName": "7th Thessaloniki Tango Party",
-        "startDate": "2026-07-26",
-        "endDate": "2026-07-31",
-        "city": "Thessaloniki",
-        "country": "Greece",
-        "latitude": 40.6403167,
-        "longitude": 22.9352716,
-        "eventUrl": "https://thessalonikitangoparty.com/"
+        "endDate": "2026-08-02",
+        "city": "Nossen",
+        "country": "Germany",
+        "latitude": 51.0565934,
+        "longitude": 13.2980726,
+        "eventUrl": "https://www.facebook.com/events/s/neo-tango-summer-camp-2026/1894213797787580/"
     },
     {
         "eventName": "Tango Holidays in France with Anibal Lautaro & Valeria Maside",
@@ -1450,16 +900,6 @@
         "eventUrl": "https://www.domaineharmonie.fr/en/tango-vakantieweken"
     },
     {
-        "eventName": "International Tango Holidays Lago Maggiore",
-        "startDate": "2026-07-26",
-        "endDate": "2026-08-08",
-        "city": "Baveno",
-        "country": "Italy",
-        "latitude": 45.9089158,
-        "longitude": 8.5050171,
-        "eventUrl": "https://tangocat.net/go/International+Tango+Holidays+Lago+Maggiore/10095"
-    },
-    {
         "eventName": "Vieste Tango Beach 2026",
         "startDate": "2026-07-26",
         "endDate": "2026-08-02",
@@ -1468,16 +908,6 @@
         "latitude": 41.8827595,
         "longitude": 16.1791791,
         "eventUrl": "https://www.elementotango.it/eventi/vieste-tango-beach-2026..-succedono-magie.html"
-    },
-    {
-        "eventName": "Naples Summer Tango Marathon",
-        "startDate": "2026-07-26",
-        "endDate": "2026-07-26",
-        "city": "Naples",
-        "country": "Italy",
-        "latitude": 40.8358846,
-        "longitude": 14.2487679,
-        "eventUrl": "https://www.naplesummerembrace.it/"
     },
     {
         "eventName": "Tango Retreat 2026 - Sebastian Jimenez & Tatiana Tativany",
@@ -1498,26 +928,6 @@
         "latitude": 47.3555532,
         "longitude": 0.8088264,
         "eventUrl": "https://www.billetweb.fr/festivalito-de-tango-argentin-a-veretz-ete-2026"
-    },
-    {
-        "eventName": "Milonga Queer Conce",
-        "startDate": "2026-07-27",
-        "endDate": "2026-07-27",
-        "city": "Concepción",
-        "country": "Chile",
-        "latitude": -36.8270698,
-        "longitude": -73.0502064,
-        "eventUrl": "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Flibertangoqueerconce%3Figsh%3DMWxxNjJseXF5Yzh2Yg%253D%253D&is_from_rle"
-    },
-    {
-        "eventName": "La Finca del Tango Vol.14 x Finca Bavaria",
-        "startDate": "2026-07-27",
-        "endDate": "2026-07-31",
-        "city": "Cham",
-        "country": "Germany",
-        "latitude": 49.2178194,
-        "longitude": 12.6663832,
-        "eventUrl": "https://linktr.ee/lafincadeltango"
     },
     {
         "eventName": "8 Paestum Tango Summer",
@@ -1605,8 +1015,8 @@
         "endDate": "2026-08-02",
         "city": "Warsaw",
         "country": "Poland",
-        "latitude": 52.2333742,
-        "longitude": 21.0711489,
+        "latitude": 52.2319581,
+        "longitude": 21.0067249,
         "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F934819758901800%2F"
     },
     {
@@ -1640,6 +1050,16 @@
         "eventUrl": "https://www.tangoallegria.it/ischia-tango-meeting-mare-terme"
     },
     {
+        "eventName": "Encuentro de Tango Agosto en Oviedo 2026",
+        "startDate": "2026-08-06",
+        "endDate": "2026-08-09",
+        "city": "Oviedo",
+        "country": "Spain",
+        "latitude": 43.3533452,
+        "longitude": -5.8795096,
+        "eventUrl": "https://oviedomilonguero.com/es/eventos/agosto/"
+    },
+    {
         "eventName": "Tallinn Tango Weekend",
         "startDate": "2026-08-06",
         "endDate": "2026-08-09",
@@ -1650,24 +1070,14 @@
         "eventUrl": "https://www.tangoporttallinn.com/"
     },
     {
-        "eventName": "14th Varna Summer TANGO Marathon",
-        "startDate": "2026-08-06",
-        "endDate": "2026-08-10",
-        "city": "Varna",
-        "country": "Bulgaria",
-        "latitude": 43.2073873,
-        "longitude": 27.9166653,
-        "eventUrl": "https://www.facebook.com/events/1116097346678088"
-    },
-    {
-        "eventName": "La Frontera Edición Especial",
+        "eventName": "Tango Mountain Retreat",
         "startDate": "2026-08-07",
         "endDate": "2026-08-09",
-        "city": "Cieszyn",
+        "city": "Stryszawa",
         "country": "Poland",
-        "latitude": 49.7488623,
-        "longitude": 18.6334308,
-        "eventUrl": "https://www.facebook.com/events/988763766872999/"
+        "latitude": 49.713531,
+        "longitude": 19.5206116,
+        "eventUrl": "https://www.facebook.com/events/s/tango-mountain-retreat/1599127475339101/"
     },
     {
         "eventName": "10th Winter Tango in Hanmer",
@@ -1678,6 +1088,26 @@
         "latitude": -42.5217947,
         "longitude": 172.8302995,
         "eventUrl": "https://tangolibre.com/winter-tango-in-hanmer-no-teaching-or-performances.html"
+    },
+    {
+        "eventName": "Tango CAMP Szczawnica LATO 2026",
+        "startDate": "2026-08-08",
+        "endDate": "2026-08-14",
+        "city": "Szczawnica",
+        "country": "Poland",
+        "latitude": 49.4266299,
+        "longitude": 20.4761439,
+        "eventUrl": "https://www.facebook.com/events/s/tango-camp-szczawnica-lato-202/2070090527717440/"
+    },
+    {
+        "eventName": "La Frontera Edición Especial",
+        "startDate": "2026-08-08",
+        "endDate": "2026-08-08",
+        "city": "Cieszyn",
+        "country": "Poland",
+        "latitude": 49.7488623,
+        "longitude": 18.6334308,
+        "eventUrl": "https://www.facebook.com/events/988763766872999/"
     },
     {
         "eventName": "Tango Holidays with Carlos & Mirella Santos David",
@@ -1707,7 +1137,7 @@
         "country": "France",
         "latitude": 47.86047,
         "longitude": -2.23681,
-        "eventUrl": "https://www.facebook.com/groups/1736777200118843/permalink/2452605551869334/?rdid=QgmudUSqN9KTtvH4&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fp%2F1H1M4uLJST%2F"
+        "eventUrl": "https://www.facebook.com/groups/1736777200118843/permalink/2452605551869334/?rdid=Gfsqn9qGaIM57jkc&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fp%2F1H1M4uLJST%2F"
     },
     {
         "eventName": "NYA Tango Summer Meeting",
@@ -1850,16 +1280,6 @@
         "eventUrl": "https://www.andravaningen.com/gothenburg-tango-festival-2026"
     },
     {
-        "eventName": "Tango&swing...a mare!",
-        "startDate": "2026-08-16",
-        "endDate": "2026-09-06",
-        "city": "Siderno",
-        "country": "Italy",
-        "latitude": 38.275048,
-        "longitude": 16.2973958,
-        "eventUrl": "https://www.tangoeswingamare.com/"
-    },
-    {
         "eventName": "Intensive tango holiday in France with Anibal Lautaro & Valeria Maside",
         "startDate": "2026-08-16",
         "endDate": "2026-08-22",
@@ -1868,16 +1288,6 @@
         "latitude": 50.4177989,
         "longitude": 3.6613971,
         "eventUrl": "https://www.domaineharmonie.fr/en/tango-vakantieweken"
-    },
-    {
-        "eventName": "Balkanico Tango Fest",
-        "startDate": "2026-08-20",
-        "endDate": "2026-08-23",
-        "city": "Stanišić",
-        "country": "Serbia",
-        "latitude": 45.9385555,
-        "longitude": 19.1645788,
-        "eventUrl": "https://www.balkanicotangofest.com/"
     },
     {
         "eventName": "Tango Monterey Bay Marathon",
@@ -1890,13 +1300,23 @@
         "eventUrl": "https://www.montereytangomarathon.com/"
     },
     {
+        "eventName": "Balkanico Tango Fest",
+        "startDate": "2026-08-20",
+        "endDate": "2026-08-23",
+        "city": "Bijeljina",
+        "country": "Bosnia and Herzegovina",
+        "latitude": 44.7568464,
+        "longitude": 19.2156628,
+        "eventUrl": "http://www.balkanicotangofest.com"
+    },
+    {
         "eventName": "Karpaty Tango Festival",
         "startDate": "2026-08-20",
         "endDate": "2026-08-23",
         "city": "Rzeszów",
         "country": "Poland",
-        "latitude": 50.0374531,
-        "longitude": 22.0047174,
+        "latitude": 50.013319,
+        "longitude": 22.0161677,
         "eventUrl": "https://www.tangokarpaty.pl/"
     },
     {
@@ -1955,8 +1375,8 @@
         "endDate": "2026-08-24",
         "city": "Budapest",
         "country": "Hungary",
-        "latitude": 47.4813896,
-        "longitude": 19.1457723,
+        "latitude": 47.4978789,
+        "longitude": 19.0402383,
         "eventUrl": "https://www.facebook.com/events/s/danube-tango-marathon-summer-p/906470688823710/"
     },
     {
@@ -1980,16 +1400,6 @@
         "eventUrl": "https://www.jejusummmilonga.com/"
     },
     {
-        "eventName": "Friends, Fjord and Tango",
-        "startDate": "2026-08-21",
-        "endDate": "2026-08-23",
-        "city": "Oslo",
-        "country": "Norway",
-        "latitude": 59.9133301,
-        "longitude": 10.7389701,
-        "eventUrl": "https://www.facebook.com/events/815673827994113/?acontext=%7B%22ref%22%3A%2252%22%2C%22action_history%22%3A%22%5B%7B%5C%22surface%5C%22%3A%5C%22share_link%5C%22%2C%5C%22mechanism%5C%22%3A%5C%22share_link%5C%22%2C%5C%22extra_data%5C%22%3A%7B%5C%22invite_link_id%5C%22%3A2598290523851477%7D%7D%5D%22%7D"
-    },
-    {
         "eventName": "Retraite Tango Avec Emilie & Pablo Tegli",
         "startDate": "2026-08-23",
         "endDate": "2026-08-29",
@@ -2008,26 +1418,6 @@
         "latitude": 35.3676472,
         "longitude": 24.4736079,
         "eventUrl": "https://a-los-amigos.com/"
-    },
-    {
-        "eventName": "Busan Tango Weekend \"El Mar\"",
-        "startDate": "2026-08-27",
-        "endDate": "2026-08-31",
-        "city": "Busan",
-        "country": "South Korea",
-        "latitude": 35.1799528,
-        "longitude": 129.0752365,
-        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F1447122242510285"
-    },
-    {
-        "eventName": "Festa del Tango Bodrum Vol. 2",
-        "startDate": "2026-08-27",
-        "endDate": "2026-08-31",
-        "city": "Bodrum",
-        "country": "Türkiye",
-        "latitude": 37.0343987,
-        "longitude": 27.430651,
-        "eventUrl": "https://www.festadeltango.com/en/"
     },
     {
         "eventName": "cincOH 5th Edition Chicago Tango Marathon",
@@ -2100,6 +1490,16 @@
         "eventUrl": "http://praguetangomarathon.com/"
     },
     {
+        "eventName": "Weekend Złotej Ery",
+        "startDate": "2026-08-29",
+        "endDate": "2026-08-30",
+        "city": "Brzeg",
+        "country": "Poland",
+        "latitude": 50.8589384,
+        "longitude": 17.4639654,
+        "eventUrl": "https://www.facebook.com/events/s/weekend-z%C5%82otej-ery/1402289351740283/"
+    },
+    {
         "eventName": "TangoAires Lake Merritt Marathon",
         "startDate": "2026-08-29",
         "endDate": "2026-08-30",
@@ -2128,6 +1528,16 @@
         "latitude": 40.0000276,
         "longitude": 18.4223798,
         "eventUrl": "https://www.tangoallegria.it/tango-in-salento-tango-a-settembre"
+    },
+    {
+        "eventName": "Montreal Tango Festival 2026 Edition",
+        "startDate": "2026-09-02",
+        "endDate": "2026-09-07",
+        "city": "Montreal",
+        "country": "Canada",
+        "latitude": 45.5031824,
+        "longitude": -73.5698065,
+        "eventUrl": "https://www.facebook.com/events/s/montreal-tango-festival-2026-e/1120791146444248/"
     },
     {
         "eventName": "TangoFemme Retreat with Agostina Tarchini",
@@ -2165,29 +1575,19 @@
         "endDate": "2026-09-06",
         "city": "Szczecin",
         "country": "Poland",
-        "latitude": 53.4301818,
-        "longitude": 14.5509623,
-        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F1389787895699220%2F"
+        "latitude": 53.4298114,
+        "longitude": 14.5928676,
+        "eventUrl": "https://tanda.com.pl/maraton/"
     },
     {
         "eventName": "Blush Tango Camp",
         "startDate": "2026-09-03",
         "endDate": "2026-09-06",
         "city": "Foça",
-        "country": "Türkiye",
+        "country": "Türkiye",
         "latitude": 38.668916,
         "longitude": 26.7547749,
         "eventUrl": "https://blushtangocamp.com/"
-    },
-    {
-        "eventName": "TanGO! Festival 6",
-        "startDate": "2026-09-04",
-        "endDate": "2026-09-06",
-        "city": "Aschaffenburg",
-        "country": "Germany",
-        "latitude": 49.9706701,
-        "longitude": 9.1384857,
-        "eventUrl": "https://leonardoycarinatangorojo.com/tangofestival/"
     },
     {
         "eventName": "Tangoweekend Magdeburg",
@@ -2200,16 +1600,6 @@
         "eventUrl": "https://tango-md.de/tangoweekend/"
     },
     {
-        "eventName": "TanGO 7",
-        "startDate": "2026-09-04",
-        "endDate": "2026-09-06",
-        "city": "Aschaffenburg",
-        "country": "Germany",
-        "latitude": 49.9706701,
-        "longitude": 9.1384857,
-        "eventUrl": "https://leonardoycarinatangorojo.com/tango-festival/"
-    },
-    {
         "eventName": "La Ronda Tango Meeting",
         "startDate": "2026-09-04",
         "endDate": "2026-09-06",
@@ -2220,14 +1610,14 @@
         "eventUrl": "https://www.facebook.com/people/La-Ronda-Tango-Meeting/61557086520709/"
     },
     {
-        "eventName": "TanGO! Festival",
-        "startDate": "2026-09-04",
+        "eventName": "Felicia Tango marathon",
+        "startDate": "2026-09-05",
         "endDate": "2026-09-06",
-        "city": "Aschaffenburg",
-        "country": "Germany",
-        "latitude": 49.9706701,
-        "longitude": 9.1384857,
-        "eventUrl": "https://leonardoycarinatangorojo.com/tango-festival/"
+        "city": "Eindhoven",
+        "country": "Netherlands",
+        "latitude": 51.4392648,
+        "longitude": 5.478633,
+        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fevents%2Fs%2Ffelicia-mini-marathon-djs-vinc%2F942736145439570%2F"
     },
     {
         "eventName": "Preciosa Tango Weekend",
@@ -2250,11 +1640,21 @@
         "eventUrl": "https://festival.presentango.com/es/"
     },
     {
+        "eventName": "Tangoloft Vienna Weekend",
+        "startDate": "2026-09-10",
+        "endDate": "2026-09-13",
+        "city": "Vienna",
+        "country": "Austria",
+        "latitude": 48.2083537,
+        "longitude": 16.3725042,
+        "eventUrl": "https://www.facebook.com/events/s/1-tangoloft-vienna-weekend/782187221514595/"
+    },
+    {
         "eventName": "Chillout Tango Marathon",
         "startDate": "2026-09-10",
         "endDate": "2026-09-14",
         "city": "Antalya",
-        "country": "Türkiye",
+        "country": "Türkiye",
         "latitude": 36.8865728,
         "longitude": 30.7030242,
         "eventUrl": "https://chillouttangomarathon.com/"
@@ -2277,7 +1677,7 @@
         "country": "Estonia",
         "latitude": 59.437242,
         "longitude": 24.7572693,
-        "eventUrl": "https://www.facebook.com/events/s/los-amigos-en-tallinn-tango-ma/2515893542214218/?mibextid=wwXIfr&rdid=z0YskbRiLEoXFigY&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F18utZ5LYRd%2F%3Fmibextid%3DwwXIfr"
+        "eventUrl": "https://www.facebook.com/events/s/los-amigos-en-tallinn-tango-ma/2515893542214218/?mibextid=wwXIfr&rdid=1NEOKY8uDEd6Oks0&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F18utZ5LYRd%2F%3Fmibextid%3DwwXIfr"
     },
     {
         "eventName": "Mil Pasos De Tango",
@@ -2295,8 +1695,8 @@
         "endDate": "2026-09-13",
         "city": "Gdańsk",
         "country": "Poland",
-        "latitude": 54.3482907,
-        "longitude": 18.6540233,
+        "latitude": 54.4288032,
+        "longitude": 18.798327,
         "eventUrl": "https://www.facebook.com/events/s/tango-camp-baltic-3-cia-edycja/868560985803813/"
     },
     {
@@ -2308,6 +1708,16 @@
         "latitude": 46.2377582,
         "longitude": 15.6269871,
         "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F672772513835957%2F"
+    },
+    {
+        "eventName": "Sunny Beach Tango Festival",
+        "startDate": "2026-09-11",
+        "endDate": "2026-09-13",
+        "city": "Sunny Beach",
+        "country": "Bulgaria",
+        "latitude": 42.6876062,
+        "longitude": 27.7125906,
+        "eventUrl": "https://sunnybeach-tango.com/"
     },
     {
         "eventName": "Milongi Babiego Lata - czwarta edycja",
@@ -2370,6 +1780,16 @@
         "eventUrl": "https://www.moonlighttango.org/"
     },
     {
+        "eventName": "Beltango & Friends Festival",
+        "startDate": "2026-09-16",
+        "endDate": "2026-09-20",
+        "city": "Belgrade",
+        "country": "Serbia",
+        "latitude": 44.8153318,
+        "longitude": 20.4456588,
+        "eventUrl": "http://www.beltango.com/festival/2026"
+    },
+    {
         "eventName": "Split Tango Weekend",
         "startDate": "2026-09-17",
         "endDate": "2026-09-21",
@@ -2377,7 +1797,7 @@
         "country": "Croatia",
         "latitude": 43.5116383,
         "longitude": 16.4399659,
-        "eventUrl": "https://tangocat.net/go/Split+Tango+Weekend/10313"
+        "eventUrl": "https://www.tangoandme.hr/hr/festivali/split-tango-weekend"
     },
     {
         "eventName": "Sofia Tango Festival",
@@ -2404,7 +1824,7 @@
         "startDate": "2026-09-17",
         "endDate": "2026-09-21",
         "city": "Fethiye",
-        "country": "Türkiye",
+        "country": "Türkiye",
         "latitude": 36.6221154,
         "longitude": 29.1153384,
         "eventUrl": "https://www.fethiyetangocamp.com/"
@@ -2414,7 +1834,7 @@
         "startDate": "2026-09-17",
         "endDate": "2026-09-20",
         "city": "Istanbul",
-        "country": "Türkiye",
+        "country": "Türkiye",
         "latitude": 41.006381,
         "longitude": 28.9758715,
         "eventUrl": "https://www.orientetm.com/"
@@ -2435,8 +1855,8 @@
         "endDate": "2026-09-20",
         "city": "Wrocław",
         "country": "Poland",
-        "latitude": 51.1263106,
-        "longitude": 16.9781963,
+        "latitude": 51.1089776,
+        "longitude": 17.0326689,
         "eventUrl": "https://www.facebook.com/people/Inspiracja-Wroc%C5%82aw-Tango-Marathon/100080981756895/"
     },
     {
@@ -2505,8 +1925,8 @@
         "endDate": "2026-09-25",
         "city": "Warsaw",
         "country": "Poland",
-        "latitude": 52.2333742,
-        "longitude": 21.0711489,
+        "latitude": 52.2319581,
+        "longitude": 21.0067249,
         "eventUrl": "https://julzabowskx.hotglue.me/warsawqueertangofest"
     },
     {
@@ -2540,21 +1960,11 @@
         "eventUrl": "https://www.almatango.eu/"
     },
     {
-        "eventName": "Delhi Tango Festival",
-        "startDate": "2026-09-24",
-        "endDate": "2026-09-27",
-        "city": "New Delhi",
-        "country": "India",
-        "latitude": 28.6138954,
-        "longitude": 77.2090057,
-        "eventUrl": "https://delhitangofestival.in"
-    },
-    {
         "eventName": "Ephesus Tango Marathon",
         "startDate": "2026-09-24",
         "endDate": "2026-09-28",
         "city": "Şirince",
-        "country": "Türkiye",
+        "country": "Türkiye",
         "latitude": 37.9423518,
         "longitude": 27.4328343,
         "eventUrl": "https://www.ephesustangomarathon.com"
@@ -2587,7 +1997,7 @@
         "country": "France",
         "latitude": 45.1875602,
         "longitude": 5.7357819,
-        "eventUrl": "https://www.gotangoevents.fr/?lang=en"
+        "eventUrl": "https://www.gotangoevents.fr/"
     },
     {
         "eventName": "Autumn Embrace",
@@ -2608,16 +2018,6 @@
         "latitude": 43.7806931,
         "longitude": 11.0964527,
         "eventUrl": "https://www.facebook.com/events/s/neotango-marathon-firenze/818898371279323/"
-    },
-    {
-        "eventName": "Paisley International Tango Festival 2026",
-        "startDate": "2026-09-25",
-        "endDate": "2026-09-27",
-        "city": "Paisley",
-        "country": "United Kingdom",
-        "latitude": 55.8455828,
-        "longitude": -4.4239646,
-        "eventUrl": "https://paisleytango.com/tango-festival-2026"
     },
     {
         "eventName": "NOZ TANGO CAFE' Palermo",
@@ -2710,6 +2110,16 @@
         "eventUrl": "https://docs.google.com/forms/d/e/1FAIpQLSfguSsH9FuvbDVHzvded8CVaNTiy4_F39mCTnAXjZ7BlhS0wQ/viewform"
     },
     {
+        "eventName": "8th Singapore International Tango Festival",
+        "startDate": "2026-10-01",
+        "endDate": "2026-10-04",
+        "city": "Singapore",
+        "country": "Singapore",
+        "latitude": 1.2899175,
+        "longitude": 103.8519072,
+        "eventUrl": "https://sitf.sg/"
+    },
+    {
         "eventName": "Dulcinea Tango Embrace 3ed",
         "startDate": "2026-10-01",
         "endDate": "2026-10-04",
@@ -2760,16 +2170,6 @@
         "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F605904318190670"
     },
     {
-        "eventName": "Fivizzano Tango Fiesta, 20th Anniversary",
-        "startDate": "2026-10-01",
-        "endDate": "2026-10-04",
-        "city": "Fivizzano",
-        "country": "Italy",
-        "latitude": 44.23835,
-        "longitude": 10.12599,
-        "eventUrl": "https://www.facebook.com/events/s/fivizzano-tango-weekend-20th-a/2136924520392401/"
-    },
-    {
         "eventName": "Gavito Tango Festival 2026",
         "startDate": "2026-10-01",
         "endDate": "2026-10-04",
@@ -2778,6 +2178,16 @@
         "latitude": 34.0536909,
         "longitude": -118.242766,
         "eventUrl": "https://gavitotangofestival.com/"
+    },
+    {
+        "eventName": "Tango d’Or festival",
+        "startDate": "2026-10-02",
+        "endDate": "2026-10-04",
+        "city": "Dijon",
+        "country": "France",
+        "latitude": 47.3215806,
+        "longitude": 5.0414701,
+        "eventUrl": "https://tangodijon.wixsite.com/tangodor/festival-2026"
     },
     {
         "eventName": "Tango Milonguero Weekend „Tango de mi Pueblo” 2nd edition",
@@ -2800,6 +2210,16 @@
         "eventUrl": "https://www.facebook.com/people/Porte%C3%B1%C3%ADsima-Tango-Party/61579035603782/"
     },
     {
+        "eventName": "Colors of Tango Festival Berlin",
+        "startDate": "2026-10-02",
+        "endDate": "2026-10-04",
+        "city": "Berlin",
+        "country": "Germany",
+        "latitude": 52.5173885,
+        "longitude": 13.3951309,
+        "eventUrl": "https://www.facebook.com/events/s/colors-of-tango-festival-berli/2281644618912655/"
+    },
+    {
         "eventName": "King’s Town TANGO WEEKEND - PEPA PALAZÓN & EL CACHIVACHE QUINTETO",
         "startDate": "2026-10-02",
         "endDate": "2026-10-04",
@@ -2808,16 +2228,6 @@
         "latitude": 43.7234519,
         "longitude": 20.6870792,
         "eventUrl": "https://www.facebook.com/events/931642995979211/?acontext=%7B%22event_action_history%22%3A[%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D%2C%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22surface%22%2C%22surface%22%3A%22permalink%22%7D%2C%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22surface%22%2C%22surface%22%3A%22edit_dialog%22%7D]%2C%22ref_notif_type%22%3Anull%7D"
-    },
-    {
-        "eventName": "TimeforTango Festiva",
-        "startDate": "2026-10-02",
-        "endDate": "2026-10-04",
-        "city": "Lignano Sabbiadoro",
-        "country": "Italy",
-        "latitude": 45.690161,
-        "longitude": 13.1407655,
-        "eventUrl": "https://tangocat.net/go/TimeforTango+Festiva/10565"
     },
     {
         "eventName": "Umbria Tango Festival",
@@ -2887,7 +2297,7 @@
         "country": "Moldova",
         "latitude": 47.0245117,
         "longitude": 28.8322923,
-        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2FTangoWineFestival"
+        "eventUrl": "https://www.facebook.com/TangoWineFestival"
     },
     {
         "eventName": "Double role retreat at Lillsved",
@@ -3045,8 +2455,8 @@
         "endDate": "2026-10-11",
         "city": "Warsaw",
         "country": "Poland",
-        "latitude": 52.2333742,
-        "longitude": 21.0711489,
+        "latitude": 52.2319581,
+        "longitude": 21.0067249,
         "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F1269597307760781%2F"
     },
     {
@@ -3064,10 +2474,20 @@
         "startDate": "2026-10-09",
         "endDate": "2026-10-11",
         "city": "Ankara",
-        "country": "Türkiye",
+        "country": "Türkiye",
         "latitude": 39.9207759,
         "longitude": 32.8540497,
         "eventUrl": "https://www.facebook.com/events/s/ankara-tango-fusion-9-11-octob/1239378624669658/"
+    },
+    {
+        "eventName": "Baku Tango Marathon",
+        "startDate": "2026-10-09",
+        "endDate": "2026-10-11",
+        "city": "Baku",
+        "country": "Azerbaijan",
+        "latitude": 40.3755885,
+        "longitude": 49.8328009,
+        "eventUrl": "https://www.bakutangomarathon.com/"
     },
     {
         "eventName": "Salzburg Tango Festivalito",
@@ -3090,16 +2510,6 @@
         "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F2391709797727714%2F"
     },
     {
-        "eventName": "5 Internacional Tango Festival Encuentro Tango",
-        "startDate": "2026-10-09",
-        "endDate": "2026-10-11",
-        "city": "Castelo Branco",
-        "country": "Portugal",
-        "latitude": 39.9767583,
-        "longitude": -7.4460599,
-        "eventUrl": "https://encuentrotangocb.home.blog"
-    },
-    {
         "eventName": "Encuentro Mariposas",
         "startDate": "2026-10-09",
         "endDate": "2026-10-12",
@@ -3108,6 +2518,16 @@
         "latitude": 46.8137431,
         "longitude": -71.2084061,
         "eventUrl": "https://www.mariposas-tango.com/encuentro-mariposas-2026-an.html"
+    },
+    {
+        "eventName": "Tangoreise Rovinj",
+        "startDate": "2026-10-11",
+        "endDate": "2026-10-18",
+        "city": "Rovinj",
+        "country": "Croatia",
+        "latitude": 45.0807411,
+        "longitude": 13.6417282,
+        "eventUrl": "https://www.studiolibertango.de/tangoreisen-1"
     },
     {
         "eventName": "WeLove - Ibiza Tango Embrace",
@@ -3124,20 +2544,10 @@
         "startDate": "2026-10-14",
         "endDate": "2026-10-19",
         "city": "Kemer",
-        "country": "Türkiye",
+        "country": "Türkiye",
         "latitude": 36.6013823,
         "longitude": 30.5638561,
-        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F659010158410413%2F"
-    },
-    {
-        "eventName": "Tango Festival Groningen 2026",
-        "startDate": "2026-10-15",
-        "endDate": "2026-10-18",
-        "city": "Groningen",
-        "country": "Netherlands",
-        "latitude": 53.2190652,
-        "longitude": 6.5680077,
-        "eventUrl": "https://www.tango-festival-groningen.nl/"
+        "eventUrl": "https://mediterratangomarathon.com"
     },
     {
         "eventName": "Ottocento Tango Marathon",
@@ -3160,16 +2570,6 @@
         "eventUrl": "https://www.tangomalia.com/encuentro.asp"
     },
     {
-        "eventName": "Alma de Tango Festival London 2026",
-        "startDate": "2026-10-15",
-        "endDate": "2026-10-18",
-        "city": "London",
-        "country": "United Kingdom",
-        "latitude": 51.5074456,
-        "longitude": -0.1277653,
-        "eventUrl": "https://www.almadetangofestivallondon.co.uk/"
-    },
-    {
         "eventName": "Homero Tango Marathon 10",
         "startDate": "2026-10-15",
         "endDate": "2026-10-18",
@@ -3185,9 +2585,19 @@
         "endDate": "2026-10-18",
         "city": "Sopot",
         "country": "Poland",
-        "latitude": 54.4447922,
-        "longitude": 18.5684902,
+        "latitude": 54.4430399,
+        "longitude": 18.5613095,
         "eventUrl": "https://www.facebook.com/events/1653155239358250/"
+    },
+    {
+        "eventName": "Vilnius Tango Weekend",
+        "startDate": "2026-10-16",
+        "endDate": "2026-10-18",
+        "city": "Vilnius",
+        "country": "Lithuania",
+        "latitude": 54.6870458,
+        "longitude": 25.2829111,
+        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F381942907767760"
     },
     {
         "eventName": "Do Tango Party",
@@ -3208,6 +2618,16 @@
         "latitude": 42.4249205,
         "longitude": 18.7713332,
         "eventUrl": "https://www.rojoynegrotango.com/"
+    },
+    {
+        "eventName": "Tango Infusion Neomarathon",
+        "startDate": "2026-10-16",
+        "endDate": "2026-10-18",
+        "city": "Budapest",
+        "country": "Hungary",
+        "latitude": 47.4978789,
+        "longitude": 19.0402383,
+        "eventUrl": "https://tangoinfusion.hu/"
     },
     {
         "eventName": "Maratangueando",
@@ -3255,9 +2675,19 @@
         "endDate": "2026-10-25",
         "city": "Poznań",
         "country": "Poland",
-        "latitude": 52.4082663,
-        "longitude": 16.9335199,
+        "latitude": 52.4006632,
+        "longitude": 16.9197326,
         "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F389684463785199%2F"
+    },
+    {
+        "eventName": "Tanguearte 2026 - We are going to Havana",
+        "startDate": "2026-10-22",
+        "endDate": "2026-10-29",
+        "city": "Havana",
+        "country": "Cuba",
+        "latitude": 23.135305,
+        "longitude": -82.3589631,
+        "eventUrl": "https://www.facebook.com/events/s/tanguearte-2026-we-are-going-t/1451835129744715/"
     },
     {
         "eventName": "Sapporo Tango Festival 2026",
@@ -3330,6 +2760,16 @@
         "eventUrl": "https://www.imperialtangomarathon.com/"
     },
     {
+        "eventName": "Toulouse Neo Tango Marathon TNT 2026",
+        "startDate": "2026-10-23",
+        "endDate": "2026-10-26",
+        "city": "Toulouse",
+        "country": "France",
+        "latitude": 43.6044638,
+        "longitude": 1.4442433,
+        "eventUrl": "https://www.facebook.com/events/s/toulouse-neo-tango-marathon-tn/1271727451763867/"
+    },
+    {
         "eventName": "Dobrna Tango Vikend",
         "startDate": "2026-10-23",
         "endDate": "2026-10-25",
@@ -3380,6 +2820,16 @@
         "eventUrl": "https://sutango.com/"
     },
     {
+        "eventName": "8th Anniversary of el Tango Club",
+        "startDate": "2026-10-24",
+        "endDate": "2026-10-24",
+        "city": "Kaunas",
+        "country": "Lithuania",
+        "latitude": 54.8982139,
+        "longitude": 23.9044817,
+        "eventUrl": "https://www.facebook.com/events/1036288366015186/?acontext=%7B%22ref%22%3A%2252%22%2C%22action_history%22%3A%22%5B%7B%5C%22surface%5C%22%3A%5C%22share_link%5C%22%2C%5C%22mechanism%5C%22%3A%5C%22share_link%5C%22%2C%5C%22extra_data%5C%22%3A%7B%5C%22invite_link_id%5C%22%3A1048182827543466%7D%7D%5D%22%7D"
+    },
+    {
         "eventName": "12th Annual Colombia Tango Festival",
         "startDate": "2026-10-26",
         "endDate": "2026-11-02",
@@ -3410,11 +2860,21 @@
         "eventUrl": "https://www.tangoweekmarathon.com/"
     },
     {
+        "eventName": "Banjaluka Tango Festival 2026 · The Meeting Point",
+        "startDate": "2026-10-29",
+        "endDate": "2026-11-01",
+        "city": "Banja Luka",
+        "country": "Bosnia and Herzegovina",
+        "latitude": 44.7720845,
+        "longitude": 17.1917651,
+        "eventUrl": "https://banjalukatangofestival.com/en"
+    },
+    {
         "eventName": "Para Ti Tango Maraton",
         "startDate": "2026-10-29",
         "endDate": "2026-11-02",
         "city": "Serik",
-        "country": "Türkiye",
+        "country": "Türkiye",
         "latitude": 36.9168682,
         "longitude": 31.1047478,
         "eventUrl": "https://paratitangomarathon.com/"
@@ -3427,17 +2887,17 @@
         "country": "Italy",
         "latitude": 41.1257843,
         "longitude": 16.8620293,
-        "eventUrl": "http://www.baritangocongress.com/bata2026/index.php"
+        "eventUrl": "https://www.baritangocongress.com/bata2026/index.php"
     },
     {
         "eventName": "LaPerla TangoFest",
         "startDate": "2026-10-29",
         "endDate": "2026-11-02",
         "city": "Marmaris",
-        "country": "Türkiye",
+        "country": "Türkiye",
         "latitude": 36.8522547,
         "longitude": 28.2742661,
-        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Flaperla.tangofest"
+        "eventUrl": "https://www.facebook.com/laperla.tangofest"
     },
     {
         "eventName": "MILONGUERO MILONGUERO",
@@ -3448,6 +2908,16 @@
         "latitude": 38.6443252,
         "longitude": 0.046012,
         "eventUrl": "https://www.milonguero-milonguero.com/"
+    },
+    {
+        "eventName": "Goa International Tango Festival",
+        "startDate": "2026-10-30",
+        "endDate": "2026-11-01",
+        "city": "Goa",
+        "country": "India",
+        "latitude": 15.3004543,
+        "longitude": 74.0855134,
+        "eventUrl": "https://goatangofestival.com"
     },
     {
         "eventName": "aMarAdentro",
@@ -3490,23 +2960,13 @@
         "eventUrl": "https://www.elabrazo-tangohamburg.de/festivalito/"
     },
     {
-        "eventName": "3rd Cremona Tango Festival 2026",
-        "startDate": "2026-10-30",
-        "endDate": "2026-11-01",
-        "city": "Cremona",
-        "country": "Italy",
-        "latitude": 45.2208641,
-        "longitude": 10.037038,
-        "eventUrl": "https://palladinotango.com/"
-    },
-    {
         "eventName": "Tango Beer Marathon",
         "startDate": "2026-10-30",
         "endDate": "2026-11-01",
         "city": "Como",
         "country": "Italy",
-        "latitude": 45.9394759,
-        "longitude": 9.1494101,
+        "latitude": 45.9395857,
+        "longitude": 9.1493609,
         "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F220591183848772%2F"
     },
     {
@@ -3530,14 +2990,14 @@
         "eventUrl": "https://www.facebook.com/people/Festival-Luna-de-Tango/100091885793699/"
     },
     {
-        "eventName": "Madrid VIP Tango Experience",
-        "startDate": "2026-11-04",
+        "eventName": "La Bohemien Tango Marathon Belle Epoque",
+        "startDate": "2026-11-05",
         "endDate": "2026-11-08",
-        "city": "Madrid",
-        "country": "Spain",
-        "latitude": 40.416782,
-        "longitude": -3.703507,
-        "eventUrl": "https://www.vacances-tango.com/trip-to-madrid-including-an-argentine-tango-course-from-4-to-8-november-2026/"
+        "city": "Naples",
+        "country": "Italy",
+        "latitude": 40.8358846,
+        "longitude": 14.2487679,
+        "eventUrl": "https://www.bohemientangomarathon.it/"
     },
     {
         "eventName": "Tres Besos Basel",
@@ -3564,7 +3024,7 @@
         "startDate": "2026-11-05",
         "endDate": "2026-11-10",
         "city": "Antalya",
-        "country": "Türkiye",
+        "country": "Türkiye",
         "latitude": 36.8865728,
         "longitude": 30.7030242,
         "eventUrl": "https://inviernotangomarathon.com/"
@@ -3610,16 +3070,6 @@
         "eventUrl": "https://www.facebook.com/people/Emilia-Tango-Festival/61576606010736/"
     },
     {
-        "eventName": "Tamaka 8th Tangomarathon Karlsruhe",
-        "startDate": "2026-11-06",
-        "endDate": "2026-11-08",
-        "city": "Karlsruhe",
-        "country": "Germany",
-        "latitude": 49.0068705,
-        "longitude": 8.4034195,
-        "eventUrl": "https://tangomarathonkarlsruhe.com/"
-    },
-    {
         "eventName": "A Los Amigos 'Tango Marathon Terre & Mer",
         "startDate": "2026-11-06",
         "endDate": "2026-11-08",
@@ -3640,6 +3090,16 @@
         "eventUrl": "https://www.facebook.com/events/1287816926518087/?acontext=%7B%22ref%22%3A%2252%22%2C%22action_history%22%3A%22%5B%7B%5C%22surface%5C%22%3A%5C%22share_link%5C%22%2C%5C%22mechanism%5C%22%3A%5C%22share_link%5C%22%2C%5C%22extra_data%5C%22%3A%7B%5C%22invite_link_id%5C%22%3A953662726995914%7D%7D%5D%22%7D"
     },
     {
+        "eventName": "Giriamo Tango Fest",
+        "startDate": "2026-11-12",
+        "endDate": "2026-11-15",
+        "city": "Lignano Sabbiadoro",
+        "country": "Italy",
+        "latitude": 45.690161,
+        "longitude": 13.1407655,
+        "eventUrl": "https://www.giriamotangofest.com/"
+    },
+    {
         "eventName": "la Ronda de Los Abrazos - Gran Canaria Tango Marathon",
         "startDate": "2026-11-12",
         "endDate": "2026-11-15",
@@ -3648,26 +3108,6 @@
         "latitude": 28.1288694,
         "longitude": -15.4349015,
         "eventUrl": "https://www.tangograncanaria.com/la-ronda-es-2/"
-    },
-    {
-        "eventName": "Tuga Tango 2026",
-        "startDate": "2026-11-12",
-        "endDate": "2026-11-15",
-        "city": "Lisbon",
-        "country": "Portugal",
-        "latitude": 38.7077507,
-        "longitude": -9.1365919,
-        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F552640704759837%2F"
-    },
-    {
-        "eventName": "Bay Tango Festival & Marathon (BTFM)",
-        "startDate": "2026-11-13",
-        "endDate": "2026-11-15",
-        "city": "Berkeley",
-        "country": "United States",
-        "latitude": 37.8708393,
-        "longitude": -122.272863,
-        "eventUrl": "https://festival.baytango.com/2026"
     },
     {
         "eventName": "RE-Jurmala Milonguero Meeting",
@@ -3737,7 +3177,7 @@
         "country": "Italy",
         "latitude": 41.8933203,
         "longitude": 12.4829321,
-        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2FtanGOTORome"
+        "eventUrl": "https://www.facebook.com/tanGOTORome"
     },
     {
         "eventName": "More than Tango Marathon & Festival & Cup",
@@ -3770,14 +3210,14 @@
         "eventUrl": "https://theflowtango.com/go/g35ermla?v=form-1&s&"
     },
     {
-        "eventName": "More Than Tango (Marathon & Festival & Cup)",
-        "startDate": "2026-11-19",
+        "eventName": "Milonga El Garron reloaded: 10 years anniversary",
+        "startDate": "2026-11-20",
         "endDate": "2026-11-22",
-        "city": "Shanghai",
-        "country": "China",
-        "latitude": 31.2312707,
-        "longitude": 121.4700152,
-        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fphoto%3Ffbid%3D10163563453974380%26set%3Da.476328494379"
+        "city": "Paris",
+        "country": "France",
+        "latitude": 48.8534951,
+        "longitude": 2.3483915,
+        "eventUrl": "https://www.facebook.com/events/26290670983959475/26290671003959473/"
     },
     {
         "eventName": "17th Vienna Calling Tango Marathon 2026 Winter Edition",
@@ -3830,16 +3270,6 @@
         "eventUrl": "https://www.alicantetangomeeting.com/"
     },
     {
-        "eventName": "Baden-Baden Tango Festival",
-        "startDate": "2026-11-26",
-        "endDate": "2026-11-29",
-        "city": "Baden-Baden",
-        "country": "Germany",
-        "latitude": 48.7610716,
-        "longitude": 8.239959,
-        "eventUrl": "https://badenbadentangofestival.com/en/"
-    },
-    {
         "eventName": "Baztango",
         "startDate": "2026-11-26",
         "endDate": "2026-11-29",
@@ -3848,16 +3278,6 @@
         "latitude": 42.8620803,
         "longitude": -1.7059961,
         "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F408746555836612%2F"
-    },
-    {
-        "eventName": "Baden-Baden Tango Festival",
-        "startDate": "2026-11-26",
-        "endDate": "2026-11-29",
-        "city": "Baden-Baden",
-        "country": "Germany",
-        "latitude": 48.7610716,
-        "longitude": 8.239959,
-        "eventUrl": "https://siempre-tango.de/en/Festival-Baden-Baden/"
     },
     {
         "eventName": "Lunatico Tango Marathon",
@@ -3875,8 +3295,8 @@
         "endDate": "2026-11-29",
         "city": "Łódź",
         "country": "Poland",
-        "latitude": 51.7687323,
-        "longitude": 19.4569911,
+        "latitude": 51.7728245,
+        "longitude": 19.478486,
         "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F268638895993470%2F"
     },
     {
@@ -3888,16 +3308,6 @@
         "latitude": 50.4377018,
         "longitude": -3.5632704,
         "eventUrl": "https://tangofeast.com/christmas/"
-    },
-    {
-        "eventName": "Abrazo de Invierno Slovenia",
-        "startDate": "2026-12-04",
-        "endDate": "2026-12-06",
-        "city": "Laško",
-        "country": "Slovenia",
-        "latitude": 46.1279831,
-        "longitude": 15.2695511,
-        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F1939562250136010%2F"
     },
     {
         "eventName": "Athens Tango Odyssey",
@@ -3930,6 +3340,16 @@
         "eventUrl": "https://www.facebook.com/events/1037370551928545/"
     },
     {
+        "eventName": "La Reuniòn Milonguera",
+        "startDate": "2026-12-11",
+        "endDate": "2026-12-13",
+        "city": "Venice",
+        "country": "Italy",
+        "latitude": 45.4371908,
+        "longitude": 12.3345898,
+        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F1386297641629844%2F"
+    },
+    {
         "eventName": "Tenerife Tango Marathon",
         "startDate": "2026-12-11",
         "endDate": "2026-12-14",
@@ -3940,23 +3360,13 @@
         "eventUrl": "https://tenerifetangomarathon.com/"
     },
     {
-        "eventName": "Bali Tango Holidays",
-        "startDate": "2026-12-12",
-        "endDate": "2026-12-19",
-        "city": "Ubud",
-        "country": "Indonesia",
-        "latitude": -8.5170195,
-        "longitude": 115.2550507,
-        "eventUrl": "https://www.facebook.com/events/s/bali-tango-holidays-12-19-dece/983772874110270/?mibextid=wwXIfr&rdid=2MSS4XrZr3hUQU2u&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F18kCt5KipC%2F%3Fmibextid%3DwwXIfr"
-    },
-    {
         "eventName": "Kosova Tango Marathon (4th edition)",
         "startDate": "2026-12-17",
         "endDate": "2026-12-20",
-        "city": "Pristina",
-        "country": "Kosovo",
-        "latitude": 42.667542,
-        "longitude": 21.166191,
+        "city": "",
+        "country": "Pristina",
+        "latitude": null,
+        "longitude": null,
         "eventUrl": "https://www.facebook.com/events/1567460064521699/"
     },
     {
@@ -3968,6 +3378,16 @@
         "latitude": 47.5564047,
         "longitude": 16.8356785,
         "eventUrl": "https://tango-elements.com/en/dias-de-luz-y-sonrisas-milonguero-weekend/"
+    },
+    {
+        "eventName": "7th Tango Marathon Patras",
+        "startDate": "2026-12-18",
+        "endDate": "2026-12-20",
+        "city": "Patras",
+        "country": "Greece",
+        "latitude": 38.246242,
+        "longitude": 21.7350847,
+        "eventUrl": "https://www.tangomarathonpatras.gr/home"
     },
     {
         "eventName": "Xmas in Embrace",
@@ -3985,9 +3405,29 @@
         "endDate": "2027-01-04",
         "city": "Warsaw",
         "country": "Poland",
-        "latitude": 52.2333742,
-        "longitude": 21.0711489,
+        "latitude": 52.2319581,
+        "longitude": 21.0067249,
         "eventUrl": "https://www.facebook.com/events/s/warsaw-tango-wave-9th-edition/977919961601011/"
+    },
+    {
+        "eventName": "Tango Mágico Marathon NYE Edition",
+        "startDate": "2026-12-30",
+        "endDate": "2027-01-03",
+        "city": "Bucharest",
+        "country": "Romania",
+        "latitude": 44.4361414,
+        "longitude": 26.102684,
+        "eventUrl": "https://www.facebook.com/events/s/tango-magico-marathon-nye-edit/3251123491885429/"
+    },
+    {
+        "eventName": "XII Sol de Invierno Internacional Tango Meeting",
+        "startDate": "2026-12-30",
+        "endDate": "2027-01-03",
+        "city": "Salobreña",
+        "country": "Spain",
+        "latitude": 36.765067,
+        "longitude": -3.5938505,
+        "eventUrl": "https://www.facebook.com/events/s/xii-sol-de-invierno-internacio/1190278679940130/"
     },
     {
         "eventName": "HAPPY TANGO",
@@ -4005,8 +3445,8 @@
         "endDate": "2027-01-03",
         "city": "Budapest",
         "country": "Hungary",
-        "latitude": 47.4813896,
-        "longitude": 19.1457723,
+        "latitude": 47.4978789,
+        "longitude": 19.0402383,
         "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F777271373614115%2F"
     },
     {
@@ -4018,16 +3458,6 @@
         "latitude": 44.4938203,
         "longitude": 11.3426327,
         "eventUrl": "https://www.serendipityart.it/wp/bte2027/"
-    },
-    {
-        "eventName": "La Frontera Tango Marathon",
-        "startDate": "2026-12-31",
-        "endDate": "2027-01-03",
-        "city": "Cieszyn",
-        "country": "Poland",
-        "latitude": 49.7488623,
-        "longitude": 18.6334308,
-        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2FMilongaFrontera"
     },
     {
         "eventName": "Double Role Tango Marathon",
@@ -4060,13 +3490,33 @@
         "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F1158034765807650"
     },
     {
+        "eventName": "The Loft Marathon Stuttgart",
+        "startDate": "2027-01-01",
+        "endDate": "2027-01-03",
+        "city": "Stuttgart",
+        "country": "Germany",
+        "latitude": 48.7784485,
+        "longitude": 9.1800132,
+        "eventUrl": "https://www.tangostuttgart.de/events/the-loft-marathon.html"
+    },
+    {
+        "eventName": "Vancouver Tango Milonguero",
+        "startDate": "2027-01-01",
+        "endDate": "2027-01-03",
+        "city": "Vancouver",
+        "country": "Canada",
+        "latitude": 49.2608724,
+        "longitude": -123.113952,
+        "eventUrl": "https://www.vancouvertango.com/"
+    },
+    {
         "eventName": "Beskid Tango Marathon",
         "startDate": "2027-01-06",
         "endDate": "2027-01-10",
         "city": "Szczyrk",
         "country": "Poland",
-        "latitude": 49.6964912,
-        "longitude": 19.0109469,
+        "latitude": 49.7165976,
+        "longitude": 19.0254613,
         "eventUrl": "https://www.facebook.com/events/851146204684276/?acontext=%7B%22event_action_history%22%3A[%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D"
     },
     {
@@ -4110,6 +3560,16 @@
         "eventUrl": "https://www.verokruta.com/tangointhetropics"
     },
     {
+        "eventName": "Neotango Marathon Berlin",
+        "startDate": "2027-01-15",
+        "endDate": "2027-01-17",
+        "city": "Berlin",
+        "country": "Germany",
+        "latitude": 52.5173885,
+        "longitude": 13.3951309,
+        "eventUrl": "https://www.neotango.berlin/"
+    },
+    {
         "eventName": "Tbilisi Tango Marathon",
         "startDate": "2027-01-22",
         "endDate": "2027-01-24",
@@ -4118,6 +3578,16 @@
         "latitude": 41.6934591,
         "longitude": 44.8014495,
         "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F728580404013102%2F"
+    },
+    {
+        "eventName": "Agua dulce - encuentro milonguero de enero 2027",
+        "startDate": "2027-01-22",
+        "endDate": "2027-01-24",
+        "city": "Ravenna",
+        "country": "Italy",
+        "latitude": 44.3640607,
+        "longitude": 12.0590095,
+        "eventUrl": "https://www.luoghiditango.net/eventi/agua-dulce/agua-dulce-encuentro-milonguero-emilia-romagna-ravenna-2027/"
     },
     {
         "eventName": "Viento Norte Festivalito",
@@ -4180,16 +3650,6 @@
         "eventUrl": "https://zaragozatangomaraton.com/"
     },
     {
-        "eventName": "The Living Tango Marathon",
-        "startDate": "2027-02-05",
-        "endDate": "2027-02-07",
-        "city": "Rome",
-        "country": "Italy",
-        "latitude": 41.8933203,
-        "longitude": 12.4829321,
-        "eventUrl": "https://www.facebook.com/events/s/the-living-tango-marathon-1st-/1149107747380566/"
-    },
-    {
         "eventName": "A Promotora- Encontro Milongueiro",
         "startDate": "2027-02-05",
         "endDate": "2027-02-09",
@@ -4200,14 +3660,14 @@
         "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F184646101691916%2F"
     },
     {
-        "eventName": "Tahiti Tango Holidays",
-        "startDate": "2027-02-06",
-        "endDate": "2027-02-13",
-        "city": "Puna'auia",
-        "country": "French Polynesia",
-        "latitude": -17.5808793,
-        "longitude": -149.6153814,
-        "eventUrl": "https://www.facebook.com/events/s/tahiti-tango-holidays/1573256010574299/?mibextid=wwXIfr&rdid=RucejqoiU6UIcl5D&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F18Q6MgTKJ8%2F%3Fmibextid%3DwwXIfr"
+        "eventName": "Odessa & Istanbul Winter Tango Marathon",
+        "startDate": "2027-02-10",
+        "endDate": "2027-02-15",
+        "city": "Istanbul",
+        "country": "Türkiye",
+        "latitude": 41.006381,
+        "longitude": 28.9758715,
+        "eventUrl": "https://www.odessaistanbultango.com/"
     },
     {
         "eventName": "EMPATHIC TANGO Marathon Verona",
@@ -4217,7 +3677,7 @@
         "country": "Italy",
         "latitude": 45.4424977,
         "longitude": 10.9857377,
-        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fempathictango"
+        "eventUrl": "https://www.facebook.com/empathictango"
     },
     {
         "eventName": "Milonguero Weekend",
@@ -4248,6 +3708,16 @@
         "latitude": 44.3640607,
         "longitude": 12.0590095,
         "eventUrl": "https://teodoratangomarathon.com/"
+    },
+    {
+        "eventName": "Brilloso Tango Marathon",
+        "startDate": "2027-02-19",
+        "endDate": "2027-02-21",
+        "city": "Barcelona",
+        "country": "Spain",
+        "latitude": 41.3825802,
+        "longitude": 2.177073,
+        "eventUrl": "http://brillosotangomarathon.com"
     },
     {
         "eventName": "Tormenta Tango Marathon Opatija",
@@ -4298,6 +3768,26 @@
         "latitude": 49.2969114,
         "longitude": 19.9504753,
         "eventUrl": "https://www.facebook.com/events/s/tango-infinity-30-festival-in-/804412662249577/"
+    },
+    {
+        "eventName": "North Greece Tango Marathon",
+        "startDate": "2027-03-05",
+        "endDate": "2027-03-07",
+        "city": "Thessaloniki",
+        "country": "Greece",
+        "latitude": 40.6403167,
+        "longitude": 22.9352716,
+        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F1456271901341735%2F"
+    },
+    {
+        "eventName": "The Tango Encuentro in the City of Sassi",
+        "startDate": "2027-03-05",
+        "endDate": "2027-03-07",
+        "city": "Sassi",
+        "country": "Italy",
+        "latitude": 45.079322,
+        "longitude": 7.7323063,
+        "eventUrl": "https://sassilonga.com/en/home2/"
     },
     {
         "eventName": "Festa di Tango a Monza",
@@ -4370,6 +3860,16 @@
         "eventUrl": "https://www.portango.net/"
     },
     {
+        "eventName": "Milonguero loco",
+        "startDate": "2027-03-19",
+        "endDate": "2027-03-21",
+        "city": "Riedstadt",
+        "country": "Germany",
+        "latitude": 49.8425212,
+        "longitude": 8.4829447,
+        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F206371726506095%2F"
+    },
+    {
         "eventName": "Brazil Tango Marathon 2027",
         "startDate": "2027-03-19",
         "endDate": "2027-03-21",
@@ -4380,14 +3880,14 @@
         "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fphoto%3Ffbid%3D10162559527786951%26set%3Dgm.1302299538710512%26idorvanity%3D386280350312440"
     },
     {
-        "eventName": "25 Tango Torino Festival",
+        "eventName": "Tango Torino Festival",
         "startDate": "2027-03-25",
         "endDate": "2027-03-29",
         "city": "Turin",
         "country": "Italy",
         "latitude": 45.0677551,
         "longitude": 7.6824892,
-        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Ftangotorinofestival"
+        "eventUrl": "https://www.marcelaystefano.com/tango-torino-festival/"
     },
     {
         "eventName": "Vietnam Tango Marathon 2027",
@@ -4450,23 +3950,13 @@
         "eventUrl": "https://www.facebook.com/events/s/zar-tanga-2nd-edition/1361763762632162/"
     },
     {
-        "eventName": "Fi Tango Porto",
-        "startDate": "2027-04-22",
-        "endDate": "2027-04-25",
-        "city": "Porto",
-        "country": "Portugal",
-        "latitude": 41.1502195,
-        "longitude": -8.6103497,
-        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2FFiTangoPorto"
-    },
-    {
         "eventName": "Sunset Tango Meeting",
         "startDate": "2027-04-22",
         "endDate": "2027-04-25",
         "city": "Zielona Góra",
         "country": "Poland",
-        "latitude": 51.9383777,
-        "longitude": 15.5050408,
+        "latitude": 51.9275737,
+        "longitude": 15.5490421,
         "eventUrl": "https://www.facebook.com/events/s/sunset-tango-meeting-22-250420/1336165548616533/"
     },
     {
@@ -4505,9 +3995,29 @@
         "endDate": "2027-05-09",
         "city": "Piechowice",
         "country": "Poland",
-        "latitude": 50.8277065,
-        "longitude": 15.5765389,
+        "latitude": 50.8494747,
+        "longitude": 15.5976047,
         "eventUrl": "https://www.facebook.com/events/s/tangoholidays-schlosstango-hir/1029163819776993/"
+    },
+    {
+        "eventName": "Desde el Alma",
+        "startDate": "2027-05-07",
+        "endDate": "2027-05-09",
+        "city": "Prague",
+        "country": "Czechia",
+        "latitude": 50.0874654,
+        "longitude": 14.4212535,
+        "eventUrl": "https://desdeelalma.eu/"
+    },
+    {
+        "eventName": "Nochero soy",
+        "startDate": "2027-05-07",
+        "endDate": "2027-05-09",
+        "city": "Prague",
+        "country": "Czechia",
+        "latitude": 50.0874654,
+        "longitude": 14.4212535,
+        "eventUrl": "https://nocherosoy.eu/2027-home/"
     },
     {
         "eventName": "Porteños y Autènticos - International Tango Festival",
@@ -4520,6 +4030,46 @@
         "eventUrl": "https://www.facebook.com/events/s/portenos-y-autenticos-internat/836809902099366/"
     },
     {
+        "eventName": "Lyon Tango Festival 2027",
+        "startDate": "2027-05-13",
+        "endDate": "2027-05-17",
+        "city": "Lyon",
+        "country": "France",
+        "latitude": 45.7578137,
+        "longitude": 4.8320114,
+        "eventUrl": "https://www.facebook.com/events/s/lyon-tango-festival-2027/1884420942606021/"
+    },
+    {
+        "eventName": "Funko Tango",
+        "startDate": "2027-05-14",
+        "endDate": "2027-05-16",
+        "city": "Bucharest",
+        "country": "Romania",
+        "latitude": 44.4361414,
+        "longitude": 26.102684,
+        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Ffunkotango"
+    },
+    {
+        "eventName": "Copenhagen Tango Intermezzo",
+        "startDate": "2027-05-14",
+        "endDate": "2027-05-17",
+        "city": "Copenhagen",
+        "country": "Denmark",
+        "latitude": 55.6867243,
+        "longitude": 12.5700724,
+        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fgroups%2F37589618639%2F"
+    },
+    {
+        "eventName": "Caliente Tango Marathon Antalya",
+        "startDate": "2027-05-19",
+        "endDate": "2027-05-25",
+        "city": "Antalya",
+        "country": "Türkiye",
+        "latitude": 36.8865728,
+        "longitude": 30.7030242,
+        "eventUrl": "https://www.calientetangomarathon.com/"
+    },
+    {
         "eventName": "Kristiania Tango Festival",
         "startDate": "2027-05-20",
         "endDate": "2027-05-23",
@@ -4528,6 +4078,76 @@
         "latitude": 59.9133301,
         "longitude": 10.7389701,
         "eventUrl": "https://www.kristianiatangofestival.com/"
+    },
+    {
+        "eventName": "La Ventana Tango Festival",
+        "startDate": "2027-05-26",
+        "endDate": "2027-05-30",
+        "city": "Istanbul",
+        "country": "Türkiye",
+        "latitude": 41.006381,
+        "longitude": 28.9758715,
+        "eventUrl": "https://www.laventanatangofestival.com/"
+    },
+    {
+        "eventName": "Sydfyn Embrace",
+        "startDate": "2027-06-03",
+        "endDate": "2027-06-06",
+        "city": "Svendborg",
+        "country": "Denmark",
+        "latitude": 55.0636625,
+        "longitude": 10.6084725,
+        "eventUrl": "https://www.sydfynembrace.dk/"
+    },
+    {
+        "eventName": "Lisbon Tango Festival",
+        "startDate": "2027-06-03",
+        "endDate": "2027-06-07",
+        "city": "Lisbon",
+        "country": "Portugal",
+        "latitude": 38.7077507,
+        "longitude": -9.1365919,
+        "eventUrl": "https://www.lusitango.com/"
+    },
+    {
+        "eventName": "Belgrade Tango Encuentro",
+        "startDate": "2027-06-09",
+        "endDate": "2027-06-14",
+        "city": "Belgrade",
+        "country": "Serbia",
+        "latitude": 44.8153318,
+        "longitude": 20.4456588,
+        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fbelencuentro"
+    },
+    {
+        "eventName": "3 Brilloso Big Tango Festival",
+        "startDate": "2027-06-11",
+        "endDate": "2027-06-13",
+        "city": "Barcelona",
+        "country": "Spain",
+        "latitude": 41.3825802,
+        "longitude": 2.177073,
+        "eventUrl": "https://brillosotangofest.com/"
+    },
+    {
+        "eventName": "Tango Fest La Palma",
+        "startDate": "2027-06-17",
+        "endDate": "2027-06-20",
+        "city": "Los Llanos",
+        "country": "Spain",
+        "latitude": 28.6592222,
+        "longitude": -17.9151945,
+        "eventUrl": "https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fphoto%3Ffbid%3D2529979197437937%26set%3Dgm.10165245933676255%26idorvanity%3D56894111254"
+    },
+    {
+        "eventName": "Siracusa International Tango Festival",
+        "startDate": "2027-07-22",
+        "endDate": "2027-07-25",
+        "city": "Syracuse",
+        "country": "Italy",
+        "latitude": 37.0315752,
+        "longitude": 15.2124277,
+        "eventUrl": "https://siracusatangofestival.com/"
     },
     {
         "eventName": "Tango Embrace Slovenia Encuentro Milonguero",
@@ -4910,6 +4530,16 @@
         "eventUrl": "https://enjoytango.com/app/show.php?aid=2726"
     },
     {
+        "eventName": "Alvaro Salas & Julieta Cappiello Workshop - Shanghai",
+        "startDate": "2026-07-26",
+        "endDate": "2026-08-10",
+        "city": "Shanghai",
+        "country": "China",
+        "latitude": 31.256742,
+        "longitude": 121.490248,
+        "eventUrl": "https://enjoytango.com/app/show.php?aid=2835"
+    },
+    {
         "eventName": "Rino & Graziella Workshop - Shanghai",
         "startDate": "2026-08-09",
         "endDate": "2026-08-23",
@@ -4938,6 +4568,16 @@
         "latitude": 35.16082,
         "longitude": 129.16693,
         "eventUrl": "https://moaform.com/q/4TwnZZ"
+    },
+    {
+        "eventName": "2026 西安探戈节 Xi'an Tango Festival 2026",
+        "startDate": "2026-09-23",
+        "endDate": "2026-09-27",
+        "city": "Xian",
+        "country": "China",
+        "latitude": 34.241314,
+        "longitude": 108.928102,
+        "eventUrl": "https://enjoytango.com/app/show.php?aid=2834"
     },
     {
         "eventName": "2026 新加坡国际探戈节 Singapore International Tango Festival 2026",
@@ -5000,36 +4640,6 @@
         "eventUrl": "https://enjoytango.com/app/show.php?aid=2555"
     },
     {
-        "eventName": "Festival Nacional de Tango La Falda",
-        "startDate": "2026-07-10",
-        "endDate": "2026-07-25",
-        "city": "La Falda",
-        "country": "Argentina",
-        "latitude": -31.0944026,
-        "longitude": -64.4828401,
-        "eventUrl": "https://www.facebook.com/lafaldatango/"
-    },
-    {
-        "eventName": "Tango Envenado Express, Sede Buenos Aires",
-        "startDate": "2026-07-11",
-        "endDate": "2026-07-12",
-        "city": "Salon Marabú ,Milonga Parakutural",
-        "country": "Argentina",
-        "latitude": -34.6039213,
-        "longitude": -58.3764958,
-        "eventUrl": "https://instagram.com/festivaltangoenvenado@gmail.com"
-    },
-    {
-        "eventName": "MilonGota",
-        "startDate": "2026-07-04",
-        "endDate": "2026-07-04",
-        "city": "Piscina Aguamarina",
-        "country": "Argentina",
-        "latitude": -34.5449549,
-        "longitude": -58.4662517,
-        "eventUrl": "https://instagram.com/milon.gota"
-    },
-    {
         "eventName": "Tango BA Festival y Mundial",
         "startDate": "2026-08-19",
         "endDate": "2026-09-02",
@@ -5040,6 +4650,16 @@
         "eventUrl": "https://www.facebook.com/FestivalesGCBA/"
     },
     {
+        "eventName": "CUMBRE DE TANGO",
+        "startDate": "2026-08-02",
+        "endDate": "2026-08-30",
+        "city": "Club Gricel",
+        "country": "Argentina",
+        "latitude": -34.623960436643,
+        "longitude": -58.406907093035,
+        "eventUrl": "https://www.facebook.com/LailaRezk.LR"
+    },
+    {
         "eventName": "Mujercitas Tango Festival",
         "startDate": "2026-08-17",
         "endDate": "2026-08-23",
@@ -5048,6 +4668,16 @@
         "latitude": -34.6121012,
         "longitude": -58.3703856,
         "eventUrl": "https://www.facebook.com/virginia.pandolfi"
+    },
+    {
+        "eventName": "ACÉRCATE A MÍ TANGO",
+        "startDate": "2026-08-12",
+        "endDate": "2026-08-16",
+        "city": "Ciudad Autónoma de Buenos Aires",
+        "country": "Argentina",
+        "latitude": -34.6036844,
+        "longitude": -58.3815591,
+        "eventUrl": "https://www.facebook.com/profile.php?id=100067752920108#"
     },
     {
         "eventName": "Tango y Pacha",
@@ -5067,17 +4697,27 @@
         "country": "Argentina",
         "latitude": -41.1334722,
         "longitude": -71.3102778,
-        "eventUrl": "https://www.facebook.com/bariloche.bailatango/photos"
+        "eventUrl": "https://www.facebook.com/bariloche.bailatango"
     },
     {
-        "eventName": "Playa, Tango y Coso",
-        "startDate": "2026-09-18",
-        "endDate": "2026-09-19",
-        "city": "Mar del Plata",
+        "eventName": "Guillermo Galvé",
+        "startDate": "2026-08-03",
+        "endDate": "2026-08-03",
+        "city": "Academia Nacional del Tango",
         "country": "Argentina",
-        "latitude": -38.0054771,
-        "longitude": -57.5426106,
-        "eventUrl": "https://instagram.com/playa.tango.y.coso"
+        "latitude": -34.608571864628,
+        "longitude": -58.37822273882,
+        "eventUrl": "https://www.facebook.com/academianacionaldeltango"
+    },
+    {
+        "eventName": "Che Che Campeonato",
+        "startDate": "2026-08-01",
+        "endDate": "2026-08-01",
+        "city": "Asociación Casa de Galicia",
+        "country": "Argentina",
+        "latitude": -34.6113464,
+        "longitude": -58.3861396,
+        "eventUrl": "https://www.facebook.com/chechetango"
     },
     {
         "eventName": "17° Festival de Tango Neuquén",
@@ -5088,6 +4728,16 @@
         "latitude": -38.9516784,
         "longitude": -68.0591888,
         "eventUrl": "https://www.facebook.com/FestivaldeTangoDeNeuquen"
+    },
+    {
+        "eventName": "Playa, Tango y Coso",
+        "startDate": "2026-09-18",
+        "endDate": "2026-09-19",
+        "city": "Mar del Plata",
+        "country": "Argentina",
+        "latitude": -38.0054771,
+        "longitude": -57.5426106,
+        "eventUrl": "https://instagram.com/playa.tango.y.coso"
     },
     {
         "eventName": "Festi Val Mano A Mano",
@@ -5140,6 +4790,26 @@
         "eventUrl": "https://www.facebook.com/FestivaldeTangodeBoedo"
     },
     {
+        "eventName": "La Rioja Baila Tango",
+        "startDate": "2026-10-09",
+        "endDate": "2026-10-11",
+        "city": "La Rioja",
+        "country": "Argentina",
+        "latitude": -29.4134538,
+        "longitude": -66.8564579,
+        "eventUrl": "https://www.facebook.com/profile.php?id=100088486205259"
+    },
+    {
+        "eventName": "Son y Serán - Festival Tango La Costa",
+        "startDate": "2026-11-20",
+        "endDate": "2026-11-22",
+        "city": "Santa Teresita Partido de la Costa",
+        "country": "Argentina",
+        "latitude": -36.5440512,
+        "longitude": -56.6903929,
+        "eventUrl": "https://www.facebook.com/nochedetangolacosta/"
+    },
+    {
         "eventName": "Bariloche También es Tango",
         "startDate": "2026-12-11",
         "endDate": "2026-12-13",
@@ -5148,5 +4818,185 @@
         "latitude": -41.1334722,
         "longitude": -71.3102778,
         "eventUrl": "https://www.facebook.com/bariloche.bailatango/photos"
+    },
+    {
+        "eventName": "Festival Internacional Che Tango Traslasierras",
+        "startDate": "2027-03-19",
+        "endDate": "2027-03-21",
+        "city": "Cura Brochero, Traslasierras",
+        "country": "Argentina",
+        "latitude": -31.7091092,
+        "longitude": -65.0165226,
+        "eventUrl": "https://www.facebook.com/fp.Viviana.barrandeguy?mibextid=PzaGJu"
+    },
+    {
+        "eventName": "TANGO HAPPY CAMP 6",
+        "startDate": "2027-07-02",
+        "endDate": "2027-07-04",
+        "city": "Peymeinade",
+        "country": "France",
+        "latitude": 43.641991,
+        "longitude": 6.8756858,
+        "eventUrl": "/cdn-cgi/l/email-protection#3b4854484f5a555c540b0d7b5c565a525715585456"
+    },
+    {
+        "eventName": "Tango Del Alma Marathon Bali",
+        "startDate": "2026-09-18",
+        "endDate": "2026-09-20",
+        "city": "Sanur, Bali",
+        "country": "Indonesia",
+        "latitude": -8.6946473,
+        "longitude": 115.2605838,
+        "eventUrl": "https://tango-del-alma.com"
+    },
+    {
+        "eventName": "Encuentro de Tango Las Papirusas 3^ Edition",
+        "startDate": "2027-03-11",
+        "endDate": "2027-03-14",
+        "city": "Santander",
+        "country": "Spain",
+        "latitude": 43.4618932,
+        "longitude": -3.8100255,
+        "eventUrl": "https://www.lapapirusa.com/"
+    },
+    {
+        "eventName": "7TH TANGO MARATHON PATRAS",
+        "startDate": "2026-12-18",
+        "endDate": "2026-12-20",
+        "city": "Patra",
+        "country": "Greece",
+        "latitude": 38.246242,
+        "longitude": 21.7350847,
+        "eventUrl": "https://www.tangomarathonpatras.gr/"
+    },
+    {
+        "eventName": "4° Ronda Elmijra Tango Celebration",
+        "startDate": "2027-04-22",
+        "endDate": "2027-04-25",
+        "city": "Goch",
+        "country": "Germany",
+        "latitude": 51.6755765,
+        "longitude": 6.1593045,
+        "eventUrl": "https://ronda-elmijra.dance"
+    },
+    {
+        "eventName": "X FESTIVAL ATAQUE TANGO DENIA-SPAIN",
+        "startDate": "2026-11-04",
+        "endDate": "2026-11-08",
+        "city": "DENIA",
+        "country": "Spain",
+        "latitude": 38.8408382,
+        "longitude": 0.1061105,
+        "eventUrl": "https://ataquetango.com/festival-ataque-tango-denia/"
+    },
+    {
+        "eventName": "Vilnius Winter Tango Marathon 2026 by El Gordo",
+        "startDate": "2026-12-03",
+        "endDate": "2026-12-07",
+        "city": "Vilnius",
+        "country": "Lithuania",
+        "latitude": 54.6870458,
+        "longitude": 25.2829111,
+        "eventUrl": "https://elgordotango.com/vilnius-winter"
+    },
+    {
+        "eventName": "El Olivo Tango Rave – Bacelona",
+        "startDate": "2026-10-02",
+        "endDate": "2026-10-04",
+        "city": "Barcelona",
+        "country": "Spain",
+        "latitude": 41.3825802,
+        "longitude": 2.177073,
+        "eventUrl": "/cdn-cgi/l/email-protection#32575e5d5e5b445d46535c555d4053445772555f535b5e1c515d5f"
+    },
+    {
+        "eventName": "Vienna Calling Tango Marathon 2027 Winter Edition",
+        "startDate": "2027-11-19",
+        "endDate": "2027-11-21",
+        "city": "Vienna",
+        "country": "Austria",
+        "latitude": 48.2083537,
+        "longitude": 16.3725042,
+        "eventUrl": "https://viennacallingtangomarathon.com/"
+    },
+    {
+        "eventName": "Vienna Calling Tango Marathon 2027 Spring Edition",
+        "startDate": "2027-05-14",
+        "endDate": "2027-05-16",
+        "city": "Vienna",
+        "country": "Austria",
+        "latitude": 48.2083537,
+        "longitude": 16.3725042,
+        "eventUrl": "https://viennacallingtangomarathon.com/"
+    },
+    {
+        "eventName": "#beIN Basel Tango Otoño Marathon",
+        "startDate": "2026-11-20",
+        "endDate": "2026-11-22",
+        "city": "Basel",
+        "country": "Switzerland",
+        "latitude": 47.5581077,
+        "longitude": 7.5878261,
+        "eventUrl": "https://tango-basel.ch"
+    },
+    {
+        "eventName": "Happytango",
+        "startDate": "2026-12-30",
+        "endDate": "2027-01-04",
+        "city": "Calpe",
+        "country": "Spain",
+        "latitude": 38.6443252,
+        "longitude": 0.046012,
+        "eventUrl": "http://www.happytango.es"
+    },
+    {
+        "eventName": "MADRID VIP TANGO EXPERIENCE",
+        "startDate": "2026-11-04",
+        "endDate": "2026-11-08",
+        "city": "Madrid",
+        "country": "Andorra",
+        "latitude": 40.459529,
+        "longitude": -3.6458575,
+        "eventUrl": "https://www.vacances-tango.com/trip-to-madrid-including-an-argentine-tango-course-from-4-to-8-november-2026/"
+    },
+    {
+        "eventName": "LAC D’ANNECY TANGO",
+        "startDate": "2026-09-14",
+        "endDate": "2026-09-18",
+        "city": "Annecy",
+        "country": "Andorra",
+        "latitude": null,
+        "longitude": null,
+        "eventUrl": "https://www.vacances-tango.com/argentinian-tango-workshop-and-tango-holidays-in-annecy-france-from-14-to-18-september2026/"
+    },
+    {
+        "eventName": "Dias de Garufa",
+        "startDate": "2026-11-14",
+        "endDate": "2026-11-15",
+        "city": "Villorba, TV",
+        "country": "Italy",
+        "latitude": 45.7292486,
+        "longitude": 12.2562455,
+        "eventUrl": "https://www.facebook.com/groups/3703502026634699"
+    },
+    {
+        "eventName": "13th Royal Budapest Tango Marathon 17-21 September 2026",
+        "startDate": "2026-09-17",
+        "endDate": "2026-09-21",
+        "city": "Budapest",
+        "country": "Hungary",
+        "latitude": 47.4978789,
+        "longitude": 19.0402383,
+        "eventUrl": "http://primaverabudapest.org"
+    },
+    {
+        "eventName": "Bay Tango Festival",
+        "startDate": "2026-11-13",
+        "endDate": "2026-11-15",
+        "city": "Berkeley, CA",
+        "country": "United States",
+        "latitude": 37.8708393,
+        "longitude": -122.272863,
+        "eventUrl": "https://baytango.com"
     }
 ]
